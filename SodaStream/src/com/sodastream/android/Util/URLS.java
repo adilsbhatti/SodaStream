@@ -12,7 +12,7 @@ public class URLS {
 
 	public static String instagramURL = "http://instagram.com/sodastreamau";
 
-	public static String youtubeURL = "https://www.youtube.com/user/SodaStreamGuru";
+	public static String youtubeURL = "https://www.youtube.com/user/SodaStreamOz";
 
 
 }

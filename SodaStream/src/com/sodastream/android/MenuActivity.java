@@ -1,19 +1,23 @@
 package com.sodastream.android;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.sodastream.android.Util.DATA;
 import com.sodastream.android.Util.URLS;
 
 public class MenuActivity extends Activity implements OnClickListener {
 
-	
+
 	//This is test
 	//UI Elemnts
 	ImageButton ibMenuVouchers,ibLogout,ibMenuRewards,ibMenuNewsFaq,ibMenuRecipes,ibMenuStoreLocator,ibMenuReferFriend;
@@ -22,6 +26,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 	//Variables
 	Context context;
+	Intent intent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +79,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 		int buttonId = v.getId();
 
-		Intent intent;
+
 
 		switch (buttonId) {
 		case R.id.ibMenuFacebook:
@@ -143,8 +148,38 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 
 		case R.id.ibMenuVouchers:
-			intent = new Intent(context, VouchersActivity.class);
-			startActivity(intent);
+
+
+
+			AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+			alert.setTitle("Sodastream");
+			alert.setMessage("Enter Machine or Gas Code");
+
+			// Set an EditText view to get user input 
+			final EditText code = new EditText(this);
+			alert.setView(code);
+
+			alert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+					DATA.GAS_MACHINE_CODE = code.getText().toString();
+					// Do something with value!
+					intent = new Intent(context, VouchersActivity.class);
+					startActivity(intent);
+				}
+			});
+
+			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+					// Canceled.
+				}
+			});
+
+			alert.show();
+
+
+
+
 
 			break;
 

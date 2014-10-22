@@ -1,6 +1,7 @@
 package com.sodastream.android.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 
+import com.sodastream.android.QuestionsActivity;
 import com.sodastream.android.R;
 
 public class SignupFragment extends Fragment {
@@ -19,7 +21,7 @@ public class SignupFragment extends Fragment {
 	//UI Elements
 
 
-	EditText etSignupFirstName,etSignupEmail,etSignupPass,etSignupConfPass,etSignupWhySodastream,etSignupState,etSignupRelationStatus;
+	EditText etSignupFirstName,etSignupEmail,etSignupPass,etSignupConfPass;
 	ImageButton ibSignup;
 	RadioGroup rgSignupGender;
 
@@ -44,7 +46,9 @@ public class SignupFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-
+				
+				Intent intent = new Intent(activity, QuestionsActivity.class);
+				startActivity(intent);
 			}
 		});
 
@@ -57,9 +61,9 @@ public class SignupFragment extends Fragment {
 		etSignupFirstName = (EditText) signupView.findViewById(R.id.etSignupFirstName);
 		etSignupEmail = (EditText) signupView.findViewById(R.id.etSignupEmail);
 		etSignupPass = (EditText) signupView.findViewById(R.id.etSignupPass);
-		etSignupWhySodastream = (EditText) signupView.findViewById(R.id.etSignupWhySodastream);
-		etSignupState = (EditText) signupView.findViewById(R.id.etSignupState);
-		etSignupRelationStatus = (EditText) signupView.findViewById(R.id.etSignupRelationStatus);
+		//		etSignupWhySodastream = (EditText) signupView.findViewById(R.id.etSignupWhySodastream);
+		//		etSignupState = (EditText) signupView.findViewById(R.id.etSignupState);
+		//		etSignupRelationStatus = (EditText) signupView.findViewById(R.id.etSignupRelationStatus);
 
 		ibSignup = (ImageButton) signupView.findViewById(R.id.ibSignup);
 

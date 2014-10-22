@@ -2,59 +2,71 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp" >
+    android:background="#f0f0f0"
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:text="Already registered an account?" />
+        android:text="ALREADY REGISTERED AN ACCOUNT?" />
 
-    <EditText
-        android:id="@+id/etSigninEmail"
+    <LinearLayout
+        android:id="@+id/layFields"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Email Address"
-        android:inputType="textEmailAddress" >
-
-        <requestFocus />
-    </EditText>
-
-    <FrameLayout
-        android:id="@+id/layPasswordField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
 
         <EditText
-            android:id="@+id/etSigninPassword"
+            android:id="@+id/etSigninEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="10dp"
             android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword" />
+            android:hint="Email Address"
+            android:inputType="textEmailAddress" >
 
-        <ImageButton
-            android:id="@+id/ibSigninForgotPass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:layout_margin="5dp"
-            android:background="#00000000"
-            android:src="@drawable/forgot_pw" />
+            <requestFocus />
+        </EditText>
 
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/layPasswordField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/etSigninPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword" />
+
+            <ImageButton
+                android:id="@+id/ibSigninForgotPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_margin="5dp"
+                android:background="#00000000"
+                android:src="@drawable/forgot_pw" />
+        </FrameLayout>
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/ibSignin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:adjustViewBounds="true"
         android:background="#00000000"
@@ -65,21 +77,27 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
         android:gravity="center_vertical|center_horizontal"
-        android:text="or" />
+        android:text="OR" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:text="Why not log in with Facebook?" />
+        android:text="WHY NOT LOG IN WITH FACEBOOK?" />
 
     <ImageButton
         android:id="@+id/ibSigninFb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
         android:background="#00000000"

@@ -1,0 +1,5 @@
+INDEX VERSION 1.126+/Users/adilsbhatti/APPSCORE/ANDROID PROJECTS/SodaStream/.metadata/.plugins/org.eclipse.jdt.core
+3021527555.index
+1576720503.index
+1415693123.index
+2268138830.index

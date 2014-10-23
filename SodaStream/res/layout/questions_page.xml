@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0" >
+
+    <FrameLayout
+        android:id="@+id/layHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/header" >
+    </FrameLayout>
+
+    <ScrollView
+        android:id="@+id/layBodys"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layHeader"
+        android:layout_centerHorizontal="true"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:id="@+id/layBody"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#f0f0f0"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:text="WHAT DO YOU MAINLY USE SODESTREAM FOR?"
+                android:textColor="@color/TextColor"
+                android:textColorHint="@color/HintColor" />
+
+            <LinearLayout
+                android:id="@+id/layOne"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:orientation="vertical" >
+
+                <CheckedTextView
+                    android:id="@+id/ctvSparklingWater"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="Sparkling Water"
+                    android:textColor="@color/TextColor"
+                    android:textColorHint="@color/HintColor" />
+
+                <CheckedTextView
+                    android:id="@+id/ctvSoftDrinks"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="Soft Drinks"
+                    android:textColor="@color/TextColor"
+                    android:textColorHint="@color/HintColor" />
+
+                <CheckedTextView
+                    android:id="@+id/ctvCocktails"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="Cocktails/Mocktailsr"
+                    android:textColor="@color/TextColor"
+                    android:textColorHint="@color/HintColor" />
+
+                <CheckedTextView
+                    android:id="@+id/ctvOther"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="Other"
+                    android:textColor="@color/TextColor"
+                    android:textColorHint="@color/HintColor" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:text="WHICH STATE ARE YOU FROM?"
+                android:textColor="@color/TextColor"
+                android:textColorHint="@color/HintColor" />
+
+            <LinearLayout
+                android:id="@+id/layTwo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#ffffff"
+                android:orientation="vertical" >
+
+                <Spinner
+                    android:id="@+id/sStates"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/TextColor"
+                    android:textColorHint="@color/HintColor"
+                    tools:listitem="@android:layout/simple_spinner_dropdown_item" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:text="WHAT IS YOUR RELATIONSHIP STATUS?"
+                android:textColor="@color/TextColor"
+                android:textColorHint="@color/HintColor" />
+
+            <LinearLayout
+                android:id="@+id/layThree"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#ffffff"
+                android:orientation="vertical" >
+
+                <Spinner
+                    android:id="@+id/sStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/TextColor"
+                    android:textColorHint="@color/HintColor"
+                    tools:listitem="@android:layout/simple_spinner_dropdown_item" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/ibNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:background="#00000000"
+                android:src="@drawable/sendbutton" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

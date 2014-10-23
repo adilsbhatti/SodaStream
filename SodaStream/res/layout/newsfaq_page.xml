@@ -13,7 +13,7 @@
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:background="#00000000"
@@ -40,6 +40,60 @@
         android:layout_below="@+id/layHeader"
         android:layout_centerHorizontal="true"
         android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageButton
+                android:id="@+id/ibNewsProducts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:src="@drawable/newproducts" />
+
+            <ImageButton
+                android:id="@+id/ibNewsVideos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:src="@drawable/videos" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageButton
+                android:id="@+id/ibNewsNews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:src="@drawable/news" />
+
+            <ImageButton
+                android:id="@+id/ibNewsFaq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:src="@drawable/faq" />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

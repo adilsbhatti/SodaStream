@@ -1,11 +1,12 @@
 package com.sodastream.android;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
+
+import com.sodastream.android.services.LocationService;
 
 public class SplashActivity extends Activity {
 
@@ -17,7 +18,8 @@ public class SplashActivity extends Activity {
 	private static int SPLASH_TIME_OUT = 2000;
 	Handler splashHandler;
 	Runnable splashRunnable;
-	Context context;
+	Activity context;
+	LocationService locationService;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,26 @@ public class SplashActivity extends Activity {
 
 		//initialize UI elements
 		initUI();
+
+
+		//		locationService = new LocationService(context);
+		//
+		//		// check if GPS enabled
+		//		if (locationService.isLocationAvailable()) {
+		//
+		//			Double latitude = locationService.getLatitude();
+		//			Double longitude = locationService.getLongitude();
+		//
+		//			System.out.println("-- Lat and long  : " + latitude  + " -- " + longitude);
+		//
+		//			//			latitudeTv.setText(latitude.toString());
+		//			//			longitudeTv.setText(longitude.toString());
+		//		} else {
+		//			// can't get location
+		//			// GPS or Network is not enabled
+		//			// Ask user to enable GPS/network in settings
+		//			locationService.showSettingsAlert();
+		//		}
 
 		//Splash Screen Method
 		showSplash();

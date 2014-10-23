@@ -2,6 +2,7 @@ package com.sodastream.android;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.google.android.gms.internal.bu;
 import com.sodastream.android.Util.DATA;
 import com.sodastream.android.Util.URLS;
 
@@ -135,8 +137,11 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 
 		case R.id.ibMenuRewards:
-			intent = new Intent(context, RewardsActivity.class);
-			startActivity(intent);
+			
+			
+			getCodeDetails(RewardsActivity.class);
+			
+			
 
 			break;
 
@@ -151,31 +156,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 
 
-			AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-			alert.setTitle("Sodastream");
-			alert.setMessage("Enter Machine or Gas Code");
-
-			// Set an EditText view to get user input 
-			final EditText code = new EditText(this);
-			alert.setView(code);
-
-			alert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-					DATA.GAS_MACHINE_CODE = code.getText().toString();
-					// Do something with value!
-					intent = new Intent(context, VouchersActivity.class);
-					startActivity(intent);
-				}
-			});
-
-			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-					// Canceled.
-				}
-			});
-
-			alert.show();
+			getCodeDetails(VouchersActivity.class);
 
 
 
@@ -184,11 +165,70 @@ public class MenuActivity extends Activity implements OnClickListener {
 			break;
 
 
+		case R.id.ibLogout:
+
+			AlertDialog.Builder builder = new Builder(context);
+			builder.setTitle("Warning");
+			builder.setMessage("Are you sure you want to logout?");
+
+			builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+
+				}
+			});
+
+			builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					dialog.dismiss();
+
+				}
+			});
+
+			builder.show();
+
+
+			break;
+
 
 
 
 		}
 
+	}
+
+
+	private void getCodeDetails(final Class c) {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+		alert.setTitle("Sodastream");
+		alert.setMessage("Enter Machine or Gas Code");
+
+		// Set an EditText view to get user input 
+		final EditText code = new EditText(this);
+		alert.setView(code);
+
+		alert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				DATA.GAS_MACHINE_CODE = code.getText().toString();
+				// Do something with value!
+				intent = new Intent(context, c);
+				startActivity(intent);
+			}
+		});
+
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				// Canceled.
+			}
+		});
+
+		alert.show();
 	}
 
 

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.sodastream.android.ForgotPassActivity;
 import com.sodastream.android.MenuActivity;
 import com.sodastream.android.R;
 
@@ -55,6 +56,9 @@ public class SigninFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				Intent intent = new Intent(activity, ForgotPassActivity.class);
+				startActivity(intent);
+						
 
 			}
 		});

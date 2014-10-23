@@ -3,11 +3,14 @@ package com.sodastream.android;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.Marker;
 
 public class StoreLocatorActivity extends Activity {
 
@@ -38,17 +41,33 @@ public class StoreLocatorActivity extends Activity {
 		// TODO Auto-generated method stub
 
 		googleMap  =  ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-		//		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		//
 		//		cameraUpdate = CameraUpdateFactory.zoomBy(15);
 		//
-		//		final LatLng Karachi = new LatLng(24.8508, 67.0181);
-		//		//
-		//		Marker khi = googleMap.addMarker(new MarkerOptions()
-		//		.position(Karachi)
-		//		.title("Karachi")
-		//		.snippet("City of lights")
-		//		.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+		//				final LatLng Karachi = new LatLng(24.8508, 67.0181);
+		//
+		//				Marker khi = googleMap.addMarker(new MarkerOptions()
+		//				.position(Karachi)
+		//				.title("Karachi")
+		//				.snippet("City of lights")
+		//				.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+		//		googleMap.setInfoWindowAdapter(new InfoWindowAdapter() {
+		//
+		//			@Override
+		//			public View getInfoWindow(Marker arg0) {
+		//				// TODO Auto-generated method stub
+		//				return null;
+		//			}
+		//
+		//			@Override
+		//			public View getInfoContents(Marker arg0) {
+		//				// TODO Auto-generated method stub
+		//				return null;
+		//			}
+		//		});
+
 		//		//		
 		//		//
 		//		cameraUpdate = CameraUpdateFactory.newLatLng(Karachi);

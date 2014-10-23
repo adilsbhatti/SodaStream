@@ -2,87 +2,133 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp" >
-
-    <EditText
-        android:id="@+id/etSignupFirstName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="First Name"
-        android:inputType="textPersonName" >
-
-        <requestFocus />
-    </EditText>
-
-    <EditText
-        android:id="@+id/etSignupEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress" />
-
-    <EditText
-        android:id="@+id/etSignupPass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/etSignupConfPass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Confirm Password"
-        android:inputType="textPassword" />
+    android:background="#f0f0f0"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/layGender"
-        android:layout_width="wrap_content"
+        android:id="@+id/layYourDetails"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical" >
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp" >
 
         <TextView
             android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="YOUR DETAILS"
+            android:textColor="@color/HintColor" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layFieldsOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
+
+        <EditText
+            android:id="@+id/etSignupFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="First Name"
+            android:inputType="textPersonName"
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintColor" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/etSignupEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintColor" />
+
+        <EditText
+            android:id="@+id/etSignupPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintColor" />
+
+        <EditText
+            android:id="@+id/etSignupConfPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintColor" />
+
+        <LinearLayout
+            android:id="@+id/layGender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gender" />
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical" >
 
-        <RadioGroup
-            android:id="@+id/rgSignupGender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <RadioButton
-                android:id="@+id/radio0"
+            <TextView
+                android:id="@+id/textView111"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="Male" />
+                android:text="Gender"
+                android:textColor="@color/TextColor"
+               
+                android:textColorHint="@color/HintColor" />
 
-            <RadioButton
-                android:id="@+id/radio1"
+            <RadioGroup
+                android:id="@+id/rgSignupGender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Female" />
-        </RadioGroup>
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/radio0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Male"
+                    android:textColor="@color/TextColor"
+                 
+                    android:textColorHint="@color/HintColor" />
+
+                <RadioButton
+                    android:id="@+id/radio1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female"
+                    android:textColor="@color/TextColor"
+                
+                    android:textColorHint="@color/HintColor" />
+            </RadioGroup>
+        </LinearLayout>
     </LinearLayout>
 
     <ImageButton
         android:id="@+id/ibSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="40dp"
         android:adjustViewBounds="true"
         android:background="#00000000"

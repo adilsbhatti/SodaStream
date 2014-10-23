@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SodaStream</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Sodastream</string>
+
     <string name="news">News &amp; FAQ</string>
+    <color name="TextColor">#4d4d4d</color>
+    <color name="HintColor">#999999</color>
 
 </resources>

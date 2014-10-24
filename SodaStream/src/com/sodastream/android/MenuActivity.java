@@ -3,19 +3,24 @@ package com.sodastream.android;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.gsm.GsmCellLocation;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.google.android.gms.internal.bu;
+import com.google.android.gcm.GCMRegistrar;
 import com.sodastream.android.Util.DATA;
 import com.sodastream.android.Util.URLS;
+import com.sodastream.android.asynctask.GCMResgisterTask;
+import com.sodastream.android.gcm.WakeLocker;
 
 public class MenuActivity extends Activity implements OnClickListener {
 
@@ -27,18 +32,21 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 
 	//Variables
-	Context context;
+	Activity activity;
 	Intent intent;
+	GCMResgisterTask gcmResgisterTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.menu_page);
-		context = this;
+		activity = this;
 
 
 		initUI();
+
+		enablePushNotifications();
 
 	}
 
@@ -117,37 +125,36 @@ public class MenuActivity extends Activity implements OnClickListener {
 		case R.id.ibMenuNewsFaq:
 
 
-			intent = new Intent(context, NewsFaqActivity.class);
+			intent = new Intent(activity, NewsFaqActivity.class);
 			startActivity(intent);
 
 			break;
 
 		case R.id.ibMenuRecipes:
 
-			intent = new Intent(context, RecipesActivity.class);
+			intent = new Intent(activity, RecipesActivity.class);
 			startActivity(intent);
 			break;
 
 
 		case R.id.ibMenuReferFriend:
 
-			intent = new Intent(context, ReferAFriendActivity.class);
+			intent = new Intent(activity, ReferAFriendActivity.class);
 			startActivity(intent);
 			break;
 
 
 		case R.id.ibMenuRewards:
-			
-			
+
+
 			getCodeDetails(RewardsActivity.class);
-			
-			
+
+
 
 			break;
 
 
 		case R.id.ibMenuStoreLocator:
-			intent = new Intent(context, StoreLocatorActivity.class);
 			startActivity(intent);
 			break;
 
@@ -167,7 +174,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 		case R.id.ibLogout:
 
-			AlertDialog.Builder builder = new Builder(context);
+			AlertDialog.Builder builder = new Builder(activity);
 			builder.setTitle("Warning");
 			builder.setMessage("Are you sure you want to logout?");
 
@@ -176,6 +183,12 @@ public class MenuActivity extends Activity implements OnClickListener {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
+
+
+					Intent intent = new Intent(activity, SigninActivity.class);
+					startActivity(intent);
+					finish();
+					
 
 				}
 			});
@@ -217,7 +230,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				DATA.GAS_MACHINE_CODE = code.getText().toString();
 				// Do something with value!
-				intent = new Intent(context, c);
+				intent = new Intent(activity, c);
 				startActivity(intent);
 			}
 		});
@@ -237,6 +250,94 @@ public class MenuActivity extends Activity implements OnClickListener {
 		intent = new Intent(Intent.ACTION_VIEW);
 		intent.setData(Uri.parse(url));
 		startActivity(intent);
+	}
+
+
+
+
+	public void enablePushNotifications()
+	{
+		// Make sure the device has the proper dependencies.
+		GCMRegistrar.checkDevice(activity);
+
+		// Make sure the manifest was properly set - comment out this line
+		// while developing the app, then uncomment it when it's ready.
+
+		GCMRegistrar.checkManifest(activity);
+
+		activity.registerReceiver(mHandleMessageReceiver, new IntentFilter(
+				DATA.DISPLAY_MESSAGE_ACTION));
+
+		// Get GCM registration id
+		final String regId = GCMRegistrar.getRegistrationId(activity);
+		DATA.regId = regId;
+
+		if (regId.equals("")) {
+			// Registration is not present, register now with GCM           
+			GCMRegistrar.register(activity, DATA.SENDER_ID);
+		} 
+
+		else 
+		{
+			// Device is already registered on GCM
+			if (GCMRegistrar.isRegisteredOnServer(activity))
+			{
+				// Skips registration.              
+				//								Toast.makeText(getApplicationContext(), "Already registered with GCM", Toast.LENGTH_LONG).show();
+			}
+			else
+			{
+				// Try to register again, but not in the UI thread.
+				// It's also necessary to cancel the thread onDestroy(),
+				// hence the use of AsyncTask instead of a raw thread.
+				//                final Context context = this;
+
+
+				gcmResgisterTask = new GCMResgisterTask(activity);
+				gcmResgisterTask.execute();
+
+
+
+			}
+		}
+	}
+
+
+	/**
+	 * Receiving push messages
+	 * */
+	private final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String newMessage = intent.getExtras().getString("New Message : " );
+			// Waking up mobile if it is sleeping
+			WakeLocker.acquire(activity.getApplicationContext());
+
+			/**
+			 * Take appropriate action on this message
+			 * depending upon your app requirement
+			 * For now i am just displaying it on the screen
+			 * */
+
+			// Showing received message
+			//			lblMessage.append(newMessage + "\n");           
+			//			Toast.makeText(getApplicationContext(), "New Message: " + newMessage, Toast.LENGTH_LONG).show();
+
+			// Releasing wake lock
+			WakeLocker.release();
+		}
+	};
+
+	@Override
+	protected void onDestroy() {
+
+		try {
+			unregisterReceiver(mHandleMessageReceiver);
+			GCMRegistrar.onDestroy(activity);
+		} catch (Exception e) {
+			//			Log.e("UnRegister Receiver Error", "> " + e.getMessage());
+		}
+		super.onDestroy();
 	}
 
 }

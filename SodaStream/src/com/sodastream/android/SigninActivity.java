@@ -3,12 +3,14 @@ package com.sodastream.android;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 
+import com.facebook.Session;
 import com.sodastream.android.fragments.SigninTabPageAdapter;
 
 public class SigninActivity extends FragmentActivity implements OnTabChangeListener {
@@ -47,10 +49,10 @@ public class SigninActivity extends FragmentActivity implements OnTabChangeListe
 		signinActionBar = getActionBar();
 		getActionBar().setIcon(android.R.color.transparent);
 		getActionBar().setTitle("");
-				
 
-//		getActionBar().setDisplayShowHomeEnabled(false);  // hides action bar icon
-//		getActionBar().setDisplayShowTitleEnabled(false);
+
+		//		getActionBar().setDisplayShowHomeEnabled(false);  // hides action bar icon
+		//		getActionBar().setDisplayShowTitleEnabled(false);
 
 		siginViewPager.setOnPageChangeListener(
 				new ViewPager.SimpleOnPageChangeListener() {
@@ -93,6 +95,16 @@ public class SigninActivity extends FragmentActivity implements OnTabChangeListe
 
 	}
 
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		Session.getActiveSession().onActivityResult(activity, requestCode, resultCode, data);
+
+
+
+	}
 
 	private void initUI() {
 		// TODO Auto-generated method stub

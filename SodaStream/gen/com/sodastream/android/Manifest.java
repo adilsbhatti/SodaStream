@@ -9,6 +9,9 @@ package com.sodastream.android;
 
 public final class Manifest {
     public static final class permission {
+        /**  Creates a custom permission so only this app can receive its messages. 
+         */
+        public static final String C2D_MESSAGE="com.sodastream.android.permission.C2D_MESSAGE";
         public static final String MAPS_RECEIVE="com.sodastream.android.MAPS_RECEIVE";
     }
 }

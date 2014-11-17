@@ -17,7 +17,6 @@
 package com.google.android.gcm;
 
 import static com.google.android.gcm.GCMConstants.DEFAULT_INTENT_SERVICE_CLASS_NAME;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;

@@ -11,6 +11,8 @@ import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 
 import com.facebook.Session;
+import com.sodastream.android.Util.AppPref;
+import com.sodastream.android.asynctask.LoginAsyncTask;
 import com.sodastream.android.fragments.SigninTabPageAdapter;
 
 public class SigninActivity extends FragmentActivity implements OnTabChangeListener {
@@ -22,9 +24,12 @@ public class SigninActivity extends FragmentActivity implements OnTabChangeListe
 	ActionBar signinActionBar;
 	TabHost tabHost;
 
+	
+		LoginAsyncTask loginAsyncTask;
 
 	//Variables
 	Activity activity;
+	AppPref accessTokenPref;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +38,32 @@ public class SigninActivity extends FragmentActivity implements OnTabChangeListe
 		setContentView(R.layout.signin_page);
 		activity = this;
 
+		accessTokenPref = new AppPref(activity);
+
+		checkUserSession();
+
+
+
+
 		// Setup UI
 		initUI();
 
 		//Set up Fragments
 		initFragments();
+	}
+
+
+	private void checkUserSession() {
+		// TODO Auto-generated method stub
+
+
+		if(accessTokenPref.getAccessToken().length() > 1)
+		{
+			Intent intent = new Intent(activity, MenuActivity.class);
+			startActivity(intent);
+			activity.finish();
+		}
+
 	}
 
 

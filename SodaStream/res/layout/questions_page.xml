@@ -58,6 +58,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                    android:gravity="left|center_vertical"
                     android:text="Sparkling Water"
                     android:textColor="@color/TextColor"
                     android:textColorHint="@color/HintColor" />
@@ -70,6 +71,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
+                    android:gravity="left|center_vertical"
                     android:checkMark="?android:attr/listChoiceIndicatorMultiple"
                     android:text="Soft Drinks"
                     android:textColor="@color/TextColor"
@@ -82,9 +84,10 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
+                    android:gravity="left|center_vertical"
                     android:layout_marginTop="5dp"
                     android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-                    android:text="Cocktails/Mocktailsr"
+                    android:text="Cocktails/Mocktails"
                     android:textColor="@color/TextColor"
                     android:textColorHint="@color/HintColor" />
 
@@ -98,6 +101,7 @@
                     android:layout_marginTop="5dp"
                     android:checkMark="?android:attr/listChoiceIndicatorMultiple"
                     android:text="Other"
+                    android:gravity="left|center_vertical"
                     android:textColor="@color/TextColor"
                     android:textColorHint="@color/HintColor" />
             </LinearLayout>
@@ -167,7 +171,7 @@
             </LinearLayout>
 
             <ImageButton
-                android:id="@+id/ibNext"
+                android:id="@+id/ibSignUpUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"

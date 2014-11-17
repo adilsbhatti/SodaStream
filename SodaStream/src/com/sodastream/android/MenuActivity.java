@@ -10,22 +10,30 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
-import android.telephony.gsm.GsmCellLocation;
+import android.text.InputFilter;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
+import com.facebook.LoginActivity;
 import com.google.android.gcm.GCMRegistrar;
+import com.sodastream.android.Util.AppPref;
+import com.sodastream.android.Util.AlphaNumericCodeListener;
 import com.sodastream.android.Util.DATA;
 import com.sodastream.android.Util.URLS;
+import com.sodastream.android.asynctask.CodeRegistrationTask;
 import com.sodastream.android.asynctask.GCMResgisterTask;
+import com.sodastream.android.asynctask.LogoutAsyncTask;
 import com.sodastream.android.gcm.WakeLocker;
 
 public class MenuActivity extends Activity implements OnClickListener {
 
 
-	//This is test
+
 	//UI Elemnts
 	ImageButton ibMenuVouchers,ibLogout,ibMenuRewards,ibMenuNewsFaq,ibMenuRecipes,ibMenuStoreLocator,ibMenuReferFriend;
 	ImageButton ibMenuTwitter,ibMenuFacebook,ibMenuPinterest,ibMenuInstagram,ibMenuYoutube;
@@ -35,6 +43,9 @@ public class MenuActivity extends Activity implements OnClickListener {
 	Activity activity;
 	Intent intent;
 	GCMResgisterTask gcmResgisterTask;
+	AppPref appPref;
+	LogoutAsyncTask logoutAsyncTask;
+	CodeRegistrationTask codeRegistrationTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +55,36 @@ public class MenuActivity extends Activity implements OnClickListener {
 		activity = this;
 
 
+
+		//init global variables
+		appPref  = new AppPref(activity);
+
+		//		Toasts.pop(activity, accessTokenPref.getAccessToken());
+
 		initUI();
 
+
+
 		enablePushNotifications();
+
+
 
 	}
 
 
 	private void initUI() {
 		// TODO Auto-generated method stub
+
+		ImageView imageView = new ImageView(activity) ;
+
+		imageView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		ibLogout = (ImageButton) findViewById(R.id.ibLogout);
 		ibMenuRewards = (ImageButton) findViewById(R.id.ibMenuRewards);
@@ -147,7 +179,16 @@ public class MenuActivity extends Activity implements OnClickListener {
 		case R.id.ibMenuRewards:
 
 
+			if(appPref.getActivationCode().length()  < 1)
+			{
+			
 			getCodeDetails(RewardsActivity.class);
+			}
+			else
+			{
+				intent = new Intent(activity, RewardsActivity.class);
+				startActivity(intent);
+			}
 
 
 
@@ -155,6 +196,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 
 		case R.id.ibMenuStoreLocator:
+			intent= new Intent(activity, StoreLocatorActivity.class);
 			startActivity(intent);
 			break;
 
@@ -163,7 +205,16 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 
 
+			if(appPref.getActivationCode().length()  < 1)
+			{
+			
 			getCodeDetails(VouchersActivity.class);
+			}
+			else
+			{
+				intent = new Intent(activity, VouchersActivity.class);
+				startActivity(intent);
+			}
 
 
 
@@ -184,11 +235,15 @@ public class MenuActivity extends Activity implements OnClickListener {
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 
+					logoutAsyncTask = new LogoutAsyncTask(activity);
+					logoutAsyncTask.execute();
 
-					Intent intent = new Intent(activity, SigninActivity.class);
-					startActivity(intent);
-					finish();
-					
+
+					//					Intent intent = new Intent(activity, SigninActivity.class);
+					//					startActivity(intent);
+					//					accessTokenPref.setAccessToken("");
+					//					finish();
+
 
 				}
 			});
@@ -217,31 +272,57 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 
 	private void getCodeDetails(final Class c) {
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-		alert.setTitle("Sodastream");
-		alert.setMessage("Enter Machine or Gas Code");
+		AlertDialog alertDialog;
+		Builder builder = new Builder(this);
+
+		builder.setTitle("Sodastream");
+		builder.setMessage("Enter Machine or Gas Code to enable Vouchers/Rewards");
 
 		// Set an EditText view to get user input 
-		final EditText code = new EditText(this);
-		alert.setView(code);
+		final EditText etCode = new EditText(this);
 
-		alert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+
+		etCode.setKeyListener(new AlphaNumericCodeListener());
+		InputFilter[] filters = new InputFilter[1];
+		filters[0] = new InputFilter.LengthFilter(8);
+		etCode.setFilters(filters);
+
+		etCode.setFocusableInTouchMode(true);
+		etCode.requestFocus();
+
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.showSoftInput(etCode, InputMethodManager.SHOW_FORCED);
+
+		builder.setView(etCode);
+
+		builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
-				DATA.GAS_MACHINE_CODE = code.getText().toString();
+				DATA.GAS_MACHINE_CODE = etCode.getText().toString();
+				
+				
 				// Do something with value!
-				intent = new Intent(activity, c);
-				startActivity(intent);
+//				intent = new Intent(activity, c);
+//				startActivity(intent);
+				
+				codeRegistrationTask = new CodeRegistrationTask(activity, c);
+				codeRegistrationTask.execute();
+				
+				
+				
+				
 			}
 		});
 
-		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				// Canceled.
 			}
 		});
 
-		alert.show();
+		alertDialog = builder.create();
+		alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+		alertDialog.show();
 	}
 
 
@@ -272,9 +353,13 @@ public class MenuActivity extends Activity implements OnClickListener {
 		final String regId = GCMRegistrar.getRegistrationId(activity);
 		DATA.regId = regId;
 
+
+		System.out.println("-- 1 Device ID : " + DATA.regId);
+
 		if (regId.equals("")) {
 			// Registration is not present, register now with GCM           
 			GCMRegistrar.register(activity, DATA.SENDER_ID);
+			System.out.println("-- 2 Device ID : " + DATA.regId);
 		} 
 
 		else 
@@ -284,6 +369,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 			{
 				// Skips registration.              
 				//								Toast.makeText(getApplicationContext(), "Already registered with GCM", Toast.LENGTH_LONG).show();
+				System.out.println("-- 3 Device ID : " + DATA.regId);
 			}
 			else
 			{
@@ -293,8 +379,12 @@ public class MenuActivity extends Activity implements OnClickListener {
 				//                final Context context = this;
 
 
-				gcmResgisterTask = new GCMResgisterTask(activity);
-				gcmResgisterTask.execute();
+				//*********************************************
+				//Call own server registration task here to register data on server
+				//*********************************************
+
+				//				gcmResgisterTask = new GCMResgisterTask(activity);
+				//				gcmResgisterTask.execute();
 
 
 
@@ -338,6 +428,50 @@ public class MenuActivity extends Activity implements OnClickListener {
 			//			Log.e("UnRegister Receiver Error", "> " + e.getMessage());
 		}
 		super.onDestroy();
+	}
+
+
+
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		//		super.onBackPressed();
+
+		AlertDialog.Builder  builder = new Builder(activity);
+		builder.setTitle("Warning");
+		builder.setMessage("Are you sure you want to exit Sodastream?");
+
+		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+
+				intent = new Intent(activity, LoginActivity.class);
+				startActivity(intent);
+				activity.finish();
+			}
+		});
+
+
+		builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.cancel();
+			}
+		});
+
+		AlertDialog alertDialog = builder.create();
+		alertDialog.setCanceledOnTouchOutside(false);
+		alertDialog.show();
+
+
+
+
+
 	}
 
 }

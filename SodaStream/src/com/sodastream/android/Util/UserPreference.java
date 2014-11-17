@@ -3,11 +3,10 @@ package com.sodastream.android.Util;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.sodastream.android.modules.UserModel;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.util.JsonReader;
+
+import com.sodastream.android.modules.UserModel;
 
 public class UserPreference {
 

@@ -9,7 +9,6 @@ import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
 import com.google.android.gcm.ServerUtilities;
-import com.sodastream.android.R;
 import com.sodastream.android.Util.DATA;
 
 public class GCMIntentService extends GCMBaseIntentService {

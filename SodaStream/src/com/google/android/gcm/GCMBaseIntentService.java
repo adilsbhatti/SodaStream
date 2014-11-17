@@ -27,6 +27,9 @@ import static com.google.android.gcm.GCMConstants.INTENT_FROM_GCM_MESSAGE;
 import static com.google.android.gcm.GCMConstants.INTENT_FROM_GCM_REGISTRATION_CALLBACK;
 import static com.google.android.gcm.GCMConstants.VALUE_DELETED_MESSAGES;
 
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 import android.app.AlarmManager;
 import android.app.IntentService;
 import android.app.PendingIntent;
@@ -35,9 +38,6 @@ import android.content.Intent;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.util.Log;
-
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Skeleton for application-specific {@link IntentService}s responsible for

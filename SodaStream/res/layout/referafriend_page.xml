@@ -49,9 +49,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-             android:textColor="@color/TextColor"
-            android:textColorHint="@color/HintColor"
-            android:text="Refer a friend as a new customer or as an existing customer and receive free stuff." />
+            android:text="Refer a friend as a new customer or as an existing customer and receive free stuff."
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintColor" />
 
         <EditText
             android:id="@+id/etReferName"
@@ -60,9 +60,9 @@
             android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="Name"
-             android:textColor="@color/TextColor"
-            android:textColorHint="@color/HintColor"
-            android:inputType="textPersonName" >
+            android:inputType="textPersonName"
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintColor" >
 
             <requestFocus />
         </EditText>
@@ -73,10 +73,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:ems="10"
-             android:textColor="@color/TextColor"
-            android:textColorHint="@color/HintColor"
             android:hint="Email"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintColor" />
 
         <LinearLayout
             android:id="@+id/layUsers"
@@ -92,33 +92,33 @@
                 android:orientation="vertical" >
 
                 <RadioButton
-                    android:id="@+id/radio1"
+                    android:id="@+id/rNewUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="New User"
-                     android:textColor="@color/TextColor"
-            android:textColorHint="@color/HintColor"
+                    android:textColor="@color/TextColor"
+                    android:textColorHint="@color/HintColor"
                     android:textSize="12sp" />
 
                 <RadioButton
-                    android:id="@+id/radio2"
+                    android:id="@+id/rExistingUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                     android:textColor="@color/TextColor"
-            android:textColorHint="@color/HintColor"
                     android:text="Existing User"
+                    android:textColor="@color/TextColor"
+                    android:textColorHint="@color/HintColor"
                     android:textSize="12sp" />
 
                 <RadioButton
-                    android:id="@+id/radioButton1"
+                    android:id="@+id/rExistingNonUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                     android:textColor="@color/TextColor"
-            android:textColorHint="@color/HintColor"
                     android:text="Existing Non User"
+                    android:textColor="@color/TextColor"
+                    android:textColorHint="@color/HintColor"
                     android:textSize="12sp" />
             </RadioGroup>
         </LinearLayout>

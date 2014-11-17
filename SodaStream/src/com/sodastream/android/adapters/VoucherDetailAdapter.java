@@ -64,12 +64,6 @@ public class VoucherDetailAdapter extends ArrayAdapter<VoucherModule> {
 
 
 
-
-
-
-
-
-
 		return convertView;
 	}
 

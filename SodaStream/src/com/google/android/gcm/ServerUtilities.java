@@ -15,7 +15,6 @@ import java.util.Random;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.android.gcm.GCMRegistrar;
 import com.sodastream.android.Util.DATA;
 
 public class ServerUtilities {

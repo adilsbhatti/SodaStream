@@ -3,9 +3,6 @@ package com.sodastream.android.asynctask;
 import android.app.Activity;
 import android.os.AsyncTask;
 
-import com.google.android.gcm.ServerUtilities;
-import com.sodastream.android.Util.DATA;
-
 public class GCMResgisterTask extends AsyncTask<Void, Void, Boolean> {
 
 
@@ -24,7 +21,7 @@ public class GCMResgisterTask extends AsyncTask<Void, Void, Boolean> {
 		// TODO Auto-generated method stub
 		super.onPreExecute();
 
-		
+
 	}
 
 
@@ -33,8 +30,8 @@ public class GCMResgisterTask extends AsyncTask<Void, Void, Boolean> {
 	@Override
 	protected Boolean doInBackground(Void... params) {
 		// TODO Auto-generated method stub
-		
-		ServerUtilities.register(activity, DATA.name, DATA.email, DATA.regId);
+
+		//		ServerUtilities.register(activity, DATA.name, DATA.email, DATA.regId);
 		return null;
 	}
 
@@ -46,6 +43,6 @@ public class GCMResgisterTask extends AsyncTask<Void, Void, Boolean> {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
 	}
-	
-	
+
+
 }

@@ -16,6 +16,11 @@
 
 package com.google.android.gcm;
 
+import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -30,11 +35,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.util.Log;
-
-import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Utilities for device registration.
@@ -52,6 +52,7 @@ public final class GCMRegistrar {
     public static final long DEFAULT_ON_SERVER_LIFESPAN_MS =
             1000 * 3600 * 24 * 7;
 
+    
     private static final String TAG = "GCMRegistrar";
     private static final String BACKOFF_MS = "backoff_ms";
     private static final String GSF_PACKAGE = "com.google.android.gsf";

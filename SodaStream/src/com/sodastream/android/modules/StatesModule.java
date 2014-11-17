@@ -23,5 +23,8 @@ public class StatesModule {
 
 
 	public static String[] arrStatus = new String[] {ACT,NSW,NT,QLD,SA,TAS,VIC,WA};
+	
+	
+
 
 }

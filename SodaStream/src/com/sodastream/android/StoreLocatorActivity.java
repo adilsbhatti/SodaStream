@@ -3,14 +3,11 @@ package com.sodastream.android;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
 
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.Marker;
 
 public class StoreLocatorActivity extends Activity {
 
@@ -83,6 +80,16 @@ public class StoreLocatorActivity extends Activity {
 		super.onResume();
 
 		initMAP();
+	}
+	
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		
+		googleMap.clear();
+		
 	}
 
 }

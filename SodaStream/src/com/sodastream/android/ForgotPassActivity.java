@@ -7,6 +7,11 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.sodastream.android.Util.DATA;
+import com.sodastream.android.Util.Toasts;
+import com.sodastream.android.Util.Validate;
+import com.sodastream.android.asynctask.ForgetPasswordAsyncTask;
+
 public class ForgotPassActivity extends Activity {
 	
 	
@@ -17,6 +22,7 @@ public class ForgotPassActivity extends Activity {
 	
 	//Variables
 	Activity activity;
+	ForgetPasswordAsyncTask forgetPasswordAsyncTask;
 	
 	
 	
@@ -36,6 +42,22 @@ public class ForgotPassActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
+				if(Validate.isEmptyEditText(etForgotPassEmail))
+				{
+					Toasts.pop(activity, "Enter email address");
+				}
+				else if(Validate.isEmailValid(etForgotPassEmail.getText().toString()))
+				{
+					Toasts.pop(activity, "Invalid email address format");
+				}
+				
+				else
+				{
+				DATA.forgot_pass_email =  etForgotPassEmail.getText().toString().trim();
+				forgetPasswordAsyncTask =  new ForgetPasswordAsyncTask(activity);
+				forgetPasswordAsyncTask.execute();
+				}
 				
 			}
 		});

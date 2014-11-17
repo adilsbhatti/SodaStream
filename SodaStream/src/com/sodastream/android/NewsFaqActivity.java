@@ -1,5 +1,8 @@
 package com.sodastream.android;
 
+import com.sodastream.android.asynctask.FAQAsyncTask;
+import com.sodastream.android.asynctask.NewsAsyncTask;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +20,8 @@ public class NewsFaqActivity extends Activity  implements OnClickListener{
 
 	//Variables
 	Activity activity;
+	FAQAsyncTask faqAsyncTask;
+	NewsAsyncTask newsAsyncTask;
 
 
 	@Override
@@ -52,6 +57,7 @@ public class NewsFaqActivity extends Activity  implements OnClickListener{
 		// TODO Auto-generated method stub
 
 		int ID = v.getId();
+		Intent  intent;
 
 		@SuppressWarnings("rawtypes")
 		Class c = null;
@@ -59,27 +65,34 @@ public class NewsFaqActivity extends Activity  implements OnClickListener{
 
 		switch (ID) {
 		case R.id.ibNewsFaq:
-			c = FAQActivity.class;
+			//			c = FAQActivity.class;
+			faqAsyncTask =  new FAQAsyncTask(activity);
+			faqAsyncTask.execute();
 			break;
 
 		case R.id.ibNewsNews:
 
 
-			c = NewsActivity.class;
+			newsAsyncTask = new NewsAsyncTask(activity);
+			newsAsyncTask.execute();
+//			c = NewsActivity.class;
+
 			break;
 
 
 		case R.id.ibNewsProducts:
 
 			c = NewProductActivity.class;
-
+			intent = new Intent(activity, c);
+			startActivity(intent);
 			break;
 
 
 		case R.id.ibNewsVideos:
 
 			c =  VideosActivity.class;
-
+			intent = new Intent(activity, c);
+			startActivity(intent);
 			break;
 
 		default:
@@ -90,8 +103,7 @@ public class NewsFaqActivity extends Activity  implements OnClickListener{
 
 		}
 
-		Intent  intent = new Intent(activity, c);
-		startActivity(intent);
+
 
 	}
 

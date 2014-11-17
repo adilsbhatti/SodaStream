@@ -10,13 +10,13 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
         android:text="ALREADY REGISTERED AN ACCOUNT?"
-        android:textColor="@color/TextColor"
-        android:textColorHint="@color/HintColor" />
+        android:textColor="@color/HintColor"
+        />
 
     <LinearLayout
         android:id="@+id/layFields"
@@ -35,6 +35,7 @@
              android:textColor="@color/TextColor"
             android:textColorHint="@color/HintColor"
             android:hint="Email Address"
+            android:layout_marginTop="20dp"
             android:inputType="textEmailAddress" >
 
             <requestFocus />
@@ -85,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-         android:textColor="@color/TextColor"
+         android:textColor="@color/HintColor"
             android:textColorHint="@color/HintColor"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
@@ -104,7 +105,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-             android:textColor="@color/TextColor"
+             android:textColor="@color/HintColor"
             android:textColorHint="@color/HintColor"
             android:text="WHY NOT LOG IN WITH FACEBOOK?" />
     </LinearLayout>

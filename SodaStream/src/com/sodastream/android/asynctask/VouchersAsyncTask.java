@@ -17,18 +17,17 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
+
 import com.google.gson.Gson;
 import com.sodastream.android.VouchersActivity;
 import com.sodastream.android.Util.AppPref;
 import com.sodastream.android.Util.DATA;
 import com.sodastream.android.Util.Toasts;
 import com.sodastream.android.Util.URLS;
-import com.sodastream.android.modules.NewProductsModule;
 import com.sodastream.android.modules.VoucherModule;
-
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 
 public class VouchersAsyncTask extends AsyncTask<String, String, Boolean> {
 	

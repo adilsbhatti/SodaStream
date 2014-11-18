@@ -16,14 +16,14 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
+
 import com.sodastream.android.Util.AppPref;
 import com.sodastream.android.Util.Toasts;
 import com.sodastream.android.Util.URLS;
 import com.sodastream.android.Util.WebViewDialog;
-
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 
 public class NewsAsyncTask extends AsyncTask<String, String, Boolean> {
 	

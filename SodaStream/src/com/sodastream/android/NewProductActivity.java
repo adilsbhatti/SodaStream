@@ -1,13 +1,13 @@
 package com.sodastream.android;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.GridView;
+
 import com.sodastream.android.Util.DATA;
 import com.sodastream.android.Util.Toasts;
 import com.sodastream.android.adapters.AdapterNewProducts;
 import com.sodastream.android.asynctask.NewProductsTask;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.GridView;
 
 public class NewProductActivity extends Activity {
 	

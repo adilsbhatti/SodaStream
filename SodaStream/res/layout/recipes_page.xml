@@ -34,7 +34,7 @@
     </FrameLayout>
 
     <LinearLayout
-        android:id="@+id/layBody"
+        android:id="@+id/layBodyRecipes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/layHeader"

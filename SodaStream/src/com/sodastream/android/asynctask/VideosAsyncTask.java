@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
@@ -29,7 +30,7 @@ import com.sodastream.android.Util.Toasts;
 import com.sodastream.android.Util.URLS;
 import com.sodastream.android.modules.VideosModule;
 
-public class VideosAsyncTask extends AsyncTask<String, String, Boolean> {
+public class VideosAsyncTask extends AsyncTask<String, String, Boolean> implements DialogInterface.OnDismissListener {
 
 
 	Activity activity;
@@ -64,9 +65,14 @@ public class VideosAsyncTask extends AsyncTask<String, String, Boolean> {
 		progressDialog.setMessage("Fetching Videos");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
+		
+		
+		
 
 	}
 
+	
+	
 
 	@Override
 	protected Boolean doInBackground(String... params) {
@@ -196,6 +202,14 @@ public class VideosAsyncTask extends AsyncTask<String, String, Boolean> {
 
 
 		progressDialog.dismiss();
+	}
+
+
+
+	@Override
+	public void onDismiss(DialogInterface dialog) {
+		// TODO Auto-generated method stub
+		this.cancel(true);
 	}
 
 }

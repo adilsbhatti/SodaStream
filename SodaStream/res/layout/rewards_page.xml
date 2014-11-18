@@ -30,16 +30,27 @@
             android:text="Rewards"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
-
     </FrameLayout>
 
     <LinearLayout
-        android:id="@+id/layBody"
+        android:id="@+id/layBodyRewards"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/layHeader"
         android:layout_centerHorizontal="true"
         android:orientation="vertical" >
+
+        <GridView
+            android:id="@+id/gvRewards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="#00000000"
+            android:gravity="center_vertical|center_horizontal"
+            android:horizontalSpacing="10dp"
+            android:numColumns="2"
+            android:verticalSpacing="10dp" >
+        </GridView>
     </LinearLayout>
 
 </RelativeLayout>

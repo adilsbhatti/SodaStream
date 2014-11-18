@@ -2,8 +2,6 @@ package com.sodastream.android.asynctask;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
@@ -18,17 +16,14 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.gson.Gson;
-import com.sodastream.android.Util.AppPref;
-import com.sodastream.android.Util.DATA;
-import com.sodastream.android.Util.Toasts;
-import com.sodastream.android.Util.URLS;
-import com.sodastream.android.Util.WebViewDialog;
-import com.sodastream.android.modules.VideosModule;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+
+import com.sodastream.android.Util.AppPref;
+import com.sodastream.android.Util.Toasts;
+import com.sodastream.android.Util.URLS;
+import com.sodastream.android.Util.WebViewDialog;
 
 public class FAQAsyncTask extends AsyncTask<String, String, Boolean> {
 	

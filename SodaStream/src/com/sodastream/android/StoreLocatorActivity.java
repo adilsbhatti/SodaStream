@@ -1,13 +1,19 @@
 package com.sodastream.android;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.sodastream.android.Util.DATA;
+import com.sodastream.android.asynctask.StoreLocationAsyncTask;
 
 public class StoreLocatorActivity extends Activity {
 
@@ -16,25 +22,34 @@ public class StoreLocatorActivity extends Activity {
 
 
 	//Variables
-	Context context;
+	Activity	activity;
 	CameraUpdate  cameraUpdate;
 	GooglePlayServicesUtil googlePlayServicesUtil;
+	StoreLocationAsyncTask storeLocationAsyncTask;
+	ArrayList<LatLng> arrlstLatLngs;
+	ArrayList<MarkerOptions> arrlstMarkersOptions;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.storelocator_page);
-		context = this;
+		activity = this;
 
 
-		System.out.println("-- play service  " + GooglePlayServicesUtil.isGooglePlayServicesAvailable(context));
+
+		storeLocationAsyncTask = new StoreLocationAsyncTask(activity);
+		storeLocationAsyncTask.execute();
+
+
+
+		System.out.println("-- play service  " + GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity));
 		System.out.println("-- play service code  " + GooglePlayServicesUtil.GOOGLE_PLAY_SERVICES_VERSION_CODE);
 
 
 	}
 
-	private void initMAP() {
+	public void initMAP() {
 		// TODO Auto-generated method stub
 
 		googleMap  =  ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
@@ -72,6 +87,17 @@ public class StoreLocatorActivity extends Activity {
 		//
 		//		
 		//		googleMap.clear();
+
+		setMarkersOnMap();
+		
+	}
+	
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+	
+		
 	}
 
 	@Override
@@ -79,17 +105,83 @@ public class StoreLocatorActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onResume();
 
-		initMAP();
+		//		initMAP();
+		
+		
 	}
-	
-	
+
+
+	public void setMarkersOnMap()
+	{
+
+		LatLng tempLatLng;
+		MarkerOptions tempMarkerOptions;
+		
+		int icon;
+
+		if(DATA.arrlstStoresModules!=null)
+		{
+			arrlstLatLngs =  new ArrayList<LatLng>();
+			arrlstMarkersOptions = new ArrayList<MarkerOptions>();
+
+
+
+			for(int i = 0 ; i < 50; i++)
+			{
+
+
+
+
+
+//				tempLatLng =  new LatLng( Double.parseDouble(DATA.arrlstStoresModules.get(i).latitude) +1, Double.parseDouble(DATA.arrlstStoresModules.get(i).longitude)+1);
+				tempLatLng =  new LatLng(24.8508+i, 67.01+i);
+
+
+				System.out.println("-- " + Double.parseDouble(DATA.arrlstStoresModules.get(i).latitude) + "        " + Double.parseDouble(DATA.arrlstStoresModules.get(i).longitude));
+				
+				
+				System.out.println("stores type  : " + DATA.arrlstStoresModules.get(i).type + " equal status  : " + DATA.arrlstStoresModules.get(i).type.equals("1"));
+				icon = (DATA.arrlstStoresModules.get(i).type.equals("1") ? R.drawable.gasgps : R.drawable.machinegps);
+
+				tempMarkerOptions = new MarkerOptions().position(tempLatLng).title(DATA.arrlstStoresModules.get(i).name).snippet(DATA.arrlstStoresModules.get(i).address + "\n" + DATA.arrlstStoresModules.get(i).phone).icon(BitmapDescriptorFactory.fromResource(icon));
+
+				//				cameraUpdate = CameraUpdateFactory.newLatLng(tempLatLng);
+				//				cameraUpdate = CameraUpdateFactory.zoomIn();
+
+				arrlstMarkersOptions.add(tempMarkerOptions);
+
+				tempMarkerOptions =  null;
+				tempLatLng =  null;
+
+
+
+			}
+			for (MarkerOptions mo : arrlstMarkersOptions)
+			{
+				googleMap.addMarker(mo);
+			}
+			
+
+
+
+
+
+		}
+	}
+
+
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		
-		googleMap.clear();
-		
+
+		try {
+			googleMap.clear();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }

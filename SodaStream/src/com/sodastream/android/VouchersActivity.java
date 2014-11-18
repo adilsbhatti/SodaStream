@@ -1,17 +1,14 @@
 package com.sodastream.android;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View.OnClickListener;
+import android.widget.GridView;
+
 import com.sodastream.android.Util.DATA;
 import com.sodastream.android.Util.Toasts;
 import com.sodastream.android.adapters.AdapterVouchers;
 import com.sodastream.android.asynctask.VouchersAsyncTask;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.GridView;
-import android.widget.ImageButton;
 
 public class VouchersActivity extends Activity {
 

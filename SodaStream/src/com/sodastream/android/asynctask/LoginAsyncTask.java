@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 
@@ -28,7 +29,7 @@ import com.sodastream.android.Util.Toasts;
 import com.sodastream.android.Util.URLS;
 import com.sodastream.android.modules.LoginModule;
 
-public class LoginAsyncTask extends AsyncTask<String, String, Boolean> {
+public class LoginAsyncTask extends AsyncTask<String, String, Boolean>  implements DialogInterface.OnDismissListener{
 
 
 	Activity activity;
@@ -216,6 +217,15 @@ public class LoginAsyncTask extends AsyncTask<String, String, Boolean> {
 
 
 		DATA.progressDialog.dismiss();
+	}
+
+
+
+	@Override
+	public void onDismiss(DialogInterface dialog) {
+		// TODO Auto-generated method stub
+		this.cancel(true);
+		
 	}
 
 

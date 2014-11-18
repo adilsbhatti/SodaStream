@@ -39,4 +39,10 @@ public class URLS {
 	
 	public static String VOUCHERS_URL  = PARENT_URL + "vouchers";
 	
+	public static String REWARDS_URL  = PARENT_URL + "rewards";
+	
+	public static String RECIPES_URL  = PARENT_URL + "recipes";
+	
+	public static String STORES_URL  = PARENT_URL + "stores";
+	
 }

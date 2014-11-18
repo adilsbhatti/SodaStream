@@ -40,11 +40,11 @@ public class CheckLocationProviders {
 		//		activity.startActivity(I);  
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
 
-		alertDialog.setTitle("GPS Required");
+		alertDialog.setTitle("Information");
 
 		// Setting Dialog Message
 		alertDialog
-		.setMessage("GPS is needed to perform the process");
+		.setMessage("GPS/Location is needed to perform the process");
 
 		// On pressing Settings button
 		alertDialog.setPositiveButton("Settings",

@@ -14,7 +14,6 @@ import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.sodastream.android.R;
 import com.sodastream.android.Util.DATA;
 import com.sodastream.android.Util.ViewBrowser;
-import com.sodastream.android.Util.WebViewDialog;
 import com.sodastream.android.modules.VideosModule;
 
 public class AdapterVideos extends ArrayAdapter<VideosModule> {

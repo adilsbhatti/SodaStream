@@ -2,12 +2,7 @@ package com.sodastream.android.asynctask;
 
 
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-
-import com.sodastream.android.Util.DATA;
-import com.sodastream.android.modules.IdFrom;
-import com.sodastream.android.modules.LoginModule;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -19,16 +14,21 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import com.sodastream.android.Util.AppPref;
+import com.sodastream.android.Util.DATA;
+import com.sodastream.android.modules.IdFrom;
+import com.sodastream.android.modules.LoginModule;
 
 
-public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> {
+
+public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> implements DialogInterface.OnDismissListener {
 
 	Activity activity;
 
 	ProgressDialog progressDialog;
 	boolean hasLocation = false, noDevice = false;
-	
-String dialogTitle = "";
+
+	String dialogTitle = "";
 	LocationManager locationManager  = null;
 
 	LocationListener locationListenerGPS = null,locationListener;
@@ -36,6 +36,8 @@ String dialogTitle = "";
 	int position;
 	int type;
 	int idFromPage;
+
+	AppPref appPref;
 
 	private LoginAsyncTask loginAsyncTask;
 	SignupAsyncTask signupAsyncTask;
@@ -45,17 +47,19 @@ String dialogTitle = "";
 	public GetLocationAsyncTask(Activity activity, int _idFrom, String _dialogTitle)
 	{
 		this.activity = activity;
-		
+
 		idFromPage = _idFrom;
 		dialogTitle = _dialogTitle;
-		
+
 		DATA.progressDialog = new ProgressDialog(activity);
 		DATA.progressDialog.setMessage(dialogTitle);
 		DATA.progressDialog.setCanceledOnTouchOutside(false);
 
+
+		appPref =  new AppPref(activity);
 	}
 
-	
+
 
 
 	@Override
@@ -136,7 +140,7 @@ String dialogTitle = "";
 
 				}
 			});
-			
+
 
 			while (!hasLocation) {
 				try {
@@ -169,14 +173,18 @@ String dialogTitle = "";
 
 			System.out.println("-- Your location  lat : " + DATA.Latitude + " and long : " + DATA.Longitude);
 
-			
+
+
+			appPref.setLatitude("" +DATA.Latitude);
+			appPref.setLongitude("" +DATA.Longitude);
+
 			switch (idFromPage) {
 			case IdFrom.LOGIN:
 				loginAsyncTask =  new LoginAsyncTask(activity, new LoginModule());
 				loginAsyncTask.execute();
 				break;
 
-				
+
 			case IdFrom.SIGN_UP:
 				signupAsyncTask =  new SignupAsyncTask(activity);
 				signupAsyncTask.executeOnExecutor(Executors.newSingleThreadExecutor(), "");
@@ -185,7 +193,7 @@ String dialogTitle = "";
 				break;
 			}
 
-		
+
 
 
 
@@ -198,12 +206,22 @@ String dialogTitle = "";
 			System.out.println( "-- Please turn on GPS or insert SIM Card in device");
 		}
 
-		
+
 		locationManager.removeUpdates(locationListenerGPS);
 		locationListenerGPS = null;
 		locationManager = null;
 		this.cancel(true);
-//		progressDialog.dismiss();
+		//		progressDialog.dismiss();
+	}
+
+
+
+
+	@Override
+	public void onDismiss(DialogInterface dialog) {
+		// TODO Auto-generated method stub
+		this.cancel(true);
+
 	}
 
 

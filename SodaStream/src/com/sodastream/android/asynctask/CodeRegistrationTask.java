@@ -16,15 +16,15 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.sodastream.android.Util.AppPref;
-import com.sodastream.android.Util.DATA;
-import com.sodastream.android.Util.Toasts;
-import com.sodastream.android.Util.URLS;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+
+import com.sodastream.android.Util.AppPref;
+import com.sodastream.android.Util.DATA;
+import com.sodastream.android.Util.Toasts;
+import com.sodastream.android.Util.URLS;
 
 public class CodeRegistrationTask extends AsyncTask<String, String, Boolean> {
 	

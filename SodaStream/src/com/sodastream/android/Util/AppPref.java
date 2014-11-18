@@ -11,8 +11,11 @@ public class AppPref {
 	
 	public final String FIELD_ACCESS_TOKEN = "access_token";
 	
-	
 	public final String FIELD_ACTIVATE_CODE = "code";
+	
+	public final String FIELD_LATITUDE = "latitude";
+	
+	public final String FIELD_LONGITUDE = "longitude";
 	
 	SharedPreferences sharedPreferences;
 	
@@ -43,6 +46,8 @@ public class AppPref {
 	}
 	
 	
+	
+	
 	public void setActivationCode(String ac)
 	{
 		editor.putString(FIELD_ACTIVATE_CODE, ac);
@@ -55,5 +60,33 @@ public class AppPref {
 		return sharedPreferences.getString(FIELD_ACTIVATE_CODE, "");
 	}
 	
+	
+	
+	
+	public void setLatitude(String lat)
+	{
+		editor.putString(FIELD_LATITUDE, lat);
+		editor.commit();
+	}
+	
+	
+	public String getLatitude()
+	{
+		return sharedPreferences.getString(FIELD_LATITUDE, "0.0");
+	}
+	
+	
+	
+	public void setLongitude(String lon)
+	{
+		editor.putString(FIELD_LONGITUDE, lon);
+		editor.commit();
+	}
+	
+	
+	public String getLongitude()
+	{
+		return sharedPreferences.getString(FIELD_LONGITUDE, "");
+	}
 
 }

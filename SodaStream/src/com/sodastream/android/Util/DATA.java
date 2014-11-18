@@ -6,8 +6,11 @@ import android.app.ProgressDialog;
 
 import com.sodastream.android.modules.LoginModule;
 import com.sodastream.android.modules.NewProductsModule;
+import com.sodastream.android.modules.RecipeModel;
 import com.sodastream.android.modules.ReferFriendModule;
+import com.sodastream.android.modules.RewardsModule;
 import com.sodastream.android.modules.SignupModule;
+import com.sodastream.android.modules.StoresModule;
 import com.sodastream.android.modules.VideosModule;
 import com.sodastream.android.modules.VoucherModule;
 
@@ -63,4 +66,15 @@ public class DATA {
 	
 	
 	public static VoucherModule selectedVoucher;
+	
+	public static ArrayList<RewardsModule> arrlstRewardsModules;
+	
+	public static ArrayList<RecipeModel> arrlstRecipeModels;
+	
+	public static RecipeModel selectedRecipe;
+	
+	public static ArrayList<StoresModule> arrlstStoresModules;
+	
+	
+	public static StoresModule selectedStore;
 }

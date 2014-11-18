@@ -75,8 +75,7 @@ public class SigninFragment extends Fragment {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 
-				getLocationAsyncTask = new  GetLocationAsyncTask(activity, IdFrom.LOGIN,"Signing in");
-				getLocationAsyncTask.execute();
+
 
 				//				loginAsyncTask =  new LoginAsyncTask(activity, new LoginModule());
 				//				loginAsyncTask.execute("");
@@ -86,17 +85,17 @@ public class SigninFragment extends Fragment {
 				// Commented for testing
 
 
-				//				if(CheckLocationProviders.isGPSOrNetworkAvailable(activity))
-				//				{
-				//
-				//					Intent intent = new Intent(activity, MenuActivity.class);
-				//					activity.startActivity(intent);
-				//				}
-				//				else
-				//				{
-				//					CheckLocationProviders.showGPSDialog(activity);
-				//
-				//				}
+				if(CheckLocationProviders.isGPSOrNetworkAvailable(activity))
+				{
+
+					getLocationAsyncTask = new  GetLocationAsyncTask(activity, IdFrom.LOGIN,"Signing in");
+					getLocationAsyncTask.execute();
+				}
+				else
+				{
+					CheckLocationProviders.showGPSDialog(activity);
+
+				}
 
 			}
 		});

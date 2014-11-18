@@ -21,8 +21,8 @@ import android.widget.ImageView;
 
 import com.facebook.LoginActivity;
 import com.google.android.gcm.GCMRegistrar;
-import com.sodastream.android.Util.AppPref;
 import com.sodastream.android.Util.AlphaNumericCodeListener;
+import com.sodastream.android.Util.AppPref;
 import com.sodastream.android.Util.DATA;
 import com.sodastream.android.Util.URLS;
 import com.sodastream.android.asynctask.CodeRegistrationTask;

@@ -1,14 +1,14 @@
 package com.sodastream.android;
 
-import com.sodastream.android.asynctask.FAQAsyncTask;
-import com.sodastream.android.asynctask.NewsAsyncTask;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+
+import com.sodastream.android.asynctask.FAQAsyncTask;
+import com.sodastream.android.asynctask.NewsAsyncTask;
 
 public class NewsFaqActivity extends Activity  implements OnClickListener{
 

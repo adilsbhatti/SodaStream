@@ -21,6 +21,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 
@@ -64,6 +65,19 @@ public class ForgetPasswordAsyncTask extends AsyncTask<String, String, Boolean> 
 		progressDialog.setMessage("Sending details");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
+		
+		progressDialog.setOnCancelListener(new OnCancelListener() {
+
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+
+				System.out.println("-- I am called from forgot task");
+
+
+				ForgetPasswordAsyncTask.this.cancel(true);
+			}
+		});
 
 	}
 
@@ -152,7 +166,8 @@ public class ForgetPasswordAsyncTask extends AsyncTask<String, String, Boolean> 
 		}
 		catch(IOException e)
 		{
-			System.out.println("--5 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			System.out.println("--5 JSON Data : " + content + "header" + httpPost.getAllHeaders()  + "exception : " + e.getMessage() );
+			Error = "No Internet Connection Found";
 			return false;
 		}
 		catch (Exception e) 

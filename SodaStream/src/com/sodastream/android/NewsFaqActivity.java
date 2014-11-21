@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.sodastream.android.Util.Fonts;
 import com.sodastream.android.asynctask.FAQAsyncTask;
 import com.sodastream.android.asynctask.NewsAsyncTask;
 
@@ -15,6 +17,7 @@ public class NewsFaqActivity extends Activity  implements OnClickListener{
 
 	//UI Elements
 	ImageButton ibNewsProducts,ibNewsVideos,ibNewsNews,ibNewsFaq;
+	TextView tv21;
 
 
 
@@ -49,6 +52,9 @@ public class NewsFaqActivity extends Activity  implements OnClickListener{
 		ibNewsProducts.setOnClickListener(this);
 		ibNewsVideos.setOnClickListener(this);
 
+		tv21 = (TextView) findViewById(R.id.tv21);
+		tv21.setTypeface(Fonts.getHelvatica(activity));
+
 	}
 
 
@@ -75,7 +81,7 @@ public class NewsFaqActivity extends Activity  implements OnClickListener{
 
 			newsAsyncTask = new NewsAsyncTask(activity);
 			newsAsyncTask.execute();
-//			c = NewsActivity.class;
+			//			c = NewsActivity.class;
 
 			break;
 

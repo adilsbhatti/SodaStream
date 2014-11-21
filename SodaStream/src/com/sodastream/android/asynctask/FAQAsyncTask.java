@@ -18,6 +18,8 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
 
 import com.sodastream.android.Util.AppPref;
@@ -62,6 +64,19 @@ public class FAQAsyncTask extends AsyncTask<String, String, Boolean> {
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
 		
+		
+		progressDialog.setOnCancelListener(new OnCancelListener() {
+
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+
+				System.out.println("-- I am called from faq task");
+
+
+				FAQAsyncTask.this.cancel(true);
+			}
+		});
 
 	}
 

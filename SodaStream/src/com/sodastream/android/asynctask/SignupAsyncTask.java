@@ -18,6 +18,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 
@@ -49,6 +51,20 @@ public class SignupAsyncTask extends AsyncTask<String, String, Boolean> {
 		// TODO Auto-generated constructor stub
 		activity = _activity;
 		appPref =  new AppPref(activity);
+		
+		
+		DATA.progressDialog.setOnCancelListener(new OnCancelListener() {
+
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+
+				System.out.println("-- I am called from login task");
+
+
+				SignupAsyncTask.this.cancel(true);
+			}
+		});
 	}
 
 
@@ -131,9 +147,11 @@ public class SignupAsyncTask extends AsyncTask<String, String, Boolean> {
 			else
 			{
 
+				JSONObject jsonContent  = new JSONObject(content);
+				
 				// load data here
 				appPref =  new AppPref(activity);
-				appPref.setAccessToken(httpResponse.getFirstHeader("token").getValue());
+				appPref.setAccessToken(jsonContent.getString("token"));
 
 				System.out.println("-- header : " + appPref.getAccessToken());
 				System.out.println("-- Data receieved : " + content);
@@ -189,8 +207,11 @@ public class SignupAsyncTask extends AsyncTask<String, String, Boolean> {
 		if(result)
 		{
 			Intent intent = new Intent(activity, MenuActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			activity.startActivity(intent);
 			this.cancel(true);
+			DATA.fromRegistration = false;
 			activity.finish();
 		}
 		else

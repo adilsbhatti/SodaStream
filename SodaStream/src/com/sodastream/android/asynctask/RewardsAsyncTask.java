@@ -15,11 +15,13 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnDismissListener;
 import android.os.AsyncTask;
 
@@ -32,10 +34,10 @@ import com.sodastream.android.Util.URLS;
 import com.sodastream.android.modules.RewardsModule;
 
 public class RewardsAsyncTask extends AsyncTask<String, String, Boolean> implements OnDismissListener{
-	
+
 	Activity activity;
 	ProgressDialog progressDialog;
-	
+
 	HttpClient httpClient;
 	HttpPost httpPost = null;
 	HttpResponse httpResponse;
@@ -49,7 +51,7 @@ public class RewardsAsyncTask extends AsyncTask<String, String, Boolean> impleme
 	public RewardsAsyncTask(Activity _activity) {
 		// TODO Auto-generated constructor stub
 		activity = _activity;
-		
+
 		appPref = new AppPref(activity);
 	}
 
@@ -65,14 +67,27 @@ public class RewardsAsyncTask extends AsyncTask<String, String, Boolean> impleme
 		progressDialog.setMessage("Fetching Rewards");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
+		
+		progressDialog.setOnCancelListener(new OnCancelListener() {
+
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+
+				System.out.println("-- I am called from login task");
+
+
+				RewardsAsyncTask.this.cancel(true);
+			}
+		});
 
 	}
 
 
 	@Override
 	protected Boolean doInBackground(String... params) {
-		
-		
+
+
 		try 
 		{
 
@@ -111,6 +126,25 @@ public class RewardsAsyncTask extends AsyncTask<String, String, Boolean> impleme
 			 * Uncomment when access token issue fixed
 			 */
 
+			JSONObject jsonCheckResponse;
+			try {
+				jsonCheckResponse = new JSONObject(content);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				//				e.printStackTrace();
+				jsonCheckResponse = null;
+			}
+
+			if(jsonCheckResponse!=null && jsonCheckResponse.has("error"))
+			{
+				Error =  jsonCheckResponse.getString("error");
+
+
+
+				return false;
+
+			}
+
 			if(content.length() >1)
 			{
 
@@ -138,11 +172,12 @@ public class RewardsAsyncTask extends AsyncTask<String, String, Boolean> impleme
 
 
 		} 
-		//		catch(JSONException e)
-		//		{
-		//			System.out.println("--1 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
-		//			return false;
-		//		}
+				catch(JSONException e)
+				{
+					Error = "Invalid Data Format";
+					System.out.println("--1 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+					return false;
+				}
 		catch(UnsupportedEncodingException e)
 		{
 			System.out.println("--2 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );

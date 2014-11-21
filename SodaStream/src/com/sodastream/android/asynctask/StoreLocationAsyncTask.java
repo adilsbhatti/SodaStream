@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
@@ -65,6 +66,16 @@ public class StoreLocationAsyncTask extends AsyncTask<String, String, Boolean>  
 		progressDialog.setMessage("Fetching Store Locations");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
+
+
+		progressDialog.setOnCancelListener(new OnCancelListener() {
+
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+				StoreLocationAsyncTask.this.cancel(true);
+			}
+		});
 
 	}
 
@@ -184,9 +195,9 @@ public class StoreLocationAsyncTask extends AsyncTask<String, String, Boolean>  
 		if(result)
 		{
 			//			((RewardsActivity)activity).loadRewardsGrid();
-			
+
 			System.out.println("-- total stores  : " + DATA.arrlstStoresModules.size());
-			
+
 			((StoreLocatorActivity)activity).initMAP();
 		}
 		else
@@ -203,8 +214,6 @@ public class StoreLocationAsyncTask extends AsyncTask<String, String, Boolean>  
 		// TODO Auto-generated method stub
 		super.onCancelled(result);
 
-
-
 		progressDialog.dismiss();
 	}
 
@@ -213,7 +222,9 @@ public class StoreLocationAsyncTask extends AsyncTask<String, String, Boolean>  
 	@Override
 	public void onDismiss(DialogInterface dialog) {
 		// TODO Auto-generated method stub
+		System.out.println("-- I am called when u cancel me");
 		this.cancel(true);
+
 	}
 
 

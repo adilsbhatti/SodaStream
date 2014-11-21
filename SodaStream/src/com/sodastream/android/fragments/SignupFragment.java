@@ -23,6 +23,7 @@ import com.sodastream.android.QuestionsActivity;
 import com.sodastream.android.R;
 import com.sodastream.android.Util.CheckLocationProviders;
 import com.sodastream.android.Util.DATA;
+import com.sodastream.android.Util.Fonts;
 import com.sodastream.android.Util.Toasts;
 import com.sodastream.android.Util.Validate;
 import com.sodastream.android.modules.SignupModule;
@@ -35,7 +36,7 @@ public class SignupFragment extends Fragment {
 
 	EditText etSignupFirstName,etSignupEmail,etSignupPass,etSignupConfPass,etSignupSurName;
 	ImageButton ibSignup;
-	TextView tvSignupTerms;
+	TextView tvSignupTerms,tv5,tv6;
 	RadioGroup rgSignupGender;
 
 
@@ -99,7 +100,7 @@ public class SignupFragment extends Fragment {
 					DATA.signupModule.gender =  selectedGender;
 
 					Toasts.pop(activity, "Selected gender : " + DATA.signupModule.gender);
-
+					DATA.fromRegistration = true;
 					Intent intent = new Intent(activity, QuestionsActivity.class);
 					startActivity(intent);
 				}
@@ -167,17 +168,30 @@ public class SignupFragment extends Fragment {
 	}
 
 	private void initUI(View signupView) {
+
 		etSignupConfPass = (EditText) signupView.findViewById(R.id.etSignupConfPass);
 		etSignupFirstName = (EditText) signupView.findViewById(R.id.etSignupFirstName);
 		etSignupSurName = (EditText) signupView.findViewById(R.id.etSignupSurName);
 		etSignupEmail = (EditText) signupView.findViewById(R.id.etSignupEmail);
 		etSignupPass = (EditText) signupView.findViewById(R.id.etSignupPass);
-		//		etSignupWhySodastream = (EditText) signupView.findViewById(R.id.etSignupWhySodastream);
-		//		etSignupState = (EditText) signupView.findViewById(R.id.etSignupState);
-		//		etSignupRelationStatus = (EditText) signupView.findViewById(R.id.etSignupRelationStatus);
+
+
+		etSignupConfPass.setTypeface(Fonts.getHelvatica(activity));
+		etSignupFirstName.setTypeface(Fonts.getHelvatica(activity));
+		etSignupSurName.setTypeface(Fonts.getHelvatica(activity));
+		etSignupEmail.setTypeface(Fonts.getHelvatica(activity));
+		etSignupPass.setTypeface(Fonts.getHelvatica(activity));
 
 
 		tvSignupTerms = (TextView) signupView.findViewById(R.id.tvSignupTerms);
+		tvSignupTerms.setTypeface(Fonts.getHelvatica(activity));
+		
+		tv5 = (TextView) signupView.findViewById(R.id.tv5);
+		tv5.setTypeface(Fonts.getHelvatica(activity));
+		
+		tv6 = (TextView) signupView.findViewById(R.id.tv6);
+		tv6.setTypeface(Fonts.getHelvatica(activity));
+
 		ibSignup = (ImageButton) signupView.findViewById(R.id.ibSignup);
 
 		rgSignupGender = (RadioGroup) signupView.findViewById(R.id.rgSignupGender);

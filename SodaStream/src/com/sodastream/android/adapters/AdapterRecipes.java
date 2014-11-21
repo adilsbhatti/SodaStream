@@ -15,12 +15,13 @@ import android.widget.TextView;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.sodastream.android.R;
 import com.sodastream.android.Util.DATA;
+import com.sodastream.android.Util.Fonts;
 import com.sodastream.android.fragments.RecipeDetailsFragment;
 import com.sodastream.android.modules.RecipeModel;
 
 public class AdapterRecipes extends ArrayAdapter<RecipeModel> {
 
-
+	//Variables
 	Activity activity;
 	
 	FragmentManager fragmentManager;
@@ -102,6 +103,7 @@ public class AdapterRecipes extends ArrayAdapter<RecipeModel> {
 
 
 		viewHolder.tvIconTitle = (TextView) convertView.findViewById(R.id.tvIconTitle);
+		viewHolder.tvIconTitle.setTypeface(Fonts.getHelvatica(activity));
 
 	}
 

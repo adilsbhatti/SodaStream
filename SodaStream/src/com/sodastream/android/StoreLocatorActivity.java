@@ -4,21 +4,25 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.sodastream.android.Util.DATA;
+import com.sodastream.android.Util.Fonts;
 import com.sodastream.android.asynctask.StoreLocationAsyncTask;
 
 public class StoreLocatorActivity extends Activity {
 
 	//UI Elements
 	GoogleMap  googleMap;
+	TextView tv4;
 
 
 	//Variables
@@ -36,7 +40,7 @@ public class StoreLocatorActivity extends Activity {
 		setContentView(R.layout.storelocator_page);
 		activity = this;
 
-
+		initUI();
 
 		storeLocationAsyncTask = new StoreLocationAsyncTask(activity);
 		storeLocationAsyncTask.execute();
@@ -47,6 +51,12 @@ public class StoreLocatorActivity extends Activity {
 		System.out.println("-- play service code  " + GooglePlayServicesUtil.GOOGLE_PLAY_SERVICES_VERSION_CODE);
 
 
+	}
+
+	private void initUI() {
+		// TODO Auto-generated method stub
+		tv4 = (TextView) findViewById(R.id.tv4);
+		tv4.setTypeface(Fonts.getHelvatica(activity));
 	}
 
 	public void initMAP() {
@@ -89,15 +99,15 @@ public class StoreLocatorActivity extends Activity {
 		//		googleMap.clear();
 
 		setMarkersOnMap();
-		
+
 	}
-	
+
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-	
-		
+
+
 	}
 
 	@Override
@@ -106,8 +116,8 @@ public class StoreLocatorActivity extends Activity {
 		super.onResume();
 
 		//		initMAP();
-		
-		
+
+
 	}
 
 
@@ -116,7 +126,7 @@ public class StoreLocatorActivity extends Activity {
 
 		LatLng tempLatLng;
 		MarkerOptions tempMarkerOptions;
-		
+
 		int icon;
 
 		if(DATA.arrlstStoresModules!=null)
@@ -133,19 +143,19 @@ public class StoreLocatorActivity extends Activity {
 
 
 
-//				tempLatLng =  new LatLng( Double.parseDouble(DATA.arrlstStoresModules.get(i).latitude) +1, Double.parseDouble(DATA.arrlstStoresModules.get(i).longitude)+1);
-				tempLatLng =  new LatLng(24.8508+i, 67.01+i);
+				//				tempLatLng =  new LatLng( Double.parseDouble(DATA.arrlstStoresModules.get(i).latitude) +1, Double.parseDouble(DATA.arrlstStoresModules.get(i).longitude)+1);
+				tempLatLng =  new LatLng(-37.811395+i, 144.957347+i);
 
 
 				System.out.println("-- " + Double.parseDouble(DATA.arrlstStoresModules.get(i).latitude) + "        " + Double.parseDouble(DATA.arrlstStoresModules.get(i).longitude));
-				
-				
+
+
 				System.out.println("stores type  : " + DATA.arrlstStoresModules.get(i).type + " equal status  : " + DATA.arrlstStoresModules.get(i).type.equals("1"));
 				icon = (DATA.arrlstStoresModules.get(i).type.equals("1") ? R.drawable.gasgps : R.drawable.machinegps);
 
 				tempMarkerOptions = new MarkerOptions().position(tempLatLng).title(DATA.arrlstStoresModules.get(i).name).snippet(DATA.arrlstStoresModules.get(i).address + "\n" + DATA.arrlstStoresModules.get(i).phone).icon(BitmapDescriptorFactory.fromResource(icon));
 
-				//				cameraUpdate = CameraUpdateFactory.newLatLng(tempLatLng);
+
 				//				cameraUpdate = CameraUpdateFactory.zoomIn();
 
 				arrlstMarkersOptions.add(tempMarkerOptions);
@@ -160,7 +170,12 @@ public class StoreLocatorActivity extends Activity {
 			{
 				googleMap.addMarker(mo);
 			}
-			
+			tempLatLng =  new LatLng(-37.811395, 144.957347);
+			cameraUpdate = CameraUpdateFactory.newLatLng(tempLatLng);
+			googleMap.animateCamera(cameraUpdate);
+			//			cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(tempLatLng, zoom, tilt, bearing))
+
+
 
 
 

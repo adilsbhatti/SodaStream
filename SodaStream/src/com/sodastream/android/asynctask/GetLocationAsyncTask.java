@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -55,6 +56,20 @@ public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> im
 		DATA.progressDialog.setMessage(dialogTitle);
 		DATA.progressDialog.setCanceledOnTouchOutside(false);
 
+
+
+		DATA.progressDialog.setOnCancelListener(new OnCancelListener() {
+
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+
+				System.out.println("-- I am called from location task");
+
+
+				GetLocationAsyncTask.this.cancel(true);
+			}
+		});
 
 		appPref =  new AppPref(activity);
 	}
@@ -215,11 +230,21 @@ public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> im
 	}
 
 
-
+	@Override
+	protected void onCancelled() {
+		// TODO Auto-generated method stub
+		super.onCancelled();
+		locationManager.removeUpdates(locationListenerGPS);
+		locationListenerGPS = null;
+		locationManager = null;
+		this.cancel(true);
+	}
 
 	@Override
 	public void onDismiss(DialogInterface dialog) {
 		// TODO Auto-generated method stub
+
+		//		System.out.println("-- I am called from location task");
 		this.cancel(true);
 
 	}

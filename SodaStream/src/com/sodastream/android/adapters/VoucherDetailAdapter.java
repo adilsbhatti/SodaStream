@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sodastream.android.R;
+import com.sodastream.android.Util.Fonts;
 import com.sodastream.android.modules.VoucherModule;
 
 public class VoucherDetailAdapter extends ArrayAdapter<VoucherModule> {
@@ -75,6 +76,11 @@ public class VoucherDetailAdapter extends ArrayAdapter<VoucherModule> {
 		viewHolder.tvVoucherCode = (TextView) convertView.findViewById(R.id.tvVoucherCode);
 		viewHolder.tvVoucherDesc = (TextView) convertView.findViewById(R.id.tvVoucherDesc);
 		viewHolder.tvVoucherTitle = (TextView) convertView.findViewById(R.id.tvVoucherTitle);
+		
+		viewHolder.tvVoucherCode.setTypeface(Fonts.getHelvatica(activity));
+		viewHolder.tvVoucherDesc.setTypeface(Fonts.getHelvatica(activity));
+		viewHolder.tvVoucherTitle.setTypeface(Fonts.getHelvatica(activity));
+		
 	}
 
 

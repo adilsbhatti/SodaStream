@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 
@@ -55,10 +56,24 @@ public class LoginAsyncTask extends AsyncTask<String, String, Boolean>  implemen
 
 		//Sample login data
 
-		DATA.currLoginModule.email =  "csongor@halmai.hu";
-		DATA.currLoginModule.password = "qqqqqq2";
+		DATA.currLoginModule.email =  DATA.USER_EMAIL;
+		DATA.currLoginModule.password = DATA.USER_PASSWORD;
 		DATA.currLoginModule.latitude = "" + DATA.Latitude;
 		DATA.currLoginModule.longitude = "" + DATA.Longitude;
+
+
+		DATA.progressDialog.setOnCancelListener(new OnCancelListener() {
+
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+
+				System.out.println("-- I am called from login task");
+
+
+				LoginAsyncTask.this.cancel(true);
+			}
+		});
 
 	}
 
@@ -69,11 +84,11 @@ public class LoginAsyncTask extends AsyncTask<String, String, Boolean>  implemen
 		// TODO Auto-generated method stub
 		super.onPreExecute();
 
-//		progressDialog = new ProgressDialog(activity);
-//		progressDialog.setTitle("Please Wait");
-//		progressDialog.setMessage("Signing in");
-//		progressDialog.setCanceledOnTouchOutside(false);
-//		progressDialog.show();
+		//		progressDialog = new ProgressDialog(activity);
+		//		progressDialog.setTitle("Please Wait");
+		//		progressDialog.setMessage("Signing in");
+		//		progressDialog.setCanceledOnTouchOutside(false);
+		//		progressDialog.show();
 
 
 
@@ -138,9 +153,11 @@ public class LoginAsyncTask extends AsyncTask<String, String, Boolean>  implemen
 			else
 			{
 
+				JSONObject jsonContent = new JSONObject(content);
+
 				// load data here
 				appPref =  new AppPref(activity);
-				appPref.setAccessToken(httpResponse.getFirstHeader("token").getValue());
+				appPref.setAccessToken(jsonContent.getString("token"));
 
 				System.out.println("-- header : " + appPref.getAccessToken());
 				System.out.println("-- Data receieved : " + content);
@@ -216,7 +233,12 @@ public class LoginAsyncTask extends AsyncTask<String, String, Boolean>  implemen
 		httpResponse = null;
 
 
-		DATA.progressDialog.dismiss();
+		try {
+			DATA.progressDialog.dismiss();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
@@ -224,8 +246,9 @@ public class LoginAsyncTask extends AsyncTask<String, String, Boolean>  implemen
 	@Override
 	public void onDismiss(DialogInterface dialog) {
 		// TODO Auto-generated method stub
+		System.out.println("-- I am called from login async task");
 		this.cancel(true);
-		
+
 	}
 
 

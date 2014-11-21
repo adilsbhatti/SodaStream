@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View.OnClickListener;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.sodastream.android.Util.DATA;
+import com.sodastream.android.Util.Fonts;
 import com.sodastream.android.Util.Toasts;
 import com.sodastream.android.adapters.AdapterVouchers;
 import com.sodastream.android.asynctask.VouchersAsyncTask;
@@ -21,6 +23,7 @@ public class VouchersActivity extends Activity {
 	OnClickListener onClickListener;
 	VouchersAsyncTask vouchersAsyncTask;
 	AdapterVouchers adapterVouchers;
+	TextView tv2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,9 @@ public class VouchersActivity extends Activity {
 
 		//		ibVoucher2 = (ImageButton) findViewById(R.id.ibVoucher2);
 		//		ibVoucher1 = (ImageButton) findViewById(R.id.ibVoucher1);
+
+		tv2 = (TextView) findViewById(R.id.tv2);
+		tv2.setTypeface(Fonts.getHelvatica(activity));
 
 		gvVouchers =  (GridView) findViewById(R.id.gvVouchers);
 

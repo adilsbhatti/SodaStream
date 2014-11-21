@@ -19,6 +19,9 @@ public class DATA {
 
 	public  static String GAS_MACHINE_CODE;
 
+	
+	public static boolean fromRegistration  =  false;
+	
 	// give your server registration url here
 	public static final String SERVER_URL = "http://192.168.1.136/gcm_server_php/register.php"; 
 
@@ -29,6 +32,12 @@ public class DATA {
 	public static final String DISPLAY_MESSAGE_ACTION =
 			"com.sodastream.android.DISPLAY_MESSAGE";
 
+	
+	//User Signin Values
+	
+	public static String USER_EMAIL = "";
+	public static String USER_PASSWORD = "";
+	
 
 
 	public static String name = "Tarqi";

@@ -18,6 +18,8 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 
@@ -66,6 +68,19 @@ public class CodeRegistrationTask extends AsyncTask<String, String, Boolean> {
 		progressDialog.setMessage("Registering Your Code");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
+		
+		progressDialog.setOnCancelListener(new OnCancelListener() {
+
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+
+				System.out.println("-- I am called from code task");
+
+
+				CodeRegistrationTask.this.cancel(true);
+			}
+		});
 
 	}
 

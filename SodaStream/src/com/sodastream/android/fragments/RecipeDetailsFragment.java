@@ -12,10 +12,11 @@ import android.widget.TextView;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.sodastream.android.R;
 import com.sodastream.android.Util.DATA;
+import com.sodastream.android.Util.Fonts;
 
 public class RecipeDetailsFragment extends Fragment {
 
-	TextView tvRecipeTitle,tvRecipeNote,tvRecipeInstructions,tvRecipeIngredients;
+	TextView tvRecipeTitle,tvRecipeNote,tvRecipeInstructions,tvRecipeIngredients,tv15,tv16,tv17;
 	ImageView ivRecipeImage;
 	Activity activity;
 
@@ -47,34 +48,26 @@ public class RecipeDetailsFragment extends Fragment {
 
 
 
-		tvRecipeTitle =  (TextView) activity.findViewById(R.id.tvRecipeTitle);
-		tvRecipeIngredients =  (TextView) activity.findViewById(R.id.tvRecipeIngredients);
-		tvRecipeInstructions =  (TextView) activity.findViewById(R.id.tvRecipeInstructions);
-		tvRecipeNote =  (TextView) activity.findViewById(R.id.tvRecipeNote);
-
-		ivRecipeImage = (ImageView) activity.findViewById(R.id.ivRecipeImage);
-
-		tvRecipeIngredients.setMaxLines(DATA.selectedRecipe.ingredients.length);
-		tvRecipeIngredients.setSingleLine(false );
+		initUI();
 
 
 		for(int i = 0; i < DATA.selectedRecipe.ingredients.length;i++)
 		{
-			
+
 
 			ingredients  =ingredients +  " \u2022" +  DATA.selectedRecipe.ingredients[i] + System.getProperty("line.separator");
 		}
 
 
 
-		
+
 		tvRecipeInstructions.setMaxLines(DATA.selectedRecipe.instructions.length);
 		tvRecipeInstructions.setSingleLine(false );
 
 
 		for(int i = 0; i < DATA.selectedRecipe.instructions.length;i++)
 		{
-			
+
 
 			instructions  =instructions +  " \u2022" +  DATA.selectedRecipe.instructions[i] + System.getProperty("line.separator");
 		}
@@ -87,6 +80,38 @@ public class RecipeDetailsFragment extends Fragment {
 		tvRecipeNote.setText(DATA.selectedRecipe.note);
 		UrlImageViewHelper.setUrlDrawable(ivRecipeImage, DATA.selectedRecipe.image_url, R.drawable.icon);
 
+	}
+
+
+	private void initUI() {
+
+
+		tvRecipeTitle =  (TextView) activity.findViewById(R.id.tvRecipeTitle);
+		tvRecipeIngredients =  (TextView) activity.findViewById(R.id.tvRecipeIngredients);
+		tvRecipeInstructions =  (TextView) activity.findViewById(R.id.tvRecipeInstructions);
+		tvRecipeNote =  (TextView) activity.findViewById(R.id.tvRecipeNote);
+
+		tvRecipeTitle.setTypeface(Fonts.getHelvatica(activity));
+		tvRecipeIngredients.setTypeface(Fonts.getHelvatica(activity));
+		tvRecipeInstructions.setTypeface(Fonts.getHelvatica(activity));
+		tvRecipeNote.setTypeface(Fonts.getHelvatica(activity));
+		
+		
+		tv15 =  (TextView) activity.findViewById(R.id.tv15);
+		tv15.setTypeface(Fonts.getHelvatica(activity));
+		
+		tv16 =  (TextView) activity.findViewById(R.id.tv16);
+		tv16.setTypeface(Fonts.getHelvatica(activity));
+		
+		tv17 =  (TextView) activity.findViewById(R.id.tv17);
+		tv17.setTypeface(Fonts.getHelvatica(activity));
+		
+		
+
+		ivRecipeImage = (ImageView) activity.findViewById(R.id.ivRecipeImage);
+
+		tvRecipeIngredients.setMaxLines(DATA.selectedRecipe.ingredients.length);
+		tvRecipeIngredients.setSingleLine(false );
 	}
 
 }

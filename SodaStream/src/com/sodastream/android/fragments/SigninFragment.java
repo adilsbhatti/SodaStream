@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.facebook.Request;
 import com.facebook.Response;
@@ -26,7 +27,9 @@ import com.sodastream.android.R;
 import com.sodastream.android.Util.CheckLocationProviders;
 import com.sodastream.android.Util.ConnectionChecker;
 import com.sodastream.android.Util.DATA;
+import com.sodastream.android.Util.Fonts;
 import com.sodastream.android.Util.Toasts;
+import com.sodastream.android.Util.Validate;
 import com.sodastream.android.asynctask.GetLocationAsyncTask;
 import com.sodastream.android.modules.IdFrom;
 import com.sodastream.android.modules.SignupModule;
@@ -37,6 +40,7 @@ public class SigninFragment extends Fragment {
 	ImageButton ibSignin,ibSigninForgotPass,ibSigninFb;
 	EditText etSigninEmail,etSigninPassword;
 	ProgressDialog progressDialog;
+	TextView tv7,tv8,tv9;
 
 	//Variables
 	Activity activity;
@@ -58,12 +62,12 @@ public class SigninFragment extends Fragment {
 		View signinView =inflater.inflate(R.layout.signin_frag, container,false);
 
 
-
+		activity = getActivity();
 		System.out.println("-- I am called !!");
 		initUI(signinView);
 
 
-		activity = getActivity();
+
 
 
 
@@ -84,16 +88,30 @@ public class SigninFragment extends Fragment {
 
 				// Commented for testing
 
+				EditText[] arrEditTexts = {etSigninEmail,etSigninPassword};
+				Validate.checkEmptyEditText(arrEditTexts);
 
-				if(CheckLocationProviders.isGPSOrNetworkAvailable(activity))
+				if(Validate.isEmptyEditText(etSigninEmail) || Validate.isEmptyEditText(etSigninPassword))
 				{
+					Toasts.pop(activity, "Please fill in fields marked red");
+				}
+				else if (Validate.isEmailValid(etSigninEmail))
+				{
+					Toasts.pop(activity, "Please enter valied email address");
+				}
 
-					getLocationAsyncTask = new  GetLocationAsyncTask(activity, IdFrom.LOGIN,"Signing in");
-					getLocationAsyncTask.execute();
+				else if(!CheckLocationProviders.isGPSOrNetworkAvailable(activity))
+				{
+					CheckLocationProviders.showGPSDialog(activity);
+
 				}
 				else
 				{
-					CheckLocationProviders.showGPSDialog(activity);
+
+					DATA.USER_EMAIL =  etSigninEmail.getText().toString().trim();
+					DATA.USER_PASSWORD = etSigninPassword.getText().toString().trim();
+					getLocationAsyncTask = new  GetLocationAsyncTask(activity, IdFrom.LOGIN,"Signing in");
+					getLocationAsyncTask.execute();
 
 				}
 
@@ -187,6 +205,18 @@ public class SigninFragment extends Fragment {
 
 		etSigninEmail = (EditText) signinView.findViewById(R.id.etSigninEmail);
 		etSigninPassword = (EditText) signinView.findViewById(R.id.etSigninPassword);
+
+		etSigninEmail.setTypeface(Fonts.getHelvatica(activity));
+		etSigninPassword.setTypeface(Fonts.getHelvatica(activity));
+		
+		tv7 = (TextView) signinView.findViewById(R.id.tv7);	
+		tv7.setTypeface(Fonts.getHelvatica(activity));
+		
+		tv8 = (TextView) signinView.findViewById(R.id.tv8);	
+		tv8.setTypeface(Fonts.getHelvatica(activity));
+		
+		tv9 = (TextView) signinView.findViewById(R.id.tv9);	
+		tv9.setTypeface(Fonts.getHelvatica(activity));
 	}
 
 

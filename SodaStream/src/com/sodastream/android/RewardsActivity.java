@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View.OnClickListener;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.sodastream.android.Util.DATA;
+import com.sodastream.android.Util.Fonts;
 import com.sodastream.android.Util.Toasts;
 import com.sodastream.android.adapters.AdapterRewards;
 import com.sodastream.android.asynctask.RewardsAsyncTask;
@@ -17,6 +19,7 @@ public class RewardsActivity extends Activity {
 	//UI Elements
 
 	GridView gvRewards;
+	TextView tv10;
 
 
 	//Varaibles
@@ -45,6 +48,9 @@ public class RewardsActivity extends Activity {
 
 
 		gvRewards = (GridView) findViewById(R.id.gvRewards);
+
+		tv10 = (TextView) findViewById(R.id.tv10);
+		tv10.setTypeface(Fonts.getHelvatica(activity));
 	}
 
 

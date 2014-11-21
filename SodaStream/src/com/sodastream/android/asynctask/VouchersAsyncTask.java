@@ -19,6 +19,8 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
@@ -30,11 +32,11 @@ import com.sodastream.android.Util.URLS;
 import com.sodastream.android.modules.VoucherModule;
 
 public class VouchersAsyncTask extends AsyncTask<String, String, Boolean> {
-	
-	
+
+
 	Activity activity;
 	ProgressDialog progressDialog;
-	
+
 	HttpClient httpClient;
 	HttpPost httpPost = null;
 	HttpResponse httpResponse;
@@ -48,7 +50,7 @@ public class VouchersAsyncTask extends AsyncTask<String, String, Boolean> {
 	public VouchersAsyncTask(Activity _activity) {
 		// TODO Auto-generated constructor stub
 		activity = _activity;
-		
+
 		appPref = new AppPref(activity);
 	}
 
@@ -64,14 +66,23 @@ public class VouchersAsyncTask extends AsyncTask<String, String, Boolean> {
 		progressDialog.setMessage("Fetching Vouchers");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
+		
+		progressDialog.setOnCancelListener(new OnCancelListener() {
+			
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+				VouchersAsyncTask.this.cancel(true);
+			}
+		});
 
 	}
 
 
 	@Override
 	protected Boolean doInBackground(String... params) {
-	
-		
+
+
 		try 
 		{
 
@@ -110,7 +121,27 @@ public class VouchersAsyncTask extends AsyncTask<String, String, Boolean> {
 			 * Uncomment when access token issue fixed
 			 */
 
-			if(content.length() >1)
+
+			JSONObject jsonCheckResponse;
+			try {
+				jsonCheckResponse = new JSONObject(content);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+//				e.printStackTrace();
+				jsonCheckResponse = null;
+			}
+
+			if(jsonCheckResponse!=null && jsonCheckResponse.has("error"))
+			{
+				Error =  jsonCheckResponse.getString("error");
+
+
+
+				return false;
+
+			}
+
+			else if(content.length() >1)
 			{
 
 

@@ -6,10 +6,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 
 import com.sodastream.android.Util.DATA;
+import com.sodastream.android.Util.Fonts;
 import com.sodastream.android.Util.Toasts;
 import com.sodastream.android.Util.Validate;
 import com.sodastream.android.asynctask.ReferAFriendAsyncTask;
@@ -21,6 +24,8 @@ public class ReferAFriendActivity extends Activity {
 	EditText etReferName,etReferEmail;
 	RadioGroup rgReferCustomer;
 	ImageButton ibReferSend;
+	TextView tv11,tv12;
+	RadioButton rNewUser, rExistingUser, rExistingNonUser;
 
 	//Variables
 	Activity  activity;
@@ -35,7 +40,7 @@ public class ReferAFriendActivity extends Activity {
 
 		activity = this;
 		selectedUserType =  "new-user";
-		
+
 		initUI();
 
 
@@ -54,7 +59,7 @@ public class ReferAFriendActivity extends Activity {
 				}
 				else if (selectedUserType.length() < 1)
 				{
-					
+
 				}
 				else if (Validate.isEmailValid(etReferEmail))
 				{
@@ -63,13 +68,13 @@ public class ReferAFriendActivity extends Activity {
 				else
 				{
 					DATA.referFriendModule =  new ReferFriendModule();
-					
+
 					DATA.referFriendModule.email = etReferEmail.getText().toString();
 					DATA.referFriendModule.name =  etReferName.getText().toString();
 					DATA.referFriendModule.userType =  selectedUserType;
-					
-					 referAFriendAsyncTask = new ReferAFriendAsyncTask(activity);
-					 referAFriendAsyncTask.execute();
+
+					referAFriendAsyncTask = new ReferAFriendAsyncTask(activity);
+					referAFriendAsyncTask.execute();
 				}
 
 			}
@@ -110,14 +115,32 @@ public class ReferAFriendActivity extends Activity {
 		etReferEmail = (EditText) findViewById(R.id.etReferEmail);
 		etReferName = (EditText) findViewById(R.id.etReferName);
 
+		etReferEmail.setTypeface(Fonts.getHelvatica(activity));
+		etReferName.setTypeface(Fonts.getHelvatica(activity));
+
+		tv11 = (TextView) findViewById(R.id.tv11);
+		tv11.setTypeface(Fonts.getHelvatica(activity));
+
+		tv12 = (TextView) findViewById(R.id.tv12);
+		tv12.setTypeface(Fonts.getHelvatica(activity));
+
 		rgReferCustomer = (RadioGroup) findViewById(R.id.rgReferCustomer);
 
 		ibReferSend = (ImageButton) findViewById(R.id.ibReferSend);
-		
+
 		rgReferCustomer.check(R.id.rNewUser);
+		
+		rExistingNonUser = (RadioButton) findViewById(R.id.rExistingNonUser);
+		rExistingNonUser.setTypeface(Fonts.getHelvatica(activity));
+		
+		rNewUser = (RadioButton) findViewById(R.id.rNewUser);
+		rNewUser.setTypeface(Fonts.getHelvatica(activity));
+		
+		rExistingUser = (RadioButton) findViewById(R.id.rExistingUser);
+		rExistingUser.setTypeface(Fonts.getHelvatica(activity));
 
 	}
-	
+
 	public void clearFields()
 	{
 		etReferEmail.setText("");
@@ -125,7 +148,7 @@ public class ReferAFriendActivity extends Activity {
 		selectedUserType = "new-user";
 		rgReferCustomer.check(R.id.rNewUser);
 		etReferName.requestFocus();
-		
+
 	}
 
 }

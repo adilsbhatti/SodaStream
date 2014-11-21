@@ -17,6 +17,8 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 
@@ -25,7 +27,7 @@ import com.sodastream.android.Util.AppPref;
 import com.sodastream.android.Util.Toasts;
 import com.sodastream.android.Util.URLS;
 
-public class LogoutAsyncTask extends AsyncTask<String, String, Boolean> {
+public class LogoutAsyncTask extends AsyncTask<String, String, Boolean> implements DialogInterface.OnDismissListener {
 
 
 	Activity activity;
@@ -58,6 +60,19 @@ public class LogoutAsyncTask extends AsyncTask<String, String, Boolean> {
 		progressDialog.setMessage("Logging Out");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
+		
+		progressDialog.setOnCancelListener(new OnCancelListener() {
+
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+
+				System.out.println("-- I am called from logout task");
+
+
+				LogoutAsyncTask.this.cancel(true);
+			}
+		});
 	}
 
 
@@ -96,42 +111,18 @@ public class LogoutAsyncTask extends AsyncTask<String, String, Boolean> {
 
 
 			content = EntityUtils.toString(httpResponse.getEntity());
-			
-			
-			/*
-			 * Uncomment when access token issue fixed
-			 */
 
-			//			JSONObject jsonCheckResponse = new JSONObject(content);
 
-			//			if(jsonCheckResponse.has("error"))
-			//			{
-			//				Error =  jsonCheckResponse.getString("error");
-			//
-			//
-			//
-			//				return false;
-			//
-			//			}
-			//			else
-			//			{
-			//
-			//
-			//				//				System.out.println("-- header : " + httpPost.`);
-			//				System.out.println("-- Data receieved : " + content);
-			//				return true;
-			//			}
+
+
+
 
 			return true;
 
 
 
 		} 
-		//		catch(JSONException e)
-		//		{
-		//			System.out.println("--1 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
-		//			return false;
-		//		}
+
 		catch(UnsupportedEncodingException e)
 		{
 			System.out.println("--2 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
@@ -197,6 +188,14 @@ public class LogoutAsyncTask extends AsyncTask<String, String, Boolean> {
 
 
 		progressDialog.dismiss();
+	}
+
+	@Override
+	public void onDismiss(DialogInterface dialog) {
+		// TODO Auto-generated method stub
+
+		this.cancel(true);
+
 	}
 
 }

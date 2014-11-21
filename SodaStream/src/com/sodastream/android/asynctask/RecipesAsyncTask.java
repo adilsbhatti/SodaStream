@@ -19,6 +19,8 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
@@ -65,6 +67,15 @@ public class RecipesAsyncTask extends AsyncTask<String, String, Boolean> {
 		progressDialog.setMessage("Fetching Recipes");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
+		
+progressDialog.setOnCancelListener(new OnCancelListener() {
+			
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+				RecipesAsyncTask.this.cancel(true);
+			}
+		});
 
 	}
 

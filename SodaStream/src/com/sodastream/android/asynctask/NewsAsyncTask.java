@@ -18,6 +18,8 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
 
 import com.sodastream.android.Util.AppPref;
@@ -59,6 +61,19 @@ public class NewsAsyncTask extends AsyncTask<String, String, Boolean> {
 		progressDialog.setMessage("Fetching News");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
+		
+		progressDialog.setOnCancelListener(new OnCancelListener() {
+
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+
+				System.out.println("-- I am called from news task");
+
+
+				NewsAsyncTask.this.cancel(true);
+			}
+		});
 
 	}
 

@@ -21,6 +21,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 
@@ -65,6 +66,20 @@ public class ReferAFriendAsyncTask extends AsyncTask<String, String,Boolean> {
 		progressDialog.setMessage("Sending Details");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
+		
+		
+		progressDialog.setOnCancelListener(new OnCancelListener() {
+
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+
+				System.out.println("-- I am called from refer task");
+
+
+				ReferAFriendAsyncTask.this.cancel(true);
+			}
+		});
 
 	}
 
@@ -110,15 +125,22 @@ public class ReferAFriendAsyncTask extends AsyncTask<String, String,Boolean> {
 
 			System.out.println("-- refer a friends response : " + content);
 
-			JSONObject jsonCheckResponse = new JSONObject(content);
+			JSONObject jsonCheckResponse;
+			try {
+				jsonCheckResponse = new JSONObject(content);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				jsonCheckResponse = null;
+			}
 
-			if(jsonCheckResponse.has("error"))
+			if(jsonCheckResponse !=null && jsonCheckResponse.has("error"))
 			{
 				Error =  jsonCheckResponse.getString("error");
 
 
 
-				return true;
+				return false;
 
 			}
 			else

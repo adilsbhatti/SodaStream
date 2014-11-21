@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.facebook.LoginActivity;
 import com.google.android.gcm.GCMRegistrar;
 import com.sodastream.android.Util.AlphaNumericCodeListener;
 import com.sodastream.android.Util.AppPref;
@@ -181,8 +180,8 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 			if(appPref.getActivationCode().length()  < 1)
 			{
-			
-			getCodeDetails(RewardsActivity.class);
+
+				getCodeDetails(RewardsActivity.class);
 			}
 			else
 			{
@@ -207,8 +206,8 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 			if(appPref.getActivationCode().length()  < 1)
 			{
-			
-			getCodeDetails(VouchersActivity.class);
+
+				getCodeDetails(VouchersActivity.class);
 			}
 			else
 			{
@@ -299,18 +298,18 @@ public class MenuActivity extends Activity implements OnClickListener {
 		builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				DATA.GAS_MACHINE_CODE = etCode.getText().toString();
-				
-				
+
+
 				// Do something with value!
-//				intent = new Intent(activity, c);
-//				startActivity(intent);
-				
+				//				intent = new Intent(activity, c);
+				//				startActivity(intent);
+
 				codeRegistrationTask = new CodeRegistrationTask(activity, c);
 				codeRegistrationTask.execute();
-				
-				
-				
-				
+
+
+
+
 			}
 		});
 
@@ -448,9 +447,15 @@ public class MenuActivity extends Activity implements OnClickListener {
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 
-				intent = new Intent(activity, LoginActivity.class);
+				//				intent = new Intent(activity, LoginActivity.class);
+				//				startActivity(intent);
+				//				System.exit(0);
+
+				Intent intent = new Intent(Intent.ACTION_MAIN);
+				intent.addCategory(Intent.CATEGORY_HOME);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(intent);
-				activity.finish();
+				//				activity.finish();
 			}
 		});
 

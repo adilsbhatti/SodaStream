@@ -15,11 +15,13 @@ import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.sodastream.android.R;
 import com.sodastream.android.VoucherDetailsActivity;
 import com.sodastream.android.Util.DATA;
+import com.sodastream.android.Util.Fonts;
 import com.sodastream.android.modules.VoucherModule;
 
 public class AdapterVouchers extends ArrayAdapter<VoucherModule> {
 
 
+	//Variables
 	Activity activity;
 
 	public AdapterVouchers(Activity _activity) {
@@ -89,6 +91,7 @@ public class AdapterVouchers extends ArrayAdapter<VoucherModule> {
 
 
 		viewHolder.tvIconTitle = (TextView) convertView.findViewById(R.id.tvIconTitle);
+		viewHolder.tvIconTitle.setTypeface(Fonts.getHelvatica(activity));
 
 	}
 

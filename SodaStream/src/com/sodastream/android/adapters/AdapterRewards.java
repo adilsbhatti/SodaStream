@@ -13,12 +13,15 @@ import android.widget.TextView;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.sodastream.android.R;
 import com.sodastream.android.Util.DATA;
+import com.sodastream.android.Util.Fonts;
+import com.sodastream.android.Util.Toasts;
 import com.sodastream.android.Util.ViewBrowser;
 import com.sodastream.android.modules.RewardsModule;
 
 public class AdapterRewards extends ArrayAdapter<RewardsModule> {
 
 
+	//Variables
 	Activity activity;
 
 	public AdapterRewards(Activity _activity) {
@@ -64,10 +67,17 @@ public class AdapterRewards extends ArrayAdapter<RewardsModule> {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
-				
-				ViewBrowser.openURL(activity, DATA.arrlstRewardsModules.get(position).site_url);	
-				
+
+				if(DATA.arrlstRewardsModules.get(position).site_url.length() > 1)
+				{
+
+					ViewBrowser.openURL(activity, DATA.arrlstRewardsModules.get(position).site_url);	
+				}
+				else
+				{
+					Toasts.pop(activity, "Unable to load reward");
+				}
+
 			}
 		});
 
@@ -85,6 +95,8 @@ public class AdapterRewards extends ArrayAdapter<RewardsModule> {
 
 
 		viewHolder.tvIconTitle = (TextView) convertView.findViewById(R.id.tvIconTitle);
+
+		viewHolder.tvIconTitle.setTypeface(Fonts.getHelvatica(activity));
 
 	}
 

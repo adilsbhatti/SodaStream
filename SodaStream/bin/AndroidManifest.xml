@@ -75,7 +75,7 @@
             android:icon="@drawable/transparent"
             android:label=""
             android:screenOrientation="portrait"
-            android:theme="@style/CustomActionBarTheme" >
+            android:theme="@style/CustomActionBarTheme" android:noHistory="true" android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
         </activity>
         <activity
             android:name=".MenuActivity"
@@ -115,7 +115,7 @@
         <activity
             android:name=".QuestionsActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" android:noHistory="true">
         </activity>
         <activity
             android:name=".ForgotPassActivity"

@@ -13,13 +13,14 @@ import android.widget.TextView;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.sodastream.android.R;
 import com.sodastream.android.Util.DATA;
+import com.sodastream.android.Util.Fonts;
 import com.sodastream.android.Util.ViewBrowser;
 import com.sodastream.android.modules.VideosModule;
 
 public class AdapterVideos extends ArrayAdapter<VideosModule> {
 
 
-
+	//variables
 	Activity activity;
 
 	public AdapterVideos(Activity _activity) {
@@ -85,6 +86,7 @@ public class AdapterVideos extends ArrayAdapter<VideosModule> {
 
 
 		viewHolder.tvIconTitle = (TextView) convertView.findViewById(R.id.tvIconTitle);
+		viewHolder.tvIconTitle.setTypeface(Fonts.getHelvatica(activity));
 
 	}
 

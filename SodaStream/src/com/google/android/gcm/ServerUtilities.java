@@ -14,8 +14,8 @@ import java.util.Random;
 
 import android.content.Context;
 import android.util.Log;
+import au.com.sodastream.lifestylerewards.Util.DATA;
 
-import com.sodastream.android.Util.DATA;
 
 public class ServerUtilities {
 

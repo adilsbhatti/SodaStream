@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import au.com.sodastream.lifestylerewards.R;
+import au.com.sodastream.lifestylerewards.Util.AppImagesDimensions;
 import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Fonts;
 import au.com.sodastream.lifestylerewards.Util.Toasts;
@@ -43,6 +45,10 @@ public class AdapterRewards extends ArrayAdapter<RewardsModule> {
 		{
 			LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = layoutInflater.inflate(R.layout.cell_row, parent, false);
+
+			AppImagesDimensions.setScreenUnits(activity);
+
+			convertView.setLayoutParams(new LayoutParams(DATA.MENU_IMAGES_SIZE, DATA.MENU_IMAGES_SIZE));
 
 			viewHolder = new ViewHolderClass();
 			initUI(convertView, viewHolder);

@@ -65,7 +65,7 @@ public class NewProductsTask extends AsyncTask<String, String, Boolean> {
 		progressDialog.setMessage("Fetching New Products");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
-		
+
 		progressDialog.setOnCancelListener(new OnCancelListener() {
 
 			@Override
@@ -95,6 +95,7 @@ public class NewProductsTask extends AsyncTask<String, String, Boolean> {
 			httpClient = new DefaultHttpClient();
 
 			httpPost = new HttpPost(URLS.NEW_PRODUCTS_URL);
+			System.out.println("-- new prod url : " + URLS.NEW_PRODUCTS_URL);
 			jsonObject = new JSONObject();
 
 
@@ -106,7 +107,7 @@ public class NewProductsTask extends AsyncTask<String, String, Boolean> {
 
 			System.out.println("JSON Object : " + jsonObject.toString());
 
-
+			System.out.println("-- token : " + appPref.getAccessToken());
 
 			stringEntity =  new StringEntity("");
 			stringEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
@@ -125,7 +126,7 @@ public class NewProductsTask extends AsyncTask<String, String, Boolean> {
 			 * Uncomment when access token issue fixed
 			 */
 
-			if(content.length() >1)
+			if(content.length() >3)
 			{
 
 
@@ -143,6 +144,7 @@ public class NewProductsTask extends AsyncTask<String, String, Boolean> {
 			}
 			else
 			{
+				Error = "No Products Found";
 				return false;
 			}
 

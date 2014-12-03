@@ -71,17 +71,18 @@ public class NewsFaqActivity extends Activity  implements OnClickListener{
 
 		switch (ID) {
 		case R.id.ibNewsFaq:
-			//			c = FAQActivity.class;
-			faqAsyncTask =  new FAQAsyncTask(activity);
-			faqAsyncTask.execute();
+			c = FAQActivity.class;
+			intent = new Intent(activity, c);
+			startActivity(intent);
 			break;
 
 		case R.id.ibNewsNews:
 
 
-			newsAsyncTask = new NewsAsyncTask(activity);
-			newsAsyncTask.execute();
-			//			c = NewsActivity.class;
+			c = NewsActivity.class;
+			intent = new Intent(activity, c);
+			startActivity(intent);
+			//			
 
 			break;
 

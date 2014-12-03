@@ -145,7 +145,7 @@ public class RewardsAsyncTask extends AsyncTask<String, String, Boolean> impleme
 
 			}
 
-			if(content.length() >1)
+			if(content.length() >3)
 			{
 
 
@@ -163,6 +163,7 @@ public class RewardsAsyncTask extends AsyncTask<String, String, Boolean> impleme
 			}
 			else
 			{
+				Error = "No Rewards Found!!";
 				return false;
 			}
 

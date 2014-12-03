@@ -7,10 +7,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import au.com.sodastream.lifestylerewards.R;
+import au.com.sodastream.lifestylerewards.Util.AppImagesDimensions;
+import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Fonts;
 import au.com.sodastream.lifestylerewards.modules.VoucherModule;
 
@@ -45,6 +48,10 @@ public class VoucherDetailAdapter extends ArrayAdapter<VoucherModule> {
 			LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = layoutInflater.inflate(R.layout.voucher_cell, parent, false);
 
+			AppImagesDimensions.setScreenUnits(activity);
+
+			convertView.setLayoutParams(new LayoutParams(DATA.MENU_IMAGES_SIZE, DATA.MENU_IMAGES_SIZE));
+
 			viewHolder = new ViewHolderClass();
 			initUI(convertView, viewHolder);
 
@@ -76,11 +83,11 @@ public class VoucherDetailAdapter extends ArrayAdapter<VoucherModule> {
 		viewHolder.tvVoucherCode = (TextView) convertView.findViewById(R.id.tvVoucherCode);
 		viewHolder.tvVoucherDesc = (TextView) convertView.findViewById(R.id.tvVoucherDesc);
 		viewHolder.tvVoucherTitle = (TextView) convertView.findViewById(R.id.tvVoucherTitle);
-		
+
 		viewHolder.tvVoucherCode.setTypeface(Fonts.getHelvatica(activity));
 		viewHolder.tvVoucherDesc.setTypeface(Fonts.getHelvatica(activity));
 		viewHolder.tvVoucherTitle.setTypeface(Fonts.getHelvatica(activity));
-		
+
 	}
 
 

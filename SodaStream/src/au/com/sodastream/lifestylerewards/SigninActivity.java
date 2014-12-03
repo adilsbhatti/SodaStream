@@ -24,8 +24,8 @@ public class SigninActivity extends FragmentActivity implements OnTabChangeListe
 	ActionBar signinActionBar;
 	TabHost tabHost;
 
-	
-		LoginAsyncTask loginAsyncTask;
+
+	LoginAsyncTask loginAsyncTask;
 
 	//Variables
 	Activity activity;
@@ -45,6 +45,9 @@ public class SigninActivity extends FragmentActivity implements OnTabChangeListe
 
 
 
+
+
+
 		// Setup UI
 		initUI();
 
@@ -53,11 +56,14 @@ public class SigninActivity extends FragmentActivity implements OnTabChangeListe
 	}
 
 
+	
+
+
 	private void checkUserSession() {
 		// TODO Auto-generated method stub
 
 
-		if(accessTokenPref.getAccessToken().length() > 1)
+		if(accessTokenPref.getAccessToken().length() > 1 && !accessTokenPref.getNewFacebookUser())
 		{
 			Intent intent = new Intent(activity, MenuActivity.class);
 			startActivity(intent);

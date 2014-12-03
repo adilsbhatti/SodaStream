@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/laySign"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f0f0f0"
@@ -15,8 +16,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
         android:text="ALREADY REGISTERED AN ACCOUNT?"
-        android:textColor="@color/HintColor"
-        />
+        android:textColor="@color/HintColor" />
 
     <LinearLayout
         android:id="@+id/layFields"
@@ -31,15 +31,12 @@
             android:id="@+id/etSigninEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:text="a@a.com"
-             android:textColor="@color/TextColor"
-            android:textColorHint="@color/HintColor"
-            android:hint="Email Address"
             android:layout_marginTop="20dp"
-            android:inputType="textEmailAddress" >
-
-            
+            android:ems="10"
+            android:hint="Email Address"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintColor" >
         </EditText>
 
         <FrameLayout
@@ -51,14 +48,13 @@
                 android:id="@+id/etSigninPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                 android:textColor="@color/TextColor"
-            android:textColorHint="@color/HintColor"
                 android:layout_marginRight="40dp"
-                android:text="1"
                 android:layout_marginTop="10dp"
                 android:ems="10"
                 android:hint="Password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textColor="@color/TextColor"
+                android:textColorHint="@color/HintColor" />
 
             <ImageButton
                 android:id="@+id/ibSigninForgotPass"
@@ -88,12 +84,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-         android:textColor="@color/HintColor"
-            android:textColorHint="@color/HintColor"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
         android:gravity="center_vertical|center_horizontal"
-        android:text="OR" />
+        android:text="OR"
+        android:textColor="@color/HintColor"
+        android:textColorHint="@color/HintColor" />
 
     <LinearLayout
         android:id="@+id/layFbText"
@@ -107,9 +103,9 @@
             android:id="@+id/tv9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-             android:textColor="@color/HintColor"
-            android:textColorHint="@color/HintColor"
-            android:text="WHY NOT LOG IN WITH FACEBOOK?" />
+            android:text="WHY NOT LOG IN WITH FACEBOOK?"
+            android:textColor="@color/HintColor"
+            android:textColorHint="@color/HintColor" />
     </LinearLayout>
 
     <ImageButton

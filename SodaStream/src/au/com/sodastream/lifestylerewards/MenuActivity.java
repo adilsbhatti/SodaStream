@@ -10,7 +10,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -18,13 +21,19 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import au.com.sodastream.lifestylerewards.Util.AlphaNumericCodeListener;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
 import au.com.sodastream.lifestylerewards.Util.DATA;
+import au.com.sodastream.lifestylerewards.Util.Fonts;
 import au.com.sodastream.lifestylerewards.Util.URLS;
 import au.com.sodastream.lifestylerewards.asynctask.CodeRegistrationTask;
 import au.com.sodastream.lifestylerewards.asynctask.GCMResgisterTask;
 import au.com.sodastream.lifestylerewards.asynctask.LogoutAsyncTask;
+import au.com.sodastream.lifestylerewards.asynctask.UserAddressUpdateTask;
 import au.com.sodastream.lifestylerewards.gcm.WakeLocker;
 
 import com.google.android.gcm.GCMRegistrar;
@@ -45,6 +54,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 	AppPref appPref;
 	LogoutAsyncTask logoutAsyncTask;
 	CodeRegistrationTask codeRegistrationTask;
+	UserAddressUpdateTask userAddressUpdateTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -185,6 +195,10 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 				getCodeDetails(RewardsActivity.class);
 			}
+			else if (appPref.getPostcode().length() < 1)
+			{
+				getWelcomeRewardAddress(RewardsActivity.class);
+			}
 			else
 			{
 				intent = new Intent(activity, RewardsActivity.class);
@@ -210,6 +224,10 @@ public class MenuActivity extends Activity implements OnClickListener {
 			{
 
 				getCodeDetails(VouchersActivity.class);
+			}
+			else if (appPref.getPostcode().length() < 1)
+			{
+				getWelcomeRewardAddress(VouchersActivity.class);
 			}
 			else
 			{
@@ -272,42 +290,89 @@ public class MenuActivity extends Activity implements OnClickListener {
 	}
 
 
-	private void getCodeDetails(final Class c) {
-
-		AlertDialog alertDialog;
+	public void getWelcomeRewardAddress(final Class c)
+	{
+		final AlertDialog alertDialog;
 		Builder builder = new Builder(this);
 
 		builder.setTitle("Sodastream");
-		builder.setMessage("Enter Machine or Gas Code to enable Vouchers/Rewards");
-
-		// Set an EditText view to get user input 
-		final EditText etCode = new EditText(this);
 
 
-		etCode.setKeyListener(new AlphaNumericCodeListener());
-		InputFilter[] filters = new InputFilter[1];
-		filters[0] = new InputFilter.LengthFilter(8);
-		etCode.setFilters(filters);
+		final EditText etStreet,etSuburb, etState, etPostcode;
+		final TextView tvSuccess, tvWelcome, tvDesc;
 
-		etCode.setFocusableInTouchMode(true);
-		etCode.requestFocus();
+		etStreet =  new EditText(activity);
+		etSuburb =  new EditText(activity);
+		etState =  new EditText(activity);
+		etPostcode =  new EditText(activity);
 
-		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.showSoftInput(etCode, InputMethodManager.SHOW_FORCED);
 
-		builder.setView(etCode);
 
-		builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+		etStreet.setHint("Street");
+		etSuburb.setHint("Suburb");
+		etState.setHint("State");
+		etPostcode.setHint("Postcode");
+
+
+		tvDesc =  new TextView(activity);
+		tvSuccess =  new TextView(activity);
+		tvWelcome =  new TextView(activity);
+
+
+		final ScrollView scrollView = new ScrollView(activity);
+
+
+
+		final LinearLayout layout = new LinearLayout(activity);
+		layout.setOrientation(LinearLayout.VERTICAL);
+		LayoutParams layoutParams =  new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		scrollView.setLayoutParams(layoutParams);
+		layout.setLayoutParams(layoutParams);
+		layout.setPadding(10, 60, 10, 60);
+
+
+		tvDesc.setLayoutParams(layoutParams);
+		tvSuccess.setLayoutParams(layoutParams);
+		tvWelcome.setLayoutParams(layoutParams);
+		tvDesc.setTypeface(Fonts.getHelvatica(activity));
+		tvSuccess.setTypeface(Fonts.getHelvatica(activity));
+		tvWelcome.setTypeface(Fonts.getHelvatica(activity));
+		tvDesc.setTextSize(14f);
+		tvSuccess.setTextSize(14f);
+		tvWelcome.setTextSize(18f);
+		tvDesc.setGravity(Gravity.CENTER_HORIZONTAL);
+		tvSuccess.setGravity(Gravity.CENTER_HORIZONTAL);
+		tvWelcome.setGravity(Gravity.CENTER_HORIZONTAL);
+
+		tvWelcome.setText("Welcome to the SodaStream+ App!");
+		tvSuccess.setText("Your rewards have been activated.");
+		tvDesc.setText("To receive your welcome gift, please enter your preferred mailing address below.");
+
+		scrollView.addView(layout);
+		layout.addView(tvWelcome);
+		layout.addView(tvSuccess);
+
+		layout.addView(tvDesc);
+		layout.addView(etStreet);
+		layout.addView(etSuburb);
+		layout.addView(etState);
+		layout.addView(etPostcode);
+
+		builder.setView(scrollView);
+
+
+
+
+
+
+		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
-				DATA.GAS_MACHINE_CODE = etCode.getText().toString();
+
+				userAddressUpdateTask = new UserAddressUpdateTask(activity,c);
+				userAddressUpdateTask.execute();
 
 
-				// Do something with value!
-				//				intent = new Intent(activity, c);
-				//				startActivity(intent);
 
-				codeRegistrationTask = new CodeRegistrationTask(activity, c);
-				codeRegistrationTask.execute();
 
 
 
@@ -322,8 +387,164 @@ public class MenuActivity extends Activity implements OnClickListener {
 		});
 
 		alertDialog = builder.create();
+
 		alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 		alertDialog.show();
+		alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
+		TextWatcher textWatcher = new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
+
+
+				if(etPostcode.getText().length() < 1 || etState.getText().length() < 1 || etStreet.getText().length() < 1 || etSuburb.getText().length() < 1)
+				{
+					alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+				}
+				else
+				{
+					alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+				}
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+				if(etPostcode.getText().length() < 1 || etState.getText().length() < 1 || etStreet.getText().length() < 1 || etSuburb.getText().length() < 1)
+				{
+					alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+				}
+				else
+				{
+					alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+				}
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+
+			}
+		};
+
+		etPostcode.addTextChangedListener(textWatcher);
+		etState.addTextChangedListener(textWatcher);
+		etStreet.addTextChangedListener(textWatcher);
+		etSuburb.addTextChangedListener(textWatcher);
+
+
+	}
+
+
+	private void getCodeDetails(final Class c) {
+
+		final AlertDialog alertDialog;
+		Builder builder = new Builder(this);
+
+		builder.setTitle("Sodastream");
+		builder.setMessage("Enter Machine or Gas Code to enable Vouchers/Rewards");
+
+		// Set an EditText view to get user input 
+		final EditText etCode = new EditText(this);
+
+
+		etCode.setKeyListener(new AlphaNumericCodeListener());
+		InputFilter[] filters = new InputFilter[1];
+		filters[0] = new InputFilter.LengthFilter(8);
+		etCode.setFilters(filters);
+		etCode.setHint("Machine/Gas Code");
+
+		etCode.setFocusableInTouchMode(true);
+		etCode.requestFocus();
+
+		final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+		imm.showSoftInput(etCode, InputMethodManager.SHOW_FORCED);
+
+		builder.setView(etCode);
+
+		builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				DATA.GAS_MACHINE_CODE = etCode.getText().toString();
+
+
+				// Do something with value!
+				//				intent = new Intent(activity, c);
+				//				startActivity(intent);
+				/*
+				 * Un comment when done testing welcome reward
+				 */
+				codeRegistrationTask = new CodeRegistrationTask(activity, c);
+				codeRegistrationTask.execute();
+
+				//				getWelcomeRewardAddress(c);
+
+				//				imm.hideSoftInputFromWindow(etCode.getWindowToken(),0);
+
+
+			}
+		});
+
+		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				// Canceled.
+			}
+		});
+
+		alertDialog = builder.create();
+		alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+		alertDialog.show();
+		
+		
+		TextWatcher textWatcher = new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
+
+
+				if(etCode.getText().length() < 1)
+				{
+					alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+				}
+				else
+				{
+					alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+				}
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+				if(etCode.getText().length() < 1)
+				{
+					alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+				}
+				else
+				{
+					alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+				}
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+
+			}
+		};
+		
+		etCode.addTextChangedListener(textWatcher);
+
 	}
 
 

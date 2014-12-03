@@ -130,7 +130,7 @@ public class ReferAFriendAsyncTask extends AsyncTask<String, String,Boolean> {
 				jsonCheckResponse = new JSONObject(content);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 				jsonCheckResponse = null;
 			}
 

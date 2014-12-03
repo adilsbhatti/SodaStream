@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import au.com.sodastream.lifestylerewards.R;
+import au.com.sodastream.lifestylerewards.Util.AppImagesDimensions;
 import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Fonts;
 
@@ -55,7 +57,8 @@ public class RecipeDetailsFragment extends Fragment {
 		{
 
 
-			ingredients  =ingredients +  " \u2022" +  DATA.selectedRecipe.ingredients[i] + System.getProperty("line.separator");
+			//			ingredients  =ingredients +  " \u2022" +  DATA.selectedRecipe.ingredients[i] + System.getProperty("line.separator");
+			ingredients  =ingredients +    DATA.selectedRecipe.ingredients[i] + System.getProperty("line.separator");
 		}
 
 
@@ -69,7 +72,8 @@ public class RecipeDetailsFragment extends Fragment {
 		{
 
 
-			instructions  =instructions +  " \u2022" +  DATA.selectedRecipe.instructions[i] + System.getProperty("line.separator");
+			//			instructions  =instructions +  " \u2022" +  DATA.selectedRecipe.instructions[i] + System.getProperty("line.separator");
+			instructions  =instructions +    DATA.selectedRecipe.instructions[i] + System.getProperty("line.separator");
 		}
 
 
@@ -79,6 +83,9 @@ public class RecipeDetailsFragment extends Fragment {
 		tvRecipeInstructions.setText( instructions);
 		tvRecipeNote.setText(DATA.selectedRecipe.note);
 		UrlImageViewHelper.setUrlDrawable(ivRecipeImage, DATA.selectedRecipe.image_url, R.drawable.icon);
+		AppImagesDimensions.setScreenUnits(activity);
+
+		ivRecipeImage.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, DATA.RECIPE_IMAGES_SIZE));
 
 	}
 
@@ -95,20 +102,25 @@ public class RecipeDetailsFragment extends Fragment {
 		tvRecipeIngredients.setTypeface(Fonts.getHelvatica(activity));
 		tvRecipeInstructions.setTypeface(Fonts.getHelvatica(activity));
 		tvRecipeNote.setTypeface(Fonts.getHelvatica(activity));
-		
-		
+
+
 		tv15 =  (TextView) activity.findViewById(R.id.tv15);
 		tv15.setTypeface(Fonts.getHelvatica(activity));
-		
+
 		tv16 =  (TextView) activity.findViewById(R.id.tv16);
 		tv16.setTypeface(Fonts.getHelvatica(activity));
-		
+
 		tv17 =  (TextView) activity.findViewById(R.id.tv17);
 		tv17.setTypeface(Fonts.getHelvatica(activity));
-		
-		
+
+
+
 
 		ivRecipeImage = (ImageView) activity.findViewById(R.id.ivRecipeImage);
+		AppImagesDimensions.setScreenUnits(activity);
+		System.out.println("-- reciped image : " + DATA.RECIPE_IMAGES_SIZE);
+		ivRecipeImage.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, DATA.RECIPE_IMAGES_SIZE));
+
 
 		tvRecipeIngredients.setMaxLines(DATA.selectedRecipe.ingredients.length);
 		tvRecipeIngredients.setSingleLine(false );

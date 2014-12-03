@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView.LayoutParams;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import au.com.sodastream.lifestylerewards.R;
+import au.com.sodastream.lifestylerewards.Util.AppImagesDimensions;
+import au.com.sodastream.lifestylerewards.Util.AspectRationImageView;
 import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Fonts;
 import au.com.sodastream.lifestylerewards.Util.ViewBrowser;
@@ -43,6 +45,11 @@ public class AdapterVideos extends ArrayAdapter<VideosModule> {
 			LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = layoutInflater.inflate(R.layout.cell_row, parent, false);
 
+
+			AppImagesDimensions.setScreenUnits(activity);
+
+			convertView.setLayoutParams(new LayoutParams(DATA.MENU_IMAGES_SIZE, DATA.MENU_IMAGES_SIZE));
+
 			viewHolder = new ViewHolderClass();
 			initUI(convertView, viewHolder);
 
@@ -58,7 +65,7 @@ public class AdapterVideos extends ArrayAdapter<VideosModule> {
 
 		viewHolder.tvIconTitle.setText(DATA.arrlstVideosModules.get(position).title);
 
-		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstVideosModules.get(position).thumbnail_image_url,R.drawable.icon);
+		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstVideosModules.get(position).thumbnail_url,R.drawable.icon);
 
 
 
@@ -67,7 +74,7 @@ public class AdapterVideos extends ArrayAdapter<VideosModule> {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				String url = "https://www.youtube.com/watch?v=Fvc7SjY1f0E";
+				String url =  DATA.arrlstVideosModules.get(position).url;
 				ViewBrowser.openURL(activity, url);
 
 			}
@@ -83,7 +90,7 @@ public class AdapterVideos extends ArrayAdapter<VideosModule> {
 	private void initUI(View convertView, ViewHolderClass viewHolder) {
 		// TODO Auto-generated method stub
 
-		viewHolder.ivIconImg = (ImageView) convertView.findViewById(R.id.ivIconImg);
+		viewHolder.ivIconImg = (AspectRationImageView) convertView.findViewById(R.id.ivIconImg);
 
 
 		viewHolder.tvIconTitle = (TextView) convertView.findViewById(R.id.tvIconTitle);
@@ -95,7 +102,7 @@ public class AdapterVideos extends ArrayAdapter<VideosModule> {
 
 	static class ViewHolderClass
 	{
-		ImageView ivIconImg ;
+		AspectRationImageView ivIconImg ;
 		TextView tvIconTitle;
 	}
 }

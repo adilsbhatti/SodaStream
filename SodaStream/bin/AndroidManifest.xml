@@ -72,7 +72,7 @@
             android:name=".SigninActivity"
             android:icon="@drawable/transparent"
             android:label=""
-            android:noHistory="true"
+            android:noHistory="false"
             android:screenOrientation="portrait"
             android:theme="@style/CustomActionBarTheme"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden" >

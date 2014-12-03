@@ -125,7 +125,7 @@ public class StoreLocationAsyncTask extends AsyncTask<String, String, Boolean>  
 			 * Uncomment when access token issue fixed
 			 */
 
-			if(content.length() >1)
+			if(content.length() >3)
 			{
 
 
@@ -143,6 +143,7 @@ public class StoreLocationAsyncTask extends AsyncTask<String, String, Boolean>  
 			}
 			else
 			{
+				Error = "No Stores Found!!";
 				return false;
 			}
 

@@ -2,6 +2,8 @@ package au.com.sodastream.lifestylerewards.asynctask;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
@@ -13,7 +15,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -21,19 +22,23 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
+import au.com.sodastream.lifestylerewards.FAQActivity;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
+import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Toasts;
 import au.com.sodastream.lifestylerewards.Util.URLS;
-import au.com.sodastream.lifestylerewards.Util.WebViewDialog;
+import au.com.sodastream.lifestylerewards.modules.FAQModule;
+
+import com.google.gson.Gson;
 
 
-public class FAQAsyncTask extends AsyncTask<String, String, Boolean> {
+public class FAQAsyncTask extends AsyncTask<String, String, Boolean> implements DialogInterface.OnDismissListener  {
 	
 	
 	
 	Activity activity;
 	ProgressDialog progressDialog;
-	
+
 	HttpClient httpClient;
 	HttpPost httpPost = null;
 	HttpResponse httpResponse;
@@ -43,11 +48,11 @@ public class FAQAsyncTask extends AsyncTask<String, String, Boolean> {
 	String Error= "";
 
 	AppPref appPref;
-	JSONObject jsonResponse;
 
 	public FAQAsyncTask(Activity _activity) {
 		// TODO Auto-generated constructor stub
 		activity = _activity;
+
 		appPref = new AppPref(activity);
 	}
 
@@ -63,27 +68,26 @@ public class FAQAsyncTask extends AsyncTask<String, String, Boolean> {
 		progressDialog.setMessage("Fetching FAQs");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
-		
-		
+
+
 		progressDialog.setOnCancelListener(new OnCancelListener() {
 
 			@Override
 			public void onCancel(DialogInterface dialog) {
 				// TODO Auto-generated method stub
-
-				System.out.println("-- I am called from faq task");
-
-
 				FAQAsyncTask.this.cancel(true);
 			}
 		});
 
+
+
 	}
+
+
 
 
 	@Override
 	protected Boolean doInBackground(String... params) {
-	
 		try 
 		{
 
@@ -122,22 +126,25 @@ public class FAQAsyncTask extends AsyncTask<String, String, Boolean> {
 			 * Uncomment when access token issue fixed
 			 */
 
-			if(content.length() >1)
+			if(content.length() >3)
 			{
 
 
 				//				System.out.println("-- header : " + httpPost.`);
 				System.out.println("-- Data receieved : " + content);
 
-				jsonResponse = new JSONObject(content);
+				Gson gson = new Gson();
 
-				
-				
+				//				JSONObject jsonProduct = new JSONObject(content);
+				FAQModule[] arrTemp =  gson.fromJson(content, FAQModule[].class);
+
+				DATA.arrlstFAQModules = new ArrayList<FAQModule>(Arrays.asList(arrTemp));
 
 				return true;
 			}
 			else
 			{
+				Error = "No FAQs Found!!";
 				return false;
 			}
 
@@ -170,6 +177,8 @@ public class FAQAsyncTask extends AsyncTask<String, String, Boolean> {
 		catch(IOException e)
 		{
 			System.out.println("--5 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = "Internet not working";
+			
 			return false;
 		}
 		catch (Exception e) 
@@ -188,17 +197,12 @@ public class FAQAsyncTask extends AsyncTask<String, String, Boolean> {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
 		if(result)
-		{	
-			try {
-				WebViewDialog.showWebviewDialog(activity, jsonResponse.getString("faq_url"), "FAQ");
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		{
+			((FAQActivity)activity).loadFAQGrid();
 		}
 		else
 		{
-			Toasts.pop(activity, "Error : " + Error);
+			Toasts.pop(activity, "Error : "  + Error);
 		}
 
 		progressDialog.dismiss();
@@ -213,6 +217,14 @@ public class FAQAsyncTask extends AsyncTask<String, String, Boolean> {
 
 
 		progressDialog.dismiss();
+	}
+
+
+
+	@Override
+	public void onDismiss(DialogInterface dialog) {
+		// TODO Auto-generated method stub
+		this.cancel(true);
 	}
 
 }

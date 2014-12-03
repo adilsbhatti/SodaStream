@@ -2,6 +2,8 @@ package au.com.sodastream.lifestylerewards.asynctask;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
@@ -13,7 +15,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -21,14 +22,18 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
+import au.com.sodastream.lifestylerewards.NewsActivity;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
+import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Toasts;
 import au.com.sodastream.lifestylerewards.Util.URLS;
-import au.com.sodastream.lifestylerewards.Util.WebViewDialog;
+import au.com.sodastream.lifestylerewards.modules.NewsModule;
+
+import com.google.gson.Gson;
 
 
 public class NewsAsyncTask extends AsyncTask<String, String, Boolean> {
-	
+
 	Activity activity;
 	ProgressDialog progressDialog;
 
@@ -41,11 +46,11 @@ public class NewsAsyncTask extends AsyncTask<String, String, Boolean> {
 	String Error= "";
 
 	AppPref appPref;
-	JSONObject jsonResponse;
-	
+
 	public NewsAsyncTask(Activity _activity) {
 		// TODO Auto-generated constructor stub
 		activity = _activity;
+
 		appPref = new AppPref(activity);
 	}
 
@@ -61,7 +66,7 @@ public class NewsAsyncTask extends AsyncTask<String, String, Boolean> {
 		progressDialog.setMessage("Fetching News");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
-		
+
 		progressDialog.setOnCancelListener(new OnCancelListener() {
 
 			@Override
@@ -80,8 +85,9 @@ public class NewsAsyncTask extends AsyncTask<String, String, Boolean> {
 
 	@Override
 	protected Boolean doInBackground(String... params) {
-		
-		
+
+
+
 		try 
 		{
 
@@ -89,7 +95,13 @@ public class NewsAsyncTask extends AsyncTask<String, String, Boolean> {
 
 			httpClient = new DefaultHttpClient();
 
+			/*
+			 * change this url to new one
+			 */
 			httpPost = new HttpPost(URLS.NEWS_URL);
+			
+			
+			
 			jsonObject = new JSONObject();
 
 
@@ -101,7 +113,7 @@ public class NewsAsyncTask extends AsyncTask<String, String, Boolean> {
 
 			System.out.println("JSON Object : " + jsonObject.toString());
 
-
+			System.out.println("-- token : " + appPref.getAccessToken());
 
 			stringEntity =  new StringEntity("");
 			stringEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
@@ -120,22 +132,25 @@ public class NewsAsyncTask extends AsyncTask<String, String, Boolean> {
 			 * Uncomment when access token issue fixed
 			 */
 
-			if(content.length() >1)
+			if(content.length() >3)
 			{
 
 
 				//				System.out.println("-- header : " + httpPost.`);
 				System.out.println("-- Data receieved : " + content);
 
-				jsonResponse = new JSONObject(content);
+				Gson gson = new Gson();
 
-				
-				
+				//				JSONObject jsonProduct = new JSONObject(content);
+				NewsModule[] arrTemp =  gson.fromJson(content, NewsModule[].class);
+
+				DATA.arrlstNewsModules = new ArrayList<NewsModule>(Arrays.asList(arrTemp));
 
 				return true;
 			}
 			else
 			{
+				Error = "No News Found";
 				return false;
 			}
 
@@ -186,17 +201,12 @@ public class NewsAsyncTask extends AsyncTask<String, String, Boolean> {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
 		if(result)
-		{	
-			try {
-				WebViewDialog.showWebviewDialog(activity, jsonResponse.getString("news_url"), "Sodastream - NEWS");
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		{
+			((NewsActivity)activity).loadNewGrid();
 		}
 		else
 		{
-			Toasts.pop(activity, "Error : " + Error);
+			Toasts.pop(activity, "Error : "  + Error);
 		}
 
 		progressDialog.dismiss();
@@ -208,7 +218,7 @@ public class NewsAsyncTask extends AsyncTask<String, String, Boolean> {
 		// TODO Auto-generated method stub
 		super.onCancelled(result);
 
-		
+
 
 		progressDialog.dismiss();
 	}

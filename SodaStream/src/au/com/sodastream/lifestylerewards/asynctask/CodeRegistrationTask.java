@@ -20,8 +20,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
-import android.content.Intent;
 import android.os.AsyncTask;
+import au.com.sodastream.lifestylerewards.MenuActivity;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
 import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Toasts;
@@ -29,12 +29,12 @@ import au.com.sodastream.lifestylerewards.Util.URLS;
 
 
 public class CodeRegistrationTask extends AsyncTask<String, String, Boolean> {
-	
-	
+
+
 	Activity activity;
 	ProgressDialog progressDialog;
-	
-	
+
+
 	HttpClient httpClient;
 	HttpPost httpPost = null;
 	HttpResponse httpResponse;
@@ -42,17 +42,17 @@ public class CodeRegistrationTask extends AsyncTask<String, String, Boolean> {
 	JSONObject jsonObject ;
 	String content = "";
 	String Error= "";
-	
+
 	final Class c;
-	
+
 	AppPref appPref;
 
 	public CodeRegistrationTask(Activity _activity,final Class _class) {
 		// TODO Auto-generated constructor stub
 		activity = _activity;
-	
+
 		c =_class;
-		
+
 		appPref =  new AppPref(activity);
 	}
 
@@ -68,7 +68,7 @@ public class CodeRegistrationTask extends AsyncTask<String, String, Boolean> {
 		progressDialog.setMessage("Registering Your Code");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
-		
+
 		progressDialog.setOnCancelListener(new OnCancelListener() {
 
 			@Override
@@ -99,10 +99,10 @@ public class CodeRegistrationTask extends AsyncTask<String, String, Boolean> {
 			jsonObject = new JSONObject();
 
 
-		
 
-			jsonObject.put("code", DATA.GAS_MACHINE_CODE);			 
-			
+
+			jsonObject.put("activation_code", DATA.GAS_MACHINE_CODE);			 
+
 
 
 			System.out.println("JSON Object : " + jsonObject.toString());
@@ -124,7 +124,7 @@ public class CodeRegistrationTask extends AsyncTask<String, String, Boolean> {
 			if(jsonCheckResponse.has("error"))
 			{
 				Error =  jsonCheckResponse.getString("error");
-				
+
 				System.out.println("-- error  : " + Error);
 
 
@@ -135,11 +135,18 @@ public class CodeRegistrationTask extends AsyncTask<String, String, Boolean> {
 			else
 			{
 
-	
 
-				
-				System.out.println("-- Data receieved : " + content);
-				return true;
+				JSONObject jsonContent = new JSONObject(content);
+				if (jsonContent.getInt("activated") == 1) {
+					
+					return true;
+				}
+				else
+				{
+					Error = "Failed to register activiation code, please try again";
+					return false;
+				}
+
 			}
 
 			//	System.out.println("-- Header : "+ httpResponse.getFirstHeader("token").getValue());
@@ -191,23 +198,30 @@ public class CodeRegistrationTask extends AsyncTask<String, String, Boolean> {
 		super.onPostExecute(result);
 		if(result)
 		{
-			
+
 			appPref.setActivationCode(DATA.GAS_MACHINE_CODE);
+
 			
-			Intent intent = new Intent(activity, c);
-			activity.startActivity(intent);
+			/*
+			 * openn get address dialog
+			 */
+			
+			((MenuActivity)activity).getWelcomeRewardAddress(c);
+			
+			//			Intent intent = new Intent(activity, c);
+			//			activity.startActivity(intent);
 		}
 		else
 		{
 			Toasts.pop(activity, "Error  : " + Error);
 		}
-		
+
 		httpClient = null;
 		httpPost=null;
 		httpResponse = null;
 
 		progressDialog.dismiss();
-		
+
 	}
 
 

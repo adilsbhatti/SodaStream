@@ -12,39 +12,41 @@ import au.com.sodastream.lifestylerewards.asynctask.NewProductsTask;
 
 
 public class NewProductActivity extends Activity {
-	
-	
-	
-	
+
+
+
+
 	//UI Elements
-	
+
 	GridView gvNewProducts;
 	TextView tv23;
-	
+
 	//Variables
 	Activity activity;
 	NewProductsTask newProductsTask;
 	AdapterNewProducts adapterNewProducts;
-	
-	
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.newproduct_page);
 		activity = this;
-		
+
 		initUI();
-		
-		
-		
+
+
+		newProductsTask = new NewProductsTask(activity);
+		newProductsTask.execute();
+
 	}
-	
-	
+
+
 	private void initUI() {
 		// TODO Auto-generated method stub
 		gvNewProducts = (GridView) findViewById(R.id.gvNewProducts);
-		
+
 		tv23 = (TextView) findViewById(R.id.tv23);
 		tv23.setTypeface(Fonts.getHelvatica(activity));
 	}
@@ -54,17 +56,15 @@ public class NewProductActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		
-		activity = this;
-		newProductsTask = new NewProductsTask(activity);
-		newProductsTask.execute();
-		
+
+
+
 	}
-	
-	
+
+
 	public void loadNewProductsGrid()
 	{
-		
+
 		if(DATA.arrlstNewProductsModules!=null)
 		{
 			adapterNewProducts = new AdapterNewProducts(activity);
@@ -74,7 +74,7 @@ public class NewProductActivity extends Activity {
 		{
 			Toasts.pop(activity, "Error fetching new products");
 		}
-		
+
 	}
 
 }

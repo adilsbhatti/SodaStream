@@ -7,11 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import au.com.sodastream.lifestylerewards.R;
 import au.com.sodastream.lifestylerewards.VoucherDetailsActivity;
+import au.com.sodastream.lifestylerewards.Util.AppImagesDimensions;
 import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Fonts;
 import au.com.sodastream.lifestylerewards.modules.VoucherModule;
@@ -44,6 +46,10 @@ public class AdapterVouchers extends ArrayAdapter<VoucherModule> {
 			LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = layoutInflater.inflate(R.layout.cell_row, parent, false);
 
+			AppImagesDimensions.setScreenUnits(activity);
+
+			convertView.setLayoutParams(new LayoutParams(DATA.MENU_IMAGES_SIZE, DATA.MENU_IMAGES_SIZE));
+
 			viewHolder = new ViewHolderClass();
 			initUI(convertView, viewHolder);
 
@@ -70,8 +76,8 @@ public class AdapterVouchers extends ArrayAdapter<VoucherModule> {
 				// TODO Auto-generated method stub
 				//				String url = "https://au.yahoo.com/?p=us";
 				//				WebViewDialog.showWebviewDialog(activity, url, DATA.arrlstNewProductsModules.get(position).title);
-				
-				
+
+
 				DATA.selectedVoucher =  DATA.arrlstVoucherModules.get(position);
 				Intent  intent = new Intent(activity, VoucherDetailsActivity.class);
 				activity.startActivity(intent);

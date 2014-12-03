@@ -141,7 +141,7 @@ public class VouchersAsyncTask extends AsyncTask<String, String, Boolean> {
 
 			}
 
-			else if(content.length() >1)
+			else if(content.length() >3)
 			{
 
 
@@ -159,6 +159,7 @@ public class VouchersAsyncTask extends AsyncTask<String, String, Boolean> {
 			}
 			else
 			{
+				Error = "No Stores Found!!";
 				return false;
 			}
 

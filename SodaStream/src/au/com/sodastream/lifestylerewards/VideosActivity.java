@@ -34,6 +34,10 @@ public class VideosActivity extends Activity {
 		activity = this;
 
 		initUI();
+		
+		activity = this;
+		videosAsyncTask = new VideosAsyncTask(activity);
+		videosAsyncTask.execute();
 
 
 	}
@@ -55,9 +59,7 @@ public class VideosActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onStart();
 
-		activity = this;
-		videosAsyncTask = new VideosAsyncTask(activity);
-		videosAsyncTask.execute();
+	
 
 	}
 

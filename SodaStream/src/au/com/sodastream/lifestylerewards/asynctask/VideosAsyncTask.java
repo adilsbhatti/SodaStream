@@ -124,7 +124,7 @@ public class VideosAsyncTask extends AsyncTask<String, String, Boolean> implemen
 			 * Uncomment when access token issue fixed
 			 */
 
-			if(content.length() >1)
+			if(content.length() >3)
 			{
 
 
@@ -142,6 +142,7 @@ public class VideosAsyncTask extends AsyncTask<String, String, Boolean> implemen
 			}
 			else
 			{
+				Error = "No Videos Found!!";
 				return false;
 			}
 
@@ -174,6 +175,8 @@ public class VideosAsyncTask extends AsyncTask<String, String, Boolean> implemen
 		catch(IOException e)
 		{
 			System.out.println("--5 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = "Internet not working";
+			
 			return false;
 		}
 		catch (Exception e) 

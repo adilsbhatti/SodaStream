@@ -3,8 +3,10 @@ package au.com.sodastream.lifestylerewards.Util;
 import java.util.ArrayList;
 
 import android.app.ProgressDialog;
+import au.com.sodastream.lifestylerewards.modules.FAQModule;
 import au.com.sodastream.lifestylerewards.modules.LoginModule;
 import au.com.sodastream.lifestylerewards.modules.NewProductsModule;
+import au.com.sodastream.lifestylerewards.modules.NewsModule;
 import au.com.sodastream.lifestylerewards.modules.RecipeModel;
 import au.com.sodastream.lifestylerewards.modules.ReferFriendModule;
 import au.com.sodastream.lifestylerewards.modules.RewardsModule;
@@ -19,9 +21,9 @@ public class DATA {
 
 	public  static String GAS_MACHINE_CODE;
 
-	
+
 	public static boolean fromRegistration  =  false;
-	
+
 	// give your server registration url here
 	public static final String SERVER_URL = "http://192.168.1.136/gcm_server_php/register.php"; 
 
@@ -32,12 +34,12 @@ public class DATA {
 	public static final String DISPLAY_MESSAGE_ACTION =
 			"com.sodastream.android.DISPLAY_MESSAGE";
 
-	
+
 	//User Signin Values
-	
+
 	public static String USER_EMAIL = "";
 	public static String USER_PASSWORD = "";
-	
+
 
 
 	public static String name = "Tarqi";
@@ -62,28 +64,48 @@ public class DATA {
 	public static double Latitude;
 
 	public static double Longitude;
-	
+
 	public static ProgressDialog progressDialog;
-	
+
 	public static ArrayList<String> arrlstUses;
-	
+
 	public static ArrayList<NewProductsModule> arrlstNewProductsModules;
 	
+	public static ArrayList<NewsModule> arrlstNewsModules;
+
 	public static ArrayList<VideosModule> arrlstVideosModules;
 	
+	public static ArrayList<FAQModule> arrlstFAQModules;
+
 	public static ArrayList<VoucherModule> arrlstVoucherModules;
-	
-	
+
+
 	public static VoucherModule selectedVoucher;
-	
+
 	public static ArrayList<RewardsModule> arrlstRewardsModules;
-	
+
 	public static ArrayList<RecipeModel> arrlstRecipeModels;
-	
+
 	public static RecipeModel selectedRecipe;
-	
+
 	public static ArrayList<StoresModule> arrlstStoresModules;
-	
-	
+
+
 	public static StoresModule selectedStore;
+
+	public static  int MENU_IMAGES_SIZE;
+	public static int RECIPE_IMAGES_SIZE;
+	
+	
+	
+	
+	public static String USER_STREET = "";
+	public static String USER_SUBURB = "";
+	public static String USER_STATE = "";
+	public static String USER_POSTCODE = "";
+	
+	
+	
+	
+	
 }

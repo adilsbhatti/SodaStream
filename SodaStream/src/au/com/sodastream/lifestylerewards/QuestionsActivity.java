@@ -16,6 +16,7 @@ import au.com.sodastream.lifestylerewards.Util.ConnectionChecker;
 import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Fonts;
 import au.com.sodastream.lifestylerewards.Util.Toasts;
+import au.com.sodastream.lifestylerewards.asynctask.FBUserUpdateTask;
 import au.com.sodastream.lifestylerewards.asynctask.GetLocationAsyncTask;
 import au.com.sodastream.lifestylerewards.modules.IdFrom;
 import au.com.sodastream.lifestylerewards.modules.StatesModule;
@@ -36,6 +37,7 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 	ArrayAdapter<String> adapStates,adapStatus;
 	//	ArrayList<String> arrlstUses;
 	GetLocationAsyncTask getLocationAsyncTask;
+	FBUserUpdateTask fbUserUpdateTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +68,7 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 
 
 
-				setUses();
+				//				setUses();
 
 				if(DATA.arrlstUses.size() < 1)
 				{
@@ -91,8 +93,18 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 
 					//					Toasts.pop(activity, "All is well : " + DATA.signupModule.state + " status  : " + DATA.signupModule.status);
 
-					getLocationAsyncTask =  new GetLocationAsyncTask(activity, IdFrom.SIGN_UP, "Registering details");
-					getLocationAsyncTask.execute();
+					if(DATA.isFacebook)
+					{
+							Toasts.pop(activity, "call FB update task");
+							fbUserUpdateTask = new FBUserUpdateTask(activity);
+							fbUserUpdateTask.execute();
+					}
+					else
+					{	
+
+						getLocationAsyncTask =  new GetLocationAsyncTask(activity, IdFrom.SIGN_UP, "Registering details");
+						getLocationAsyncTask.execute();
+					}
 
 				}
 
@@ -108,11 +120,11 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 
 
 
-	public void setUses()
-	{
-		//		DATA.signupModule.uses = Arrays.deepToString(arrlstUses.toArray()).replace("[", "").replace("]", "");
-		//		Toasts.pop(activity, DATA.signupModule.uses, true);
-	}
+	//	public void setUses()
+	//	{
+	//		//		DATA.signupModule.uses = Arrays.deepToString(arrlstUses.toArray()).replace("[", "").replace("]", "");
+	//		//		Toasts.pop(activity, DATA.signupModule.uses, true);
+	//	}
 
 	private void loadSpinners() {
 		// TODO Auto-generated method stub
@@ -150,13 +162,13 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 		sStatus =  (Spinner) findViewById(R.id.sStatus);
 
 		ibSignUpUser  = (ImageButton) findViewById(R.id.ibSignUpUser);
-		
+
 		tv18 = (TextView) findViewById(R.id.tv18);
 		tv18.setOnClickListener(this);
-		
+
 		tv19 = (TextView) findViewById(R.id.tv19);
 		tv19.setOnClickListener(this);
-		
+
 		tv20 = (TextView) findViewById(R.id.tv20);
 		tv20.setOnClickListener(this);
 

@@ -1,34 +1,31 @@
 package au.com.sodastream.lifestylerewards.fragments;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.app.Service;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import au.com.sodastream.lifestylerewards.ForgotPassActivity;
-import au.com.sodastream.lifestylerewards.MenuActivity;
 import au.com.sodastream.lifestylerewards.R;
+import au.com.sodastream.lifestylerewards.Util.AppPref;
 import au.com.sodastream.lifestylerewards.Util.CheckLocationProviders;
 import au.com.sodastream.lifestylerewards.Util.ConnectionChecker;
 import au.com.sodastream.lifestylerewards.Util.DATA;
+import au.com.sodastream.lifestylerewards.Util.FBKeyHashGenerator;
 import au.com.sodastream.lifestylerewards.Util.Fonts;
+import au.com.sodastream.lifestylerewards.Util.SoftKeyboard;
 import au.com.sodastream.lifestylerewards.Util.Toasts;
 import au.com.sodastream.lifestylerewards.Util.Validate;
 import au.com.sodastream.lifestylerewards.asynctask.GetLocationAsyncTask;
@@ -49,11 +46,13 @@ public class SigninFragment extends Fragment {
 	EditText etSigninEmail,etSigninPassword;
 	ProgressDialog progressDialog;
 	TextView tv7,tv8,tv9;
+	View signinView;
 
 	//Variables
 	Activity activity;
 	//	LoginAsyncTask loginAsyncTask;
 	GetLocationAsyncTask getLocationAsyncTask;
+	AppPref appPref;
 
 	//Facebook Variables
 	//	private FacebookHandle handle;
@@ -67,11 +66,13 @@ public class SigninFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View signinView =inflater.inflate(R.layout.signin_frag, container,false);
+		signinView =inflater.inflate(R.layout.signin_frag, container,false);
 
 
 		activity = getActivity();
-		System.out.println("-- I am called !!");
+
+		appPref = new AppPref(activity);
+		//		System.out.println("-- I am called !!");
 		initUI(signinView);
 
 
@@ -169,42 +170,20 @@ public class SigninFragment extends Fragment {
 
 				}
 
+				System.out.println("-- fb key :  " + FBKeyHashGenerator.getHashKey(activity, "au.com.sodastream.lifestylerewards"));
 
 
 
-				//				try {
-				//			        PackageInfo info = activity.getPackageManager().getPackageInfo(
-				//			                "com.sodastream.android", 
-				//			                PackageManager.GET_SIGNATURES);
-				//			        for (Signature signature : info.signatures) {
-				//			            MessageDigest md = MessageDigest.getInstance("SHA");
-				//			            md.update(signature.toByteArray());
-				//			            Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-				//			            }
-				//			    } catch (NameNotFoundException e) {
-				//
-				//			    } catch (NoSuchAlgorithmException e) {
-				//
-				//			    }
 
-				try {
-					PackageInfo info = activity.getPackageManager().getPackageInfo(
-							"au.com.sodastream.lifestylerewards", 
-							PackageManager.GET_SIGNATURES);
-					for (Signature signature : info.signatures) {
-						MessageDigest md = MessageDigest.getInstance("SHA");
-						md.update(signature.toByteArray());
-						Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-					}
-				} catch (NameNotFoundException e) {
-
-				} catch (NoSuchAlgorithmException e) {
-
-				}
 
 			}
 		});
 
+
+		/*
+		 * Testing only
+		 */
+		//		checkingSoftkeyboard();
 
 		return signinView;
 	}
@@ -220,6 +199,36 @@ public class SigninFragment extends Fragment {
 	//
 	//
 	//	}
+
+
+	public void checkingSoftkeyboard()
+	{
+		//		LinearLayout mainLayout = (LinearLayout) getActivity().findViewById(R.id.laySign); // You must use the layout root
+		InputMethodManager im = (InputMethodManager) getActivity().getSystemService(Service.INPUT_METHOD_SERVICE);
+
+		/*
+		Instantiate and pass a callback
+		 */
+		SoftKeyboard softKeyboard;
+		softKeyboard = new SoftKeyboard((ViewGroup) signinView, im);
+		softKeyboard.setSoftKeyboardCallback(new SoftKeyboard.SoftKeyboardChanged()
+		{
+
+			@Override
+			public void onSoftKeyboardHide() 
+			{
+				// Code here
+				System.out.println("-- key hidden");
+			}
+
+			@Override
+			public void onSoftKeyboardShow() 
+			{
+				// Code here
+				System.out.println("-- key shown	");
+			}	
+		});
+	}
 
 	private void initUI(View signinView) {
 		ibSignin = (ImageButton) signinView.findViewById(R.id.ibSignin);
@@ -274,12 +283,13 @@ public class SigninFragment extends Fragment {
 
 
 
-								
+
 								@Override
 								public void onCompleted(GraphUser user, Response response) {
 									// TODO Auto-generated method stub
 
 									System.out.println("-- Fb Compelted : ");
+									progressDialog.dismiss();
 
 									try {
 
@@ -287,23 +297,26 @@ public class SigninFragment extends Fragment {
 
 										DATA.signupModule.firstname = user.getFirstName() ;
 										DATA.signupModule.surname =user.getLastName();
-										DATA.signupModule.email =   user.asMap().get("email").toString();
-										DATA.signupModule.password =  user.getId();
+										DATA.signupModule.email =   "x" + user.asMap().get("email").toString();
+
+										// Change it back in original build
+										DATA.signupModule.facebookID =  user.getId() + "9";
+
+										appPref.setFacebookID(user.getId());
+										DATA.isFacebook = true;
+
 										int gender = (user.asMap().get("gender").toString().equalsIgnoreCase("male")   ? 1: 2);
 										DATA.signupModule.gender =  gender;
 
 
-										System.out.println("--" + user.asMap().get("email").toString()); 
-										System.out.println("--" + user.getFirstName() + user.getLastName() ); 
-										System.out.println("--" + user.asMap().get("gender").toString()); 
-										System.out.println("--" + user.getId() ); 
 
-										System.out.println("-- fb login details : " + DATA.signupModule.firstname + " surname : " + DATA.signupModule.surname + " email :" + DATA.signupModule.email + " id : " + DATA.signupModule.password  + "gender " + gender + "fb gender  " +  user.asMap().get("gender") );
+										getLocationAsyncTask = new  GetLocationAsyncTask(activity, IdFrom.FACEBOOK_LOGIN,"Signing in via Facebook");
+										getLocationAsyncTask.execute();
+
+										//										Intent intent = new Intent(activity, MenuActivity.class);
+										//										startActivity(intent);
 
 
-										Toasts.pop(activity, "Facebook User Email : " + user.asMap().get("email") + " name : " + user.getFirstName());
-										Intent intent = new Intent(activity, MenuActivity.class);
-										startActivity(intent);
 									} catch (Exception e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
@@ -311,7 +324,7 @@ public class SigninFragment extends Fragment {
 
 
 
-									progressDialog.dismiss();
+
 
 
 								}

@@ -122,7 +122,7 @@ progressDialog.setOnCancelListener(new OnCancelListener() {
 			 * Uncomment when access token issue fixed
 			 */
 
-			if(content.length() >1)
+			if(content.length() >3)
 			{
 
 
@@ -140,6 +140,7 @@ progressDialog.setOnCancelListener(new OnCancelListener() {
 			}
 			else
 			{
+				Error = "No Recipes Found!!";
 				return false;
 			}
 

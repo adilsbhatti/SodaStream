@@ -158,11 +158,14 @@ public class LoginAsyncTask extends AsyncTask<String, String, Boolean>  implemen
 				// load data here
 				appPref =  new AppPref(activity);
 				appPref.setAccessToken(jsonContent.getString("token"));
+				appPref.setActivationCode(jsonContent.getString("activation_code"));
+
 
 				System.out.println("-- header : " + appPref.getAccessToken());
 				System.out.println("-- Data receieved : " + content);
 				return true;
 			}
+
 
 			//	System.out.println("-- Header : "+ httpResponse.getFirstHeader("token").getValue());
 
@@ -215,6 +218,14 @@ public class LoginAsyncTask extends AsyncTask<String, String, Boolean>  implemen
 		super.onPostExecute(result);
 		if(result)
 		{	
+
+			//			if(appPref.getUserEmail().equals(""))
+			//			{
+			//				appPref.setUserEmail(DATA.signupModule.email);
+			//			}
+
+
+
 			Intent intent = new Intent(activity, MenuActivity.class);
 			activity.startActivity(intent);
 			this.cancel(true);

@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import au.com.sodastream.lifestylerewards.Util.CheckLocationProviders;
@@ -30,6 +32,8 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 	Spinner sStates,sStatus;
 	ImageButton ibSignUpUser;
 	TextView tv18, tv19, tv20;
+	EditText etQuestionOther;
+	LinearLayout layOther;
 
 	//Variables
 	Activity activity;
@@ -38,6 +42,8 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 	//	ArrayList<String> arrlstUses;
 	GetLocationAsyncTask getLocationAsyncTask;
 	FBUserUpdateTask fbUserUpdateTask;
+	int indexOther;
+	String textOther = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +55,6 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 
 		initUI();
 
-		//		if(!DATA.fromRegistration)
-		//		{
-		//			Intent intent = new Intent(activity, SplashActivity.class);
-		//			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		//			startActivity(intent);
-		//		}
 
 
 
@@ -65,6 +65,17 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+
+
+
+				if(DATA.arrlstUses.contains("Other"))
+				{
+					indexOther = DATA.arrlstUses.indexOf("Other");
+
+					DATA.arrlstUses.set(indexOther, etQuestionOther.getText().toString().trim()); 
+					textOther = etQuestionOther.getText().toString().trim();
+				}
+
 
 
 
@@ -80,7 +91,7 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 				}
 				else if (!ConnectionChecker.isConnectingToInternet(activity))
 				{
-					//					Toasts.pop(activity, "No internet connectivity available, please check your internet settings");
+
 				}
 				else
 				{
@@ -95,15 +106,20 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 
 					if(DATA.isFacebook)
 					{
-							Toasts.pop(activity, "call FB update task");
-							fbUserUpdateTask = new FBUserUpdateTask(activity);
-							fbUserUpdateTask.execute();
+						Toasts.pop(activity, "call FB update task");
+						fbUserUpdateTask = new FBUserUpdateTask(activity);
+						fbUserUpdateTask.execute();
 					}
 					else
 					{	
+						/*
+						 * turn on below comments of task after uses testing
+						 */
 
 						getLocationAsyncTask =  new GetLocationAsyncTask(activity, IdFrom.SIGN_UP, "Registering details");
 						getLocationAsyncTask.execute();
+
+						//						Toasts.pop(activity, "Usses : " + Arrays.deepToString(DATA.arrlstUses.toArray()));
 					}
 
 				}
@@ -172,6 +188,11 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 		tv20 = (TextView) findViewById(R.id.tv20);
 		tv20.setOnClickListener(this);
 
+		etQuestionOther = (EditText) findViewById(R.id.etQuestionOther);
+
+
+		layOther = (LinearLayout) findViewById(R.id.layOther);
+		layOther.setVisibility(View.GONE);
 
 
 	}
@@ -181,6 +202,30 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 		// TODO Auto-generated method stub
 
 		CheckedTextView checkedTextView = (CheckedTextView) v.findViewById(v.getId());
+
+		if(v.getId() == R.id.ctvOther && !checkedTextView.isChecked())
+		{
+			layOther.setVisibility(View.VISIBLE);
+		}
+		else if(v.getId() == R.id.ctvOther && checkedTextView.isChecked())
+		{
+			layOther.setVisibility(View.GONE);
+
+			try {
+				DATA.arrlstUses.remove(indexOther);
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("error in removing : " + e.getMessage());
+				e.printStackTrace();
+			}
+
+			//			if(DATA.arrlstUses.contains(etQuestionOther.getText().toString()))
+			//			{
+			//				indexOther = DATA.arrlstUses.indexOf(etQuestionOther.getText().toString());
+			//				DATA.arrlstUses.remove(indexOther);
+			//			}
+		}
+
 		if (checkedTextView.isChecked())
 		{
 			checkedTextView.setChecked(false);
@@ -198,12 +243,6 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 	}
 
 
-	@Override
-	protected void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
 
-		finish();
-	}
 
 }

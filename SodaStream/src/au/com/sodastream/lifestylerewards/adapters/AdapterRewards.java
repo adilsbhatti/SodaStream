@@ -65,7 +65,7 @@ public class AdapterRewards extends ArrayAdapter<RewardsModule> {
 
 		viewHolder.tvIconTitle.setText(DATA.arrlstRewardsModules.get(position).title);
 
-		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstRewardsModules.get(position).thumbnail_image_url,R.drawable.icon);
+		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstRewardsModules.get(position).thumbnail_url,R.drawable.icon);
 
 
 

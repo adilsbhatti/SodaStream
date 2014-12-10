@@ -79,7 +79,7 @@ public class AppPref {
 
 	public boolean getNewFacebookUser()
 	{
-		return sharedPreferences.getBoolean(NEW_FACEBOOK_USER, true);
+		return sharedPreferences.getBoolean(NEW_FACEBOOK_USER, false);
 	}
 
 	public void setFacebookID(String fbid)

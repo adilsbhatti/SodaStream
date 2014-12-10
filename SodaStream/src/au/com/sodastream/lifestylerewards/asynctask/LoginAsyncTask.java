@@ -157,11 +157,27 @@ public class LoginAsyncTask extends AsyncTask<String, String, Boolean>  implemen
 
 				// load data here
 				appPref =  new AppPref(activity);
-				appPref.setAccessToken(jsonContent.getString("token"));
-				appPref.setActivationCode(jsonContent.getString("activation_code"));
+				
+				
+				try {
+					appPref.setAccessToken(jsonContent.getString("token"));
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					jsonContent.getString("");
+					return false;
+				}
+				
+				try {
+					appPref.setActivationCode(jsonContent.getString("activation_code"));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					appPref.setActivationCode("");
+				}
 
 
-				System.out.println("-- header : " + appPref.getAccessToken());
+				System.out.println("-- token : " + appPref.getAccessToken());
 				System.out.println("-- Data receieved : " + content);
 				return true;
 			}
@@ -169,7 +185,6 @@ public class LoginAsyncTask extends AsyncTask<String, String, Boolean>  implemen
 
 			//	System.out.println("-- Header : "+ httpResponse.getFirstHeader("token").getValue());
 
-			//	System.out.println("-- JSON Data : " + content + " header : " + Arrays.deepToString(httpPost.getHeaders("token")) );
 
 
 

@@ -190,20 +190,20 @@ public class MenuActivity extends Activity implements OnClickListener {
 		case R.id.ibMenuRewards:
 
 
-			if(appPref.getActivationCode().length()  < 1)
-			{
-
-				getCodeDetails(RewardsActivity.class);
-			}
-			else if (appPref.getPostcode().length() < 1)
-			{
-				getWelcomeRewardAddress(RewardsActivity.class);
-			}
-			else
-			{
-				intent = new Intent(activity, RewardsActivity.class);
-				startActivity(intent);
-			}
+			//			if(appPref.getActivationCode().length()  < 1)
+			//			{
+			//
+			//				getCodeDetails(RewardsActivity.class);
+			//			}
+			//			else if (appPref.getPostcode().length() < 1)
+			//			{
+			//				getWelcomeRewardAddress(RewardsActivity.class);
+			//			}
+			//			else
+			//			{
+			intent = new Intent(activity, RewardsActivity.class);
+			startActivity(intent);
+			//			}
 
 
 
@@ -500,8 +500,8 @@ public class MenuActivity extends Activity implements OnClickListener {
 		alertDialog = builder.create();
 		alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 		alertDialog.show();
-		
-		
+
+
 		TextWatcher textWatcher = new TextWatcher() {
 
 			@Override
@@ -542,7 +542,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 			}
 		};
-		
+
 		etCode.addTextChangedListener(textWatcher);
 
 	}

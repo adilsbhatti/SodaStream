@@ -131,6 +131,8 @@ public class SignupAsyncTask extends AsyncTask<String, String, Boolean> {
 			//			 
 
 			content = EntityUtils.toString(httpResponse.getEntity());
+			
+			System.out.println("-- signup : " + content);
 
 
 			JSONObject jsonCheckResponse = new JSONObject(content);

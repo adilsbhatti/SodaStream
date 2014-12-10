@@ -168,6 +168,8 @@ public class LogoutAsyncTask extends AsyncTask<String, String, Boolean> implemen
 			activity.startActivity(intent);
 
 			appPref.setAccessToken("");
+			appPref.setActivationCode("");
+			appPref.setPostcode("");
 
 		}
 		else

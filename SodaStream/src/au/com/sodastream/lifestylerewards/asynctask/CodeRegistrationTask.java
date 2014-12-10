@@ -118,6 +118,8 @@ public class CodeRegistrationTask extends AsyncTask<String, String, Boolean> {
 
 
 			content = EntityUtils.toString(httpResponse.getEntity());
+			
+			System.out.println("-- acttivation response : " + content);
 
 			JSONObject jsonCheckResponse = new JSONObject(content);
 

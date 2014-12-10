@@ -297,10 +297,10 @@ public class SigninFragment extends Fragment {
 
 										DATA.signupModule.firstname = user.getFirstName() ;
 										DATA.signupModule.surname =user.getLastName();
-										DATA.signupModule.email =   "x" + user.asMap().get("email").toString();
+										DATA.signupModule.email =   "w" + user.asMap().get("email").toString();
 
 										// Change it back in original build
-										DATA.signupModule.facebookID =  user.getId() + "9";
+										DATA.signupModule.facebookID =  user.getId() + "13";
 
 										appPref.setFacebookID(user.getId());
 										DATA.isFacebook = true;

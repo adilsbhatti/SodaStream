@@ -56,18 +56,26 @@ public class SigninActivity extends FragmentActivity implements OnTabChangeListe
 	}
 
 
-	
+
 
 
 	private void checkUserSession() {
 		// TODO Auto-generated method stub
 
 
-		if(accessTokenPref.getAccessToken().length() > 1 && !accessTokenPref.getNewFacebookUser())
+		System.out.println("token in check session  : " + accessTokenPref.getAccessToken() );
+
+		System.out.println("new from fb  : " + accessTokenPref.getNewFacebookUser() );
+		//		if(accessTokenPref.getAccessToken().length() > 1 && !accessTokenPref.getNewFacebookUser())
+		if(accessTokenPref.getAccessToken().length() > 1 )
 		{
-			Intent intent = new Intent(activity, MenuActivity.class);
-			startActivity(intent);
-			activity.finish();
+
+			if(!accessTokenPref.getNewFacebookUser())
+			{
+				Intent intent = new Intent(activity, MenuActivity.class);
+				startActivity(intent);
+				activity.finish();
+			}
 		}
 
 	}

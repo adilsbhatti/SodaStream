@@ -190,20 +190,20 @@ public class MenuActivity extends Activity implements OnClickListener {
 		case R.id.ibMenuRewards:
 
 
-			//			if(appPref.getActivationCode().length()  < 1)
-			//			{
-			//
-			//				getCodeDetails(RewardsActivity.class);
-			//			}
-			//			else if (appPref.getPostcode().length() < 1)
-			//			{
-			//				getWelcomeRewardAddress(RewardsActivity.class);
-			//			}
-			//			else
-			//			{
-			intent = new Intent(activity, RewardsActivity.class);
-			startActivity(intent);
-			//			}
+			if(appPref.getActivationCode().length()  < 1)
+			{
+
+				getCodeDetails(RewardsActivity.class);
+			}
+			else if (appPref.getPostcode().length() < 1)
+			{
+				getWelcomeRewardAddress(RewardsActivity.class);
+			}
+			else
+			{
+				intent = new Intent(activity, RewardsActivity.class);
+				startActivity(intent);
+			}
 
 
 
@@ -367,6 +367,13 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
+
+
+				DATA.USER_STATE =  etState.getText().toString();
+				DATA.USER_POSTCODE =  etPostcode.getText().toString();
+				DATA.USER_STREET =  etStreet.getText().toString();
+				DATA.USER_SUBURB =  etSuburb.getText().toString();
+
 
 				userAddressUpdateTask = new UserAddressUpdateTask(activity,c);
 				userAddressUpdateTask.execute();

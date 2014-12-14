@@ -9,5 +9,7 @@ public class IdFrom {
 	
 	public final static int FACEBOOK_LOGIN = 3;
 	
+	public final static int STORES = 4;
+	
 //	public final static int FACEBOOK_REGISTER = 4;
 }

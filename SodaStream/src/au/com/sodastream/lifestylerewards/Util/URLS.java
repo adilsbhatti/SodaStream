@@ -21,7 +21,7 @@ public class URLS {
 
 
 	//	public static String PARENT_URL = "http://blog.halmai.com/test/soda_stream/web/api.php/api/v1/";
-	public static String PARENT_URL = "http://sodastream.dev.appscorehosting.com.au/web/api.php/api/v1/";
+	public static String PARENT_URL = "http://sodastream2.dev.appscorehosting.com.au/web/api.php/api/v1/";
 
 	//http://sodastream.dev.appscorehosting.com.au/web/api.php/api/v1/
 
@@ -43,9 +43,9 @@ public class URLS {
 
 	public static String VIDEOS_URL  = PARENT_URL + "videos";
 
-	public static String FAQ_URL  = PARENT_URL + "videos";
+	public static String FAQ_URL  = PARENT_URL + "faq";
 
-	public static String NEWS_URL  = PARENT_URL + "products";
+	public static String NEWS_URL  = PARENT_URL + "news";
 
 	public static String VOUCHERS_URL  = PARENT_URL + "vouchers";
 

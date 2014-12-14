@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import au.com.sodastream.lifestylerewards.R;
 import au.com.sodastream.lifestylerewards.Util.AppImagesDimensions;
@@ -52,13 +53,20 @@ public class AdapterNewProducts extends ArrayAdapter<NewProductsModule> {
 
 			AppImagesDimensions.setScreenUnits(activity);
 
-			convertView.setLayoutParams(new LayoutParams(DATA.MENU_IMAGES_SIZE, DATA.MENU_IMAGES_SIZE));
+			convertView.setLayoutParams(new LayoutParams(DATA.MENU_IMAGES_SIZE,LayoutParams.WRAP_CONTENT));
+			
+			
+			
+			
 
 
 			viewHolder = new ViewHolderClass();
 			initUI(convertView, viewHolder);
 
 			convertView.setTag(viewHolder);
+			
+			viewHolder.ivIconImg.setLayoutParams(new android.widget.RelativeLayout.LayoutParams(DATA.MENU_IMAGES_SIZE,DATA.MENU_IMAGES_SIZE));
+//			viewHolder.layMagenta.setLayoutParams(new android.widget.LinearLayout.LayoutParams(DATA.MENU_IMAGES_SIZE, LayoutParams.WRAP_CONTENT));
 
 		}
 		else
@@ -113,6 +121,7 @@ public class AdapterNewProducts extends ArrayAdapter<NewProductsModule> {
 
 		viewHolder.tvIconTitle = (TextView) convertView.findViewById(R.id.tvIconTitle);
 		viewHolder.tvIconTitle.setTypeface(Fonts.getHelvatica(activity));
+		viewHolder.layMagenta = (LinearLayout) convertView.findViewById(R.id.layMagenta);
 
 
 		//		viewHolder.ivIconImg.setLayoutParams(new LayoutParams(DATA.MENU_IMAGES_SIZE, DATA.MENU_IMAGES_SIZE));
@@ -125,6 +134,7 @@ public class AdapterNewProducts extends ArrayAdapter<NewProductsModule> {
 	{
 		AspectRationImageView ivIconImg ;
 		TextView tvIconTitle;
+		LinearLayout layMagenta;
 	}
 
 }

@@ -43,6 +43,7 @@ public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> im
 	private LoginAsyncTask loginAsyncTask;
 	SignupAsyncTask signupAsyncTask;
 	FBRegisterTask fbRegisterTask;
+	StoreLocationAsyncTask storeLocationAsyncTask;
 
 
 
@@ -210,6 +211,12 @@ public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> im
 				fbRegisterTask = new FBRegisterTask(activity);
 				fbRegisterTask.executeOnExecutor(Executors.newSingleThreadExecutor(), "");
 				
+				break;
+				
+			case IdFrom.STORES:
+				
+				storeLocationAsyncTask = new StoreLocationAsyncTask(activity);
+				storeLocationAsyncTask.execute();
 				break;
 			default:
 				break;

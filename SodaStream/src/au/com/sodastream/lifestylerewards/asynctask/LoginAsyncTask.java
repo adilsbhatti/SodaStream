@@ -175,6 +175,14 @@ public class LoginAsyncTask extends AsyncTask<String, String, Boolean>  implemen
 					e.printStackTrace();
 					appPref.setActivationCode("");
 				}
+				
+				try {
+					appPref.setPostcode(jsonContent.getString("post_code"));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					appPref.setPostcode("");
+				}
 
 
 				System.out.println("-- token : " + appPref.getAccessToken());

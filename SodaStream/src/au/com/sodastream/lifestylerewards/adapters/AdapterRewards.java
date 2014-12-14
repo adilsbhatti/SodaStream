@@ -65,7 +65,7 @@ public class AdapterRewards extends ArrayAdapter<RewardsModule> {
 
 		viewHolder.tvIconTitle.setText(DATA.arrlstRewardsModules.get(position).title);
 
-		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstRewardsModules.get(position).thumbnail_url,R.drawable.icon);
+		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstRewardsModules.get(position).thumbnail_image_url,R.drawable.icon);
 
 
 
@@ -75,10 +75,10 @@ public class AdapterRewards extends ArrayAdapter<RewardsModule> {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 
-				if(DATA.arrlstRewardsModules.get(position).site_url.length() > 1)
+				if(DATA.arrlstRewardsModules.get(position).url.length() > 1)
 				{
 
-					ViewBrowser.openURL(activity, DATA.arrlstRewardsModules.get(position).site_url);	
+					ViewBrowser.openURL(activity, DATA.arrlstRewardsModules.get(position).url);	
 				}
 				else
 				{

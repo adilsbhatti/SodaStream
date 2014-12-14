@@ -121,6 +121,8 @@ public class UserAddressUpdateTask extends AsyncTask<String, String, Boolean> {
 
 			content = EntityUtils.toString(httpResponse.getEntity());
 
+			System.out.println("-- welcome response : " + content);
+			
 			JSONObject jsonCheckResponse;
 
 			try {

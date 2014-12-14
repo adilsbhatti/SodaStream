@@ -18,7 +18,6 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
@@ -35,7 +34,7 @@ public class StoreLocationAsyncTask extends AsyncTask<String, String, Boolean>  
 
 
 	Activity activity;
-	ProgressDialog progressDialog;
+//	ProgressDialog progressDialog;
 
 	HttpClient httpClient;
 	HttpPost httpPost = null;
@@ -61,14 +60,14 @@ public class StoreLocationAsyncTask extends AsyncTask<String, String, Boolean>  
 		// TODO Auto-generated method stub
 		super.onPreExecute();
 
-		progressDialog = new ProgressDialog(activity);
-		progressDialog.setTitle("Please Wait");
-		progressDialog.setMessage("Fetching Store Locations");
-		progressDialog.setCanceledOnTouchOutside(false);
-		progressDialog.show();
+//		progressDialog = new ProgressDialog(activity);
+//		progressDialog.setTitle("Please Wait");
+//		progressDialog.setMessage("Fetching Store Locations");
+//		progressDialog.setCanceledOnTouchOutside(false);
+//		progressDialog.show();
 
 
-		progressDialog.setOnCancelListener(new OnCancelListener() {
+		DATA.progressDialog.setOnCancelListener(new OnCancelListener() {
 
 			@Override
 			public void onCancel(DialogInterface dialog) {
@@ -97,18 +96,19 @@ public class StoreLocationAsyncTask extends AsyncTask<String, String, Boolean>  
 
 
 
-			//						jsonObject.put("email", DATA.forgot_pass_email);
-			//						jsonObject.put("email", DATA.forgot_pass_email);
+			jsonObject.put("latitude", appPref.getLatitude());
+			jsonObject.put("longitude", appPref.getLongitude());
 
 
 
 			System.out.println("JSON Object : " + jsonObject.toString());
+			System.out.println("-- tooken :   " + appPref.getAccessToken());
 
 
 
 
 
-			stringEntity =  new StringEntity("");
+			stringEntity =  new StringEntity(jsonObject.toString());
 			stringEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 			stringEntity.setContentType(new BasicHeader("token",  appPref.getAccessToken()));
 
@@ -206,7 +206,7 @@ public class StoreLocationAsyncTask extends AsyncTask<String, String, Boolean>  
 			Toasts.pop(activity, "Error : " + Error);
 		}
 
-		progressDialog.dismiss();
+		DATA.progressDialog.dismiss();
 	}
 
 
@@ -215,7 +215,7 @@ public class StoreLocationAsyncTask extends AsyncTask<String, String, Boolean>  
 		// TODO Auto-generated method stub
 		super.onCancelled(result);
 
-		progressDialog.dismiss();
+		DATA.progressDialog.dismiss();
 	}
 
 

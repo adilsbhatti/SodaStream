@@ -23,6 +23,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 import au.com.sodastream.lifestylerewards.MenuActivity;
+import au.com.sodastream.lifestylerewards.R;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
 import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Toasts;
@@ -141,7 +142,11 @@ public class SignupAsyncTask extends AsyncTask<String, String, Boolean> {
 			{
 				Error =  jsonCheckResponse.getString("error");
 
-
+				if(Error.contains("The email address already "))
+				{
+//					Error = "This email address is already in use. Please enter a different email address or use the forgotten password feature to reset your password.";
+					Error =  activity.getString(R.string.ERROR_EMAIL_ALREADY_USE);
+				}
 
 				return false;
 
@@ -166,26 +171,33 @@ public class SignupAsyncTask extends AsyncTask<String, String, Boolean> {
 		catch(JSONException e)
 		{
 			System.out.println("--1 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			
+			Error =  activity.getString(R.string.ERROR_SIGNUP_ERROR);
+			
 			return false;
 		}
 		catch(UnsupportedEncodingException e)
 		{
 			System.out.println("--2 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_SIGNUP_ERROR);
 			return false;
 		}
 		catch(ClientProtocolException e)
 		{
 			System.out.println("--3 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_SIGNUP_ERROR);
 			return false;
 		}
 		catch(ParseException e)
 		{
 			System.out.println("--4 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_SIGNUP_ERROR);
 			return false;
 		}
 		catch(IOException e)
 		{
 			System.out.println("--5 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_INTERNET);
 			return false;
 		}
 		catch (Exception e) 
@@ -193,6 +205,7 @@ public class SignupAsyncTask extends AsyncTask<String, String, Boolean> {
 			System.out.println("Exception : " + e.getMessage() );
 			// TODO: handle exception
 			System.out.println("--6 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_SIGNUP_ERROR);
 			e.printStackTrace();
 			return false;
 		}
@@ -218,7 +231,7 @@ public class SignupAsyncTask extends AsyncTask<String, String, Boolean> {
 		}
 		else
 		{
-			Toasts.pop(activity, "Error  : " + Error);
+			Toasts.pop(activity, Error);
 		}
 
 		httpClient = null;

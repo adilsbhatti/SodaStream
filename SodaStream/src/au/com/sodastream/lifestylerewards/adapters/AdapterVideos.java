@@ -63,9 +63,9 @@ public class AdapterVideos extends ArrayAdapter<VideosModule> {
 
 
 
-		viewHolder.tvIconTitle.setText(DATA.arrlstVideosModules.get(position).title);
+		viewHolder.tvIconTitle.setText(DATA.arrlstVideosModules.get(position).title.toUpperCase());
 
-		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstVideosModules.get(position).thumbnail_url,R.drawable.icon);
+		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstVideosModules.get(position).thumbnail_url,R.drawable.transparent);
 
 
 

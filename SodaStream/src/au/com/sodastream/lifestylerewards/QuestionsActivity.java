@@ -18,6 +18,7 @@ import au.com.sodastream.lifestylerewards.Util.ConnectionChecker;
 import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Fonts;
 import au.com.sodastream.lifestylerewards.Util.Toasts;
+import au.com.sodastream.lifestylerewards.Util.Validate;
 import au.com.sodastream.lifestylerewards.asynctask.FBUserUpdateTask;
 import au.com.sodastream.lifestylerewards.asynctask.GetLocationAsyncTask;
 import au.com.sodastream.lifestylerewards.modules.IdFrom;
@@ -93,6 +94,10 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 				{
 
 				}
+				else if(layOther.getVisibility() == View.VISIBLE && Validate.isEmptyEditText(etQuestionOther))
+				{
+					Toasts.pop(activity, "Please provide value for Other uses");
+				}
 				else
 				{
 
@@ -106,7 +111,7 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 
 					if(DATA.isFacebook)
 					{
-						Toasts.pop(activity, "call FB update task");
+//						Toasts.pop(activity, "call FB update task");
 						fbUserUpdateTask = new FBUserUpdateTask(activity);
 						fbUserUpdateTask.execute();
 					}
@@ -210,6 +215,7 @@ public class QuestionsActivity extends Activity  implements OnClickListener {
 		else if(v.getId() == R.id.ctvOther && checkedTextView.isChecked())
 		{
 			layOther.setVisibility(View.GONE);
+			etQuestionOther.setText("");
 
 			try {
 				DATA.arrlstUses.remove(indexOther);

@@ -25,6 +25,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 import au.com.sodastream.lifestylerewards.MenuActivity;
+import au.com.sodastream.lifestylerewards.R;
 import au.com.sodastream.lifestylerewards.ReferAFriendActivity;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
 import au.com.sodastream.lifestylerewards.Util.DATA;
@@ -66,8 +67,8 @@ public class ReferAFriendAsyncTask extends AsyncTask<String, String,Boolean> {
 		progressDialog.setMessage("Sending Details");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
-		
-		
+
+
 		progressDialog.setOnCancelListener(new OnCancelListener() {
 
 			@Override
@@ -102,7 +103,7 @@ public class ReferAFriendAsyncTask extends AsyncTask<String, String,Boolean> {
 
 			jsonObject.put("email", DATA.referFriendModule.email);
 			jsonObject.put("firstname", DATA.referFriendModule.name);
-			jsonObject.put("surname", DATA.referFriendModule.name);
+			jsonObject.put("surname", DATA.referFriendModule.lastName);
 			jsonObject.put("type", DATA.referFriendModule.userType);
 
 
@@ -139,7 +140,7 @@ public class ReferAFriendAsyncTask extends AsyncTask<String, String,Boolean> {
 				Error =  jsonCheckResponse.getString("error");
 
 
-
+				Error =  activity.getString(R.string.ERROR_API);
 				return false;
 
 			}
@@ -159,26 +160,31 @@ public class ReferAFriendAsyncTask extends AsyncTask<String, String,Boolean> {
 		catch(JSONException e)
 		{
 			System.out.println("--1 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			return true;
 		}
 		catch(UnsupportedEncodingException e)
 		{
 			System.out.println("--2 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(ClientProtocolException e)
 		{
 			System.out.println("--3 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(ParseException e)
 		{
 			System.out.println("--4 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(IOException e)
 		{
 			System.out.println("--5 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_INTERNET);
 			return false;
 		}
 		catch (Exception e) 
@@ -186,6 +192,7 @@ public class ReferAFriendAsyncTask extends AsyncTask<String, String,Boolean> {
 			System.out.println("Exception : " + e.getMessage() );
 			// TODO: handle exception
 			System.out.println("--6 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			e.printStackTrace();
 			return false;
 		}
@@ -199,20 +206,20 @@ public class ReferAFriendAsyncTask extends AsyncTask<String, String,Boolean> {
 		if(result)
 		{
 			Builder builder =  new Builder(activity);
-			builder.setTitle("Information");
-			builder.setMessage("Refer email has been sent to " + DATA.referFriendModule.name + " at email address  : " + DATA.referFriendModule.email);
-			builder.setPositiveButton("Refer another friend", new DialogInterface.OnClickListener() {
+			builder.setTitle("Referral successful");
+			builder.setMessage("Thank you! We've successfully received your referral and will contact them shortly.");
+			//			builder.setPositiveButton("Refer another friend", new DialogInterface.OnClickListener() {
+			//
+			//				@Override
+			//				public void onClick(DialogInterface dialog, int which) {
+			//					// TODO Auto-generated method stub
+			//
+			//					((ReferAFriendActivity)activity).clearFields();
+			//
+			//				}
+			//			});
 
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
-
-					((ReferAFriendActivity)activity).clearFields();
-
-				}
-			});
-
-			builder.setNegativeButton("Back to Menu", new DialogInterface.OnClickListener() {
+			builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -226,15 +233,15 @@ public class ReferAFriendAsyncTask extends AsyncTask<String, String,Boolean> {
 			});
 
 
-			builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
-					dialog.dismiss();
-
-				}
-			});
+			//			builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+			//
+			//				@Override
+			//				public void onClick(DialogInterface dialog, int which) {
+			//					// TODO Auto-generated method stub
+			//					dialog.dismiss();
+			//
+			//				}
+			//			});
 
 
 
@@ -246,7 +253,7 @@ public class ReferAFriendAsyncTask extends AsyncTask<String, String,Boolean> {
 		}
 		else
 		{	
-			Toasts.pop(activity, "Error  : " + Error);
+			Toasts.pop(activity, Error);
 		}
 
 		progressDialog.dismiss();

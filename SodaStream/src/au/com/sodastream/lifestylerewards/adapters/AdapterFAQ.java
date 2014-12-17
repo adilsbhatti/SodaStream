@@ -61,9 +61,10 @@ public class AdapterFAQ extends ArrayAdapter<FAQModule> {
 
 
 
-			viewHolder.tvIconTitle.setText(DATA.arrlstFAQModules.get(position).title);
+			
+			viewHolder.tvIconTitle.setText(DATA.arrlstFAQModules.get(position).title.toUpperCase());
 
-			UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstFAQModules.get(position).thumbnail_url,R.drawable.icon);
+			UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstFAQModules.get(position).thumbnail_url,R.drawable.transparent);
 
 
 

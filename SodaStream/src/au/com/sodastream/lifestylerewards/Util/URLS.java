@@ -61,5 +61,7 @@ public class URLS {
 	public static String FACEBOOK_UPDATE_USER_URL  = PARENT_URL + "fbupdateuser";
 	
 	public static String UPDATE_USER_ADDRESS  = PARENT_URL + "user_address";
+	
+	public static String REGISTER_DEVICE = PARENT_URL + "pushregister";
 
 }

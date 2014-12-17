@@ -24,6 +24,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 import au.com.sodastream.lifestylerewards.MenuActivity;
+import au.com.sodastream.lifestylerewards.R;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
 import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Toasts;
@@ -151,7 +152,10 @@ public class FBUserUpdateTask extends AsyncTask<String, String, Boolean> {
 			{
 				Error =  jsonCheckResponse.getString("error");
 
-
+				if(jsonCheckResponse.getString("error").contains("email"))
+				{
+					Error = activity.getString(R.string.ERROR_Trying_to_Login_with_an_email_already_in_use_by_FacebooK);
+				}
 
 				return false;
 
@@ -188,16 +192,19 @@ public class FBUserUpdateTask extends AsyncTask<String, String, Boolean> {
 		{
 			System.out.println("--1 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
 			e.printStackTrace();
+			Error = activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(UnsupportedEncodingException e)
 		{
 			System.out.println("--2 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(ClientProtocolException e)
 		{
 			System.out.println("--3 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(ParseException e)
@@ -208,6 +215,7 @@ public class FBUserUpdateTask extends AsyncTask<String, String, Boolean> {
 		catch(IOException e)
 		{
 			System.out.println("--5 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = activity.getString(R.string.ERROR_INTERNET);
 			return false;
 		}
 		catch (Exception e) 
@@ -215,6 +223,7 @@ public class FBUserUpdateTask extends AsyncTask<String, String, Boolean> {
 			System.out.println("Exception : " + e.getMessage() );
 			// TODO: handle exception
 			System.out.println("--6 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = activity.getString(R.string.ERROR_API);
 			e.printStackTrace();
 			return false;
 		}
@@ -240,7 +249,7 @@ public class FBUserUpdateTask extends AsyncTask<String, String, Boolean> {
 		}
 		else
 		{
-			Toasts.pop(activity, "Error  : " + Error);
+			Toasts.pop(activity,  Error);
 		}
 
 		httpClient = null;

@@ -21,7 +21,7 @@ import au.com.sodastream.lifestylerewards.modules.ReferFriendModule;
 public class ReferAFriendActivity extends Activity {
 
 	//UI Elements
-	EditText etReferName,etReferEmail;
+	EditText etReferName,etReferEmail,etReferLastName;
 	RadioGroup rgReferCustomer;
 	ImageButton ibReferSend;
 	TextView tv11,tv12;
@@ -50,10 +50,10 @@ public class ReferAFriendActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 
-				EditText[] arrEditTexts =  {etReferEmail,etReferName};
+				EditText[] arrEditTexts =  {etReferEmail,etReferName,etReferLastName};
 				Validate.checkEmptyEditText(arrEditTexts);
 
-				if(Validate.isEmptyEditText(etReferName) || Validate.isEmptyEditText(etReferEmail))
+				if(Validate.isEmptyEditText(etReferName) || Validate.isEmptyEditText(etReferEmail)|| Validate.isEmptyEditText(etReferLastName))
 				{
 					Toasts.pop(activity	, "Fields in red are required");
 				}
@@ -71,6 +71,7 @@ public class ReferAFriendActivity extends Activity {
 
 					DATA.referFriendModule.email = etReferEmail.getText().toString();
 					DATA.referFriendModule.name =  etReferName.getText().toString();
+					DATA.referFriendModule.lastName =  etReferLastName.getText().toString();
 					DATA.referFriendModule.userType =  selectedUserType;
 
 					referAFriendAsyncTask = new ReferAFriendAsyncTask(activity);
@@ -106,6 +107,8 @@ public class ReferAFriendActivity extends Activity {
 				}
 			}
 		});
+		
+		
 
 	}
 
@@ -114,9 +117,13 @@ public class ReferAFriendActivity extends Activity {
 
 		etReferEmail = (EditText) findViewById(R.id.etReferEmail);
 		etReferName = (EditText) findViewById(R.id.etReferName);
+		
+		etReferLastName = (EditText) findViewById(R.id.etReferLastName);
 
 		etReferEmail.setTypeface(Fonts.getHelvatica(activity));
 		etReferName.setTypeface(Fonts.getHelvatica(activity));
+		
+		etReferLastName.setTypeface(Fonts.getHelvatica(activity));
 
 		tv11 = (TextView) findViewById(R.id.tv11);
 		tv11.setTypeface(Fonts.getHelvatica(activity));
@@ -145,6 +152,8 @@ public class ReferAFriendActivity extends Activity {
 	{
 		etReferEmail.setText("");
 		etReferName.setText("");
+		
+		etReferLastName.setText("");
 		selectedUserType = "new-user";
 		rgReferCustomer.check(R.id.rNewUser);
 		etReferName.requestFocus();

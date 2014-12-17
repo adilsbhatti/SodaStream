@@ -11,6 +11,7 @@ import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
 import au.com.sodastream.lifestylerewards.asynctask.LoginAsyncTask;
+import au.com.sodastream.lifestylerewards.fragments.SigninFragment;
 import au.com.sodastream.lifestylerewards.fragments.SigninTabPageAdapter;
 
 import com.facebook.Session;
@@ -141,7 +142,20 @@ public class SigninActivity extends FragmentActivity implements OnTabChangeListe
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		Session.getActiveSession().onActivityResult(activity, requestCode, resultCode, data);
-
+//		System.out.println("-- resultcode:" + resultCode + " requestCOde: " + requestCode);
+		
+		if(resultCode == RESULT_CANCELED)
+		{
+			if(SigninFragment.progressDialog!=null)
+			{
+				if(SigninFragment.progressDialog.isShowing())
+				{
+					SigninFragment.progressDialog.dismiss();
+				}
+			}
+		}
+		
+		
 
 
 	}

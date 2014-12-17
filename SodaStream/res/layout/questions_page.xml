@@ -38,7 +38,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="15dp"
-                android:text="WHAT DO YOU MAINLY USE SODESTREAM FOR?"
+                android:text="WHAT DO YOU MAINLY USE SODASTREAM FOR?"
                 android:textColor="@color/TextColor"
                 android:textColorHint="@color/HintColor" />
 

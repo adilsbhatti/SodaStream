@@ -2,6 +2,7 @@ package au.com.sodastream.lifestylerewards.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,7 @@ import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
 public class RecipeDetailsFragment extends Fragment {
 
-	TextView tvRecipeTitle,tvRecipeNote,tvRecipeInstructions,tvRecipeIngredients,tv15,tv16,tv17;
+	TextView tvRecipeTitle,tvRecipeNote,tvRecipeInstructions,tvRecipeIngredients,tv15,tv17;
 	ImageView ivRecipeImage;
 	Activity activity;
 
@@ -82,7 +83,7 @@ public class RecipeDetailsFragment extends Fragment {
 		tvRecipeIngredients.setText( ingredients);
 		tvRecipeInstructions.setText( instructions);
 		tvRecipeNote.setText(DATA.selectedRecipe.note);
-		UrlImageViewHelper.setUrlDrawable(ivRecipeImage, DATA.selectedRecipe.image_url, R.drawable.icon);
+		UrlImageViewHelper.setUrlDrawable(ivRecipeImage, DATA.selectedRecipe.image_url, R.drawable.transparent);
 		AppImagesDimensions.setScreenUnits(activity);
 
 		ivRecipeImage.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, DATA.RECIPE_IMAGES_SIZE));
@@ -102,16 +103,22 @@ public class RecipeDetailsFragment extends Fragment {
 		tvRecipeIngredients.setTypeface(Fonts.getHelvatica(activity));
 		tvRecipeInstructions.setTypeface(Fonts.getHelvatica(activity));
 		tvRecipeNote.setTypeface(Fonts.getHelvatica(activity));
+		
+		
 
 
 		tv15 =  (TextView) activity.findViewById(R.id.tv15);
-		tv15.setTypeface(Fonts.getHelvatica(activity));
+//		tv15.setTypeface(Fonts.getHelvatica(activity));
+		
+		tv15.setTypeface(Fonts.getHelvatica(activity), Typeface.BOLD);
 
-		tv16 =  (TextView) activity.findViewById(R.id.tv16);
-		tv16.setTypeface(Fonts.getHelvatica(activity));
+//		tv16 =  (TextView) activity.findViewById(R.id.tv16);
+//		tv16.setTypeface(Fonts.getHelvatica(activity));
+//		tv16.setTypeface(Fonts.getHelvatica(activity), Typeface.BOLD);
 
 		tv17 =  (TextView) activity.findViewById(R.id.tv17);
 		tv17.setTypeface(Fonts.getHelvatica(activity));
+		tv17.setTypeface(Fonts.getHelvatica(activity), Typeface.BOLD);
 
 
 

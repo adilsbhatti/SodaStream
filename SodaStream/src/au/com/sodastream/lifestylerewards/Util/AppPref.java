@@ -1,6 +1,7 @@
 package au.com.sodastream.lifestylerewards.Util;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
@@ -24,12 +25,15 @@ public class AppPref {
 	public final String POST_CODE = "postcode";
 	
 	public final String USER_EMAIL = "useremail";
+	
+	public final String DEVICE_ID = "deviceid";
 
 	SharedPreferences sharedPreferences;
 
 	Editor editor;
 
 	Activity activity;
+	Context context;
 
 	public AppPref(Activity _activity) {
 		// TODO Auto-generated constructor stub
@@ -39,6 +43,28 @@ public class AppPref {
 
 	}
 
+	
+	public AppPref(Context _context) {
+		// TODO Auto-generated constructor stub
+		context = _context;
+		sharedPreferences = context.getSharedPreferences(PREF_NAME, Activity.MODE_PRIVATE);
+		editor =  sharedPreferences.edit();
+
+	}
+
+	
+	
+	public void setDeviceID(String id)
+	{
+		editor.putString(DEVICE_ID	,id);
+		editor.commit();
+	}
+
+
+	public String getDeviceID()
+	{
+		return sharedPreferences.getString(DEVICE_ID, "");
+	}
 
 	
 	public void setUserEmail(String email)

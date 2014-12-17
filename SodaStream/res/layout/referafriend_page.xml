@@ -59,14 +59,25 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:ems="10"
-            android:hint="Name"
-            android:inputType="textPersonName"
+            android:hint="First Name"
+            android:inputType="textPersonName|textCapWords"
             android:textColor="@color/TextColor"
             android:textColorHint="@color/HintColor" >
 
             <requestFocus />
         </EditText>
 
+        <EditText
+            android:id="@+id/etReferLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="Last Name"
+            android:inputType="textPersonName|textCapWords"         
+            android:textColor="@color/TextColor"
+            android:textColorHint="@color/HintColor" />
+        
         <EditText
             android:id="@+id/etReferEmail"
             android:layout_width="match_parent"
@@ -99,7 +110,7 @@
                     android:text="New User"
                     android:textColor="@color/TextColor"
                     android:textColorHint="@color/HintColor"
-                    android:textSize="12sp" />
+                    android:textSize="18sp" />
 
                 <RadioButton
                     android:id="@+id/rExistingUser"
@@ -109,7 +120,7 @@
                     android:text="Existing User"
                     android:textColor="@color/TextColor"
                     android:textColorHint="@color/HintColor"
-                    android:textSize="12sp" />
+                    android:textSize="18sp" />
 
                 <RadioButton
                     android:id="@+id/rExistingNonUser"
@@ -119,7 +130,7 @@
                     android:text="Existing Non User"
                     android:textColor="@color/TextColor"
                     android:textColorHint="@color/HintColor"
-                    android:textSize="12sp" />
+                    android:textSize="18sp" />
             </RadioGroup>
         </LinearLayout>
 

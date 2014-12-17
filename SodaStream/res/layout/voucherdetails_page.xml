@@ -47,72 +47,100 @@
             android:background="#00000000"
             android:orientation="vertical" >
 
-            <LinearLayout
+            <ScrollView
+                android:id="@+id/layScrollVoucher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/voucherbg"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" >
+                android:layout_margin="5dp" >
 
-                <ImageView
-                    android:id="@+id/ivVoucherImage"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="0"
-                    android:adjustViewBounds="true"
-                    android:background="#00000000"
-                    android:baselineAlignBottom="true"
-                    android:cropToPadding="true"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/samplevoucherimage" />
+                    android:background="@drawable/voucherbg"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingTop="20dp" >
 
-                <TextView
-                    android:id="@+id/tvVoucherTitle"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="0"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="3 Flavors For 2"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/TextColor" />
+                    <ImageView
+                        android:id="@+id/ivVoucherImage"
+                        android:layout_width="fill_parent"
+                        android:layout_height="160dp"
+                        android:layout_margin="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="0"
+                        android:adjustViewBounds="true"
+                        android:background="#00000000"
+                        android:baselineAlignBottom="true"
+                        android:cropToPadding="true"
+                        android:src="@drawable/samplevoucherimage" />
 
-                <TextView
-                    android:id="@+id/tvVoucherDesc"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="0"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="Purchase 2 Sodastream Flavour Bottles and receive the 3rd one free"
-                    android:textColor="@color/HintColor" />
+                    <TextView
+                        android:id="@+id/tvVoucherTitle"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="0"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="3 Flavors For 2"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/TextColor" />
 
-                <ImageView
-                    android:id="@+id/ivVoucherBarCode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="0"
-                    android:adjustViewBounds="true"
-                    android:background="#00000000"
-                    android:baselineAlignBottom="true"
-                    android:cropToPadding="true"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/transparent" />
+                    <TextView
+                        android:id="@+id/tvVoucherDesc"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="0"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:scrollbars="vertical"
+                        android:text="Purchase 2 Sodastream Flavour Bottles and receive the 3rd one free"
+                        android:textColor="@color/HintColor"
+                        android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/tvVoucherCode"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="Voucher Code : 000123453"
-                    android:textColor="@color/HintColor" />
-            </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/layVouchersType"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="0"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:id="@+id/ivVoucherBarCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:background="#00000000"
+                            android:baselineAlignBottom="true"
+                            android:cropToPadding="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/transparent" />
+
+                        <TextView
+                            android:id="@+id/tvVoucherCodeValue"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="Voucher Code : 000123453"
+                            android:textColor="@color/HintColor" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvVoucherCode"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_weight="0"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="Large Text"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/TextColor"
+                        android:textSize="34sp" />
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
     </LinearLayout>
 

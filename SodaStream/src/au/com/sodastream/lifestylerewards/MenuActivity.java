@@ -12,12 +12,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -35,6 +38,7 @@ import au.com.sodastream.lifestylerewards.asynctask.GCMResgisterTask;
 import au.com.sodastream.lifestylerewards.asynctask.LogoutAsyncTask;
 import au.com.sodastream.lifestylerewards.asynctask.UserAddressUpdateTask;
 import au.com.sodastream.lifestylerewards.gcm.WakeLocker;
+import au.com.sodastream.lifestylerewards.modules.StatesModule;
 
 import com.google.android.gcm.GCMRegistrar;
 
@@ -76,7 +80,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 		/*
 		 * Enable later for PN
 		 */
-		//enablePushNotifications();
+		enablePushNotifications();
 
 
 
@@ -189,7 +193,6 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 		case R.id.ibMenuRewards:
 
-
 			if(appPref.getActivationCode().length()  < 1)
 			{
 
@@ -295,24 +298,61 @@ public class MenuActivity extends Activity implements OnClickListener {
 		final AlertDialog alertDialog;
 		Builder builder = new Builder(this);
 
-		builder.setTitle("Sodastream");
+		builder.setTitle("SodaStream");
 
 
-		final EditText etStreet,etSuburb, etState, etPostcode;
+		final EditText etStreet,etSuburb, etPostcode;
+		final AutoCompleteTextView etState;
 		final TextView tvSuccess, tvWelcome, tvDesc;
 
 		etStreet =  new EditText(activity);
 		etSuburb =  new EditText(activity);
-		etState =  new EditText(activity);
+		etState =  new AutoCompleteTextView(activity);
 		etPostcode =  new EditText(activity);
 
+		InputFilter[] filters = new InputFilter[1];
+		filters[0] = new InputFilter.LengthFilter(4);
+		etPostcode.setFilters(filters);
 
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, StatesModule.arrStatus);
+		etState.setAdapter(adapter);
 
-		etStreet.setHint("Street");
+		etStreet.setHint("Street Address");
 		etSuburb.setHint("Suburb");
 		etState.setHint("State");
 		etPostcode.setHint("Postcode");
 
+
+		//		etStreet.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+		//		etSuburb.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+		//		etState.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+		//		etPostcode.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+
+
+
+
+		etStreet.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME | InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+		etSuburb.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME | InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+		etState.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME | InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+		etPostcode.setInputType(InputType.TYPE_CLASS_NUMBER );
+		//		
+		//		etStreet.setSingleLine(true);
+		//		etSuburb.setSingleLine(true);
+		//		etState.setSingleLine(true);
+		//		etPostcode.setSingleLine(true);
+		//		
+		//		
+		//		
+		//		etStreet.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+		//		etSuburb.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+		//		etState.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+		//		etPostcode.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+
+
+		//		etPostcode.setInputType(InputType.TYPE_CLASS_NUMBER);
+		//		etState.setKeyListener(new AlphabetListener());
+		//		etSuburb.setKeyListener(new AlphabetListener());
 
 		tvDesc =  new TextView(activity);
 		tvSuccess =  new TextView(activity);
@@ -328,7 +368,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 		LayoutParams layoutParams =  new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		scrollView.setLayoutParams(layoutParams);
 		layout.setLayoutParams(layoutParams);
-		layout.setPadding(10, 60, 10, 60);
+		layout.setPadding(10, 30, 10, 60);
 
 
 		tvDesc.setLayoutParams(layoutParams);
@@ -344,9 +384,13 @@ public class MenuActivity extends Activity implements OnClickListener {
 		tvSuccess.setGravity(Gravity.CENTER_HORIZONTAL);
 		tvWelcome.setGravity(Gravity.CENTER_HORIZONTAL);
 
-		tvWelcome.setText("Welcome to the SodaStream+ App!");
-		tvSuccess.setText("Your rewards have been activated.");
-		tvDesc.setText("To receive your welcome gift, please enter your preferred mailing address below.");
+		//		tvWelcome.setText("Welcome to the SodaStream+ App!");
+		//		tvSuccess.setText("Your rewards have been activated.");
+		//		tvDesc.setText("To receive your welcome gift, please enter your preferred mailing address below.");
+
+		tvWelcome.setText("Success!  Rewards Activated.");
+		tvSuccess.setText("  Welcome to the SodaStream+ App!");
+		tvDesc.setText("So we can send you a welcome gift please provide your street mailing address.");
 
 		scrollView.addView(layout);
 		layout.addView(tvWelcome);
@@ -404,6 +448,8 @@ public class MenuActivity extends Activity implements OnClickListener {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				// TODO Auto-generated method stub
+
+
 
 
 				if(etPostcode.getText().length() < 1 || etState.getText().length() < 1 || etStreet.getText().length() < 1 || etSuburb.getText().length() < 1)
@@ -469,6 +515,8 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 		etCode.setFocusableInTouchMode(true);
 		etCode.requestFocus();
+
+		etCode.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
 
 		final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -602,10 +650,6 @@ public class MenuActivity extends Activity implements OnClickListener {
 			}
 			else
 			{
-				// Try to register again, but not in the UI thread.
-				// It's also necessary to cancel the thread onDestroy(),
-				// hence the use of AsyncTask instead of a raw thread.
-				//                final Context context = this;
 
 
 				//*********************************************
@@ -669,7 +713,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 		AlertDialog.Builder  builder = new Builder(activity);
 		builder.setTitle("Warning");
-		builder.setMessage("Are you sure you want to exit Sodastream?");
+		builder.setMessage("Are you sure you want to exit SodaStream?");
 
 		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 

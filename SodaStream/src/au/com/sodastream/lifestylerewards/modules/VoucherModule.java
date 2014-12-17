@@ -20,5 +20,7 @@ public class VoucherModule {
 	public String description = "";
 	
 	public String code = "";
+	
+	public String voucher_type = "";
 
 }

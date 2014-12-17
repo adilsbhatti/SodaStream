@@ -4,6 +4,7 @@ public class ReferFriendModule {
 
 	
 	public String name = "";
+	public String lastName = "";
 	public String email = "";
 	public String userType = "";
 }

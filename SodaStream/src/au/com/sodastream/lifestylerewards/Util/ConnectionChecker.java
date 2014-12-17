@@ -21,7 +21,7 @@ public class ConnectionChecker {
 	                      }
 	  
 	          }
-	          Toasts.pop(activity, "No Connectivity Found!! Please check your Internet Settings");
+	          Toasts.pop(activity, "We are unable to connect, Please check your Internet Settings");
 	          return false;
 	    }
 	

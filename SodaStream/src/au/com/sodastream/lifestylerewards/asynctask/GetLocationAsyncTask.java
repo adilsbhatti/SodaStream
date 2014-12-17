@@ -14,8 +14,10 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import au.com.sodastream.lifestylerewards.R;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
 import au.com.sodastream.lifestylerewards.Util.DATA;
+import au.com.sodastream.lifestylerewards.Util.Toasts;
 import au.com.sodastream.lifestylerewards.modules.IdFrom;
 import au.com.sodastream.lifestylerewards.modules.LoginModule;
 
@@ -28,6 +30,7 @@ public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> im
 
 	ProgressDialog progressDialog;
 	boolean hasLocation = false, noDevice = false;
+	String Error  = "";
 
 	String dialogTitle = "";
 	LocationManager locationManager  = null;
@@ -233,6 +236,8 @@ public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> im
 		else
 		{
 			System.out.println( "-- Please turn on GPS or insert SIM Card in device");
+			Error =  activity.getString(R.string.ERROR_Could_not_find_location);
+			Toasts.pop(activity, Error);
 		}
 
 

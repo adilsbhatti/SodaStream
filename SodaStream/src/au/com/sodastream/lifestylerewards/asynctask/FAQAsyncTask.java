@@ -144,7 +144,7 @@ public class FAQAsyncTask extends AsyncTask<String, String, Boolean> implements 
 			}
 			else
 			{
-				Error = "No FAQs Found!!";
+				Error = "Sorry, no FAQs are available";
 				return false;
 			}
 
@@ -202,7 +202,7 @@ public class FAQAsyncTask extends AsyncTask<String, String, Boolean> implements 
 		}
 		else
 		{
-			Toasts.pop(activity, "Error : "  + Error);
+			Toasts.pop(activity, Error);
 		}
 
 		progressDialog.dismiss();

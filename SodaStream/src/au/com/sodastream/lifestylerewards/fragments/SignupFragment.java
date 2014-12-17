@@ -71,11 +71,15 @@ public class SignupFragment extends Fragment {
 				Validate.checkEmptyEditText(arrEditTexts);
 				if(Validate.isEmptyEditText(etSignupConfPass) || Validate.isEmptyEditText(etSignupEmail) || Validate.isEmptyEditText(etSignupFirstName) || Validate.isEmptyEditText(etSignupPass)   ||   Validate.isEmptyEditText(etSignupSurName))
 				{
-					Toasts.pop(activity, "Filled in fields marked red");
+					Toasts.pop(activity, "Please complete all fields (marked red)");
 				}
 				else if (Validate.isEmailValid(etSignupEmail))
 				{
 					Toasts.pop(activity, "Invalid email format");
+				}
+				else if (etSignupPass.getText().toString().length() < 6 || etSignupConfPass.getText().toString().length() < 6)
+				{
+					Toasts.pop(activity, "Passwords should be atleast 6 characters");
 				}
 				else if (etSignupPass.getText().toString().compareTo(etSignupConfPass.getText().toString()) != 0)
 				{
@@ -89,6 +93,7 @@ public class SignupFragment extends Fragment {
 				{
 
 
+					
 					//Get values for sign up here
 
 					DATA.signupModule = new SignupModule();
@@ -99,7 +104,7 @@ public class SignupFragment extends Fragment {
 					DATA.signupModule.password =  etSignupPass.getText().toString().trim();
 					DATA.signupModule.gender =  selectedGender;
 
-					Toasts.pop(activity, "Selected gender : " + DATA.signupModule.gender);
+//					Toasts.pop(activity, "Selected gender : " + DATA.signupModule.gender);
 					DATA.fromRegistration = true;
 					Intent intent = new Intent(activity, QuestionsActivity.class);
 					startActivity(intent);
@@ -117,7 +122,7 @@ public class SignupFragment extends Fragment {
 				// TODO Auto-generated method stub
 
 				AlertDialog.Builder builder = new Builder(activity);
-				builder.setTitle("Sodastream - Terms & Conditions");
+				builder.setTitle("SodaStream - Terms & Conditions");
 
 				WebView webView = new WebView(activity);
 				webView.loadUrl("file:///android_asset/termsconditions.html");

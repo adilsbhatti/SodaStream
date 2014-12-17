@@ -21,10 +21,13 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.AsyncTask;
+import au.com.sodastream.lifestylerewards.R;
 import au.com.sodastream.lifestylerewards.SigninActivity;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
 import au.com.sodastream.lifestylerewards.Util.Toasts;
 import au.com.sodastream.lifestylerewards.Util.URLS;
+
+import com.google.android.gcm.GCMRegistrar;
 
 
 public class LogoutAsyncTask extends AsyncTask<String, String, Boolean> implements DialogInterface.OnDismissListener {
@@ -60,7 +63,7 @@ public class LogoutAsyncTask extends AsyncTask<String, String, Boolean> implemen
 		progressDialog.setMessage("Logging Out");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
-		
+
 		progressDialog.setOnCancelListener(new OnCancelListener() {
 
 			@Override
@@ -126,21 +129,25 @@ public class LogoutAsyncTask extends AsyncTask<String, String, Boolean> implemen
 		catch(UnsupportedEncodingException e)
 		{
 			System.out.println("--2 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(ClientProtocolException e)
 		{
 			System.out.println("--3 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(ParseException e)
 		{
 			System.out.println("--4 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(IOException e)
 		{
 			System.out.println("--5 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_INTERNET);
 			return false;
 		}
 		catch (Exception e) 
@@ -148,6 +155,7 @@ public class LogoutAsyncTask extends AsyncTask<String, String, Boolean> implemen
 			System.out.println("Exception : " + e.getMessage() );
 			// TODO: handle exception
 			System.out.println("--6 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			e.printStackTrace();
 			return false;
 		}
@@ -170,12 +178,15 @@ public class LogoutAsyncTask extends AsyncTask<String, String, Boolean> implemen
 			appPref.setAccessToken("");
 			appPref.setActivationCode("");
 			appPref.setPostcode("");
+			appPref.setDeviceID("");
+			GCMRegistrar.unregister(activity);
 
 		}
 		else
 		{
+			//			Error = "We're unable to log you out at this time. Please try again shortly.";
 
-			Toasts.pop(activity, "Error  : " + Error);
+			Toasts.pop(activity, Error);
 
 		}
 
@@ -188,7 +199,7 @@ public class LogoutAsyncTask extends AsyncTask<String, String, Boolean> implemen
 		super.onCancelled(result);
 
 
-
+		
 		progressDialog.dismiss();
 	}
 

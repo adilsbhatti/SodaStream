@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import au.com.sodastream.lifestylerewards.MenuActivity;
 import au.com.sodastream.lifestylerewards.QuestionsActivity;
+import au.com.sodastream.lifestylerewards.R;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
 import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Toasts;
@@ -110,7 +111,7 @@ public class FBRegisterTask extends AsyncTask<String, String, Boolean> {
 
 			// status error
 
-			
+
 
 
 			jsonObject.put("latitude", DATA.Latitude);
@@ -140,7 +141,9 @@ public class FBRegisterTask extends AsyncTask<String, String, Boolean> {
 			{
 				Error =  jsonCheckResponse.getString("error");
 
+				if(jsonCheckResponse.getString("error").contains("email"))
 
+					Error = activity.getString(R.string.ERROR_Trying_to_Login_with_an_email_already_in_use_by_FacebooK);
 
 				return false;
 
@@ -153,7 +156,7 @@ public class FBRegisterTask extends AsyncTask<String, String, Boolean> {
 				// load data here
 				appPref =  new AppPref(activity);
 				appPref.setAccessToken(jsonContent.getString("token"));
-				
+
 				appPref.setNewFacebookUser(jsonContent.getBoolean("newUser"));
 
 				System.out.println("-- header : " + appPref.getAccessToken());
@@ -167,26 +170,32 @@ public class FBRegisterTask extends AsyncTask<String, String, Boolean> {
 		catch(JSONException e)
 		{
 			System.out.println("--1 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(UnsupportedEncodingException e)
 		{
 			System.out.println("--2 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(ClientProtocolException e)
 		{
 			System.out.println("--3 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(ParseException e)
 		{
 			System.out.println("--4 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(IOException e)
 		{
 			System.out.println("--5 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = activity.getString(R.string.ERROR_INTERNET);
+
 			return false;
 		}
 		catch (Exception e) 
@@ -194,6 +203,7 @@ public class FBRegisterTask extends AsyncTask<String, String, Boolean> {
 			System.out.println("Exception : " + e.getMessage() );
 			// TODO: handle exception
 			System.out.println("--6 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = activity.getString(R.string.ERROR_API);
 			e.printStackTrace();
 			return false;
 		}
@@ -206,40 +216,40 @@ public class FBRegisterTask extends AsyncTask<String, String, Boolean> {
 	protected void onPostExecute(Boolean result) {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
-		
-		
+
+
 		if(result)
 		{
-//			Intent intent = new Intent(activity, MenuActivity.class);
-//			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//			activity.startActivity(intent);
-//			this.cancel(true);
-//			DATA.fromRegistration = false;
-//			activity.finish();
-			
-			
-			
-//			if(appPref.getUserEmail().equals(""))
-//			{
-//				appPref.setUserEmail(DATA.signupModule.email);
-//				
-//			}
-//			else if (appPref.getUserEmail().equals(DATA.signupModule.email))
-//			{
-//				appPref.setUserEmail(DATA.signupModule.email);
-//			}
-//			else
-//			{
-//				appPref.setActivationCode("")
-//			}
-			
-			
-			
+			//			Intent intent = new Intent(activity, MenuActivity.class);
+			//			intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			//			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			//			activity.startActivity(intent);
+			//			this.cancel(true);
+			//			DATA.fromRegistration = false;
+			//			activity.finish();
+
+
+
+			//			if(appPref.getUserEmail().equals(""))
+			//			{
+			//				appPref.setUserEmail(DATA.signupModule.email);
+			//				
+			//			}
+			//			else if (appPref.getUserEmail().equals(DATA.signupModule.email))
+			//			{
+			//				appPref.setUserEmail(DATA.signupModule.email);
+			//			}
+			//			else
+			//			{
+			//				appPref.setActivationCode("")
+			//			}
+
+
+
 			if(appPref.getNewFacebookUser())
 			{
-				Toasts.pop(activity, "He is new user");
-				
+				//				Toasts.pop(activity, "He is new user");
+
 				Intent intent = new Intent(activity, QuestionsActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				activity.startActivity(intent);
@@ -247,18 +257,18 @@ public class FBRegisterTask extends AsyncTask<String, String, Boolean> {
 			}
 			else
 			{
-				Toasts.pop(activity, "He is old user");	
-				
+				//				Toasts.pop(activity, "He is old user");	
+
 				Intent intent = new Intent(activity, MenuActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				activity.startActivity(intent);
 				activity.finish();
 			}
-			
+
 		}
 		else
 		{
-			Toasts.pop(activity, "Error  : " + Error);
+			Toasts.pop(activity,  Error);
 		}
 
 		httpClient = null;

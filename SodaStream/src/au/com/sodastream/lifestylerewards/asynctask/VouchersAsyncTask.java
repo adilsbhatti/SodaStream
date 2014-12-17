@@ -22,6 +22,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
+import au.com.sodastream.lifestylerewards.R;
 import au.com.sodastream.lifestylerewards.VouchersActivity;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
 import au.com.sodastream.lifestylerewards.Util.DATA;
@@ -116,6 +117,8 @@ public class VouchersAsyncTask extends AsyncTask<String, String, Boolean> {
 
 			content = EntityUtils.toString(httpResponse.getEntity());
 
+			System.out.println("-- vouchers content: " + content);
+			
 
 			/*
 			 * Uncomment when access token issue fixed
@@ -159,7 +162,7 @@ public class VouchersAsyncTask extends AsyncTask<String, String, Boolean> {
 			}
 			else
 			{
-				Error = "No Stores Found!!";
+				Error =  "Sorry, no Vouhcers are available";
 				return false;
 			}
 
@@ -177,21 +180,25 @@ public class VouchersAsyncTask extends AsyncTask<String, String, Boolean> {
 		catch(UnsupportedEncodingException e)
 		{
 			System.out.println("--2 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(ClientProtocolException e)
 		{
 			System.out.println("--3 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(ParseException e)
 		{
 			System.out.println("--4 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(IOException e)
 		{
 			System.out.println("--5 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_INTERNET);
 			return false;
 		}
 		catch (Exception e) 
@@ -199,6 +206,7 @@ public class VouchersAsyncTask extends AsyncTask<String, String, Boolean> {
 			System.out.println("Exception : " + e.getMessage() );
 			// TODO: handle exception
 			System.out.println("--6 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			e.printStackTrace();
 			return false;
 		}
@@ -215,7 +223,7 @@ public class VouchersAsyncTask extends AsyncTask<String, String, Boolean> {
 		}
 		else
 		{
-			Toasts.pop(activity, "Error : " + Error);
+			Toasts.pop(activity, Error);
 		}
 
 		progressDialog.dismiss();

@@ -15,6 +15,7 @@ import au.com.sodastream.lifestylerewards.Util.AppImagesDimensions;
 import au.com.sodastream.lifestylerewards.Util.AspectRationImageView;
 import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Fonts;
+import au.com.sodastream.lifestylerewards.Util.ViewBrowser;
 import au.com.sodastream.lifestylerewards.Util.WebViewDialog;
 import au.com.sodastream.lifestylerewards.modules.NewProductsModule;
 
@@ -76,7 +77,7 @@ public class AdapterNewProducts extends ArrayAdapter<NewProductsModule> {
 
 
 
-		viewHolder.tvIconTitle.setText(DATA.arrlstNewProductsModules.get(position).title);
+		viewHolder.tvIconTitle.setText(DATA.arrlstNewProductsModules.get(position).title.toUpperCase());
 		//		String imageURL;
 		//		if(position%2==0)
 		//		{
@@ -89,7 +90,7 @@ public class AdapterNewProducts extends ArrayAdapter<NewProductsModule> {
 		//		String imageURL   = "http://media.sodastream.com.au/media/catalog/product/cache/5/small_image/165x215/9df78eab33525d08d6e5fb8d27136e95/s/o/sourcemetalblack1.jpg";
 
 		System.out.println("-- products image : " + DATA.arrlstNewProductsModules.get(position).thumbnail_url);
-		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstNewProductsModules.get(position).thumbnail_url,R.drawable.icon);
+		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstNewProductsModules.get(position).thumbnail_url,R.drawable.transparent);
 		//		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, imageURL,R.drawable.icon);
 
 
@@ -101,7 +102,9 @@ public class AdapterNewProducts extends ArrayAdapter<NewProductsModule> {
 				// TODO Auto-generated method stub
 				String url = DATA.arrlstNewProductsModules.get(position).url;
 				//				System.out.println("-- product url : " + DATA.arrlstNewProductsModules.get(position).site_url);
-				WebViewDialog.showWebviewDialog(activity, url, DATA.arrlstNewProductsModules.get(position).title);
+//				WebViewDialog.showWebviewDialog(activity, url, DATA.arrlstNewProductsModules.get(position).title);
+				
+				ViewBrowser.openURL(activity, url);
 			}
 		});
 

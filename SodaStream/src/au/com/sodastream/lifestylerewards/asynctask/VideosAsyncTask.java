@@ -22,6 +22,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
+import au.com.sodastream.lifestylerewards.R;
 import au.com.sodastream.lifestylerewards.VideosActivity;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
 import au.com.sodastream.lifestylerewards.Util.DATA;
@@ -142,7 +143,7 @@ public class VideosAsyncTask extends AsyncTask<String, String, Boolean> implemen
 			}
 			else
 			{
-				Error = "No Videos Found!!";
+				Error =  "Sorry, no Videos are available";
 				return false;
 			}
 
@@ -160,21 +161,25 @@ public class VideosAsyncTask extends AsyncTask<String, String, Boolean> implemen
 		catch(UnsupportedEncodingException e)
 		{
 			System.out.println("--2 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(ClientProtocolException e)
 		{
 			System.out.println("--3 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(ParseException e)
 		{
 			System.out.println("--4 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(IOException e)
 		{
 			System.out.println("--5 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_INTERNET);
 			Error = "Internet not working";
 			
 			return false;
@@ -185,6 +190,7 @@ public class VideosAsyncTask extends AsyncTask<String, String, Boolean> implemen
 			// TODO: handle exception
 			System.out.println("--6 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
 			e.printStackTrace();
+			Error =  activity.getString(R.string.ERROR_API);
 			return false;
 		}
 	}
@@ -200,7 +206,7 @@ public class VideosAsyncTask extends AsyncTask<String, String, Boolean> implemen
 		}
 		else
 		{
-			Toasts.pop(activity, "Error : "  + Error);
+			Toasts.pop(activity,Error);
 		}
 
 		progressDialog.dismiss();

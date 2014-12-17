@@ -66,10 +66,10 @@ public class AdapterNews extends ArrayAdapter<NewsModule> {
 
 
 
-		viewHolder.tvIconTitle.setText(DATA.arrlstNewsModules.get(position).title);
+		viewHolder.tvIconTitle.setText(DATA.arrlstNewsModules.get(position).title.toUpperCase());
 		
 		System.out.println("-- news image : " + DATA.arrlstNewsModules.get(position).thumbnail_url);
-		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstNewsModules.get(position).thumbnail_url,R.drawable.icon);
+		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstNewsModules.get(position).thumbnail_url,R.drawable.transparent);
 		//		
 
 

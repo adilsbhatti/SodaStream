@@ -23,6 +23,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 import au.com.sodastream.lifestylerewards.MenuActivity;
+import au.com.sodastream.lifestylerewards.R;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
 import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Toasts;
@@ -144,6 +145,11 @@ public class LoginAsyncTask extends AsyncTask<String, String, Boolean>  implemen
 			if(jsonCheckResponse.has("error"))
 			{
 				Error =  jsonCheckResponse.getString("error");
+				
+				if(Error.contains("No such user"))
+				{
+					Error = activity.getString(R.string.ERROR_Incorrect_Login_Information);
+				}
 
 
 
@@ -200,26 +206,31 @@ public class LoginAsyncTask extends AsyncTask<String, String, Boolean>  implemen
 		catch(JSONException e)
 		{
 			System.out.println("--1 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = "We're unable to sign you up at this time. Please try again shortly.";
 			return false;
 		}
 		catch(UnsupportedEncodingException e)
 		{
 			System.out.println("--2 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = "We're unable to sign you up at this time. Please try again shortly.";
 			return false;
 		}
 		catch(ClientProtocolException e)
 		{
 			System.out.println("--3 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = "We're unable to sign you up at this time. Please try again shortly.";
 			return false;
 		}
 		catch(ParseException e)
 		{
 			System.out.println("--4 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = "We're unable to sign you up at this time. Please try again shortly.";
 			return false;
 		}
 		catch(IOException e)
 		{
 			System.out.println("--5 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = "Please check that you are connected to the internet and try again";
 			return false;
 		}
 		catch (Exception e) 
@@ -227,6 +238,7 @@ public class LoginAsyncTask extends AsyncTask<String, String, Boolean>  implemen
 			System.out.println("Exception : " + e.getMessage() );
 			// TODO: handle exception
 			System.out.println("--6 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error = "We're unable to sign you up at this time. Please try again shortly.";
 			e.printStackTrace();
 			return false;
 		}
@@ -258,7 +270,7 @@ public class LoginAsyncTask extends AsyncTask<String, String, Boolean>  implemen
 		{
 
 
-			Toasts.pop(activity, "Error  : " + Error);
+			Toasts.pop(activity,  Error);
 		}
 
 

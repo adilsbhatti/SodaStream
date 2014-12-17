@@ -83,6 +83,8 @@ public class ForgotPassActivity extends Activity {
 
 		tv25 = (TextView) findViewById(R.id.tv25);
 		tv25.setTypeface(Fonts.getHelvatica(activity));
+		
+		tv25.setText(tv25.getText().toString().toUpperCase());
 
 	}
 

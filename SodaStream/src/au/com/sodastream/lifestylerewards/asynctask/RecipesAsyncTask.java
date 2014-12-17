@@ -140,7 +140,7 @@ progressDialog.setOnCancelListener(new OnCancelListener() {
 			}
 			else
 			{
-				Error = "No Recipes Found!!";
+				Error = "Sorry, no Recipes are available";
 				return false;
 			}
 
@@ -173,6 +173,7 @@ progressDialog.setOnCancelListener(new OnCancelListener() {
 		catch(IOException e)
 		{
 			System.out.println("--5 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error   = "We're unable to load this content. Please make sure that you have a data connection or try again shortly.";
 			return false;
 		}
 		catch (Exception e) 
@@ -197,7 +198,7 @@ progressDialog.setOnCancelListener(new OnCancelListener() {
 		}
 		else
 		{
-			Toasts.pop(activity, "Error : " + Error);
+			Toasts.pop(activity, Error);
 		}
 
 		progressDialog.dismiss();

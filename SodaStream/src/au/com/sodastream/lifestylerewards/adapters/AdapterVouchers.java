@@ -63,9 +63,9 @@ public class AdapterVouchers extends ArrayAdapter<VoucherModule> {
 
 
 
-		viewHolder.tvIconTitle.setText(DATA.arrlstVoucherModules.get(position).title);
+		viewHolder.tvIconTitle.setText(DATA.arrlstVoucherModules.get(position).title.toUpperCase());
 
-		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstVoucherModules.get(position).thumbnail_url,R.drawable.icon);
+		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstVoucherModules.get(position).thumbnail_url,R.drawable.transparent);
 
 
 

@@ -68,9 +68,9 @@ public class AdapterRecipes extends ArrayAdapter<RecipeModel> {
 
 
 
-		viewHolder.tvIconTitle.setText(DATA.arrlstRecipeModels.get(position).title);
+		viewHolder.tvIconTitle.setText(DATA.arrlstRecipeModels.get(position).title.toUpperCase());
 
-		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstRecipeModels.get(position).thumbnail_url,R.drawable.icon);
+		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstRecipeModels.get(position).thumbnail_url,R.drawable.transparent);
 
 
 

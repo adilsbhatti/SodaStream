@@ -4,22 +4,25 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
 import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Fonts;
 import au.com.sodastream.lifestylerewards.asynctask.GetLocationAsyncTask;
-import au.com.sodastream.lifestylerewards.asynctask.StoreLocationAsyncTask;
 import au.com.sodastream.lifestylerewards.modules.IdFrom;
 
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class StoreLocatorActivity extends Activity {
@@ -27,14 +30,17 @@ public class StoreLocatorActivity extends Activity {
 	//UI Elements
 	GoogleMap  googleMap;
 	TextView tv4;
+	ImageButton ibRefershLocation;
 
 
 	//Variables
 	Activity	activity;
 	CameraUpdate  cameraUpdate;
 	GooglePlayServicesUtil googlePlayServicesUtil;
-//	StoreLocationAsyncTask storeLocationAsyncTask;
+	//	StoreLocationAsyncTask storeLocationAsyncTask;
 	GetLocationAsyncTask getLocationAsyncTask;
+
+
 	ArrayList<LatLng> arrlstLatLngs;
 	ArrayList<MarkerOptions> arrlstMarkersOptions;
 	AppPref appPref;
@@ -50,16 +56,26 @@ public class StoreLocatorActivity extends Activity {
 
 		initUI();
 
-//		storeLocationAsyncTask = new StoreLocationAsyncTask(activity);
-//		storeLocationAsyncTask.execute();
-		
+		//		storeLocationAsyncTask = new StoreLocationAsyncTask(activity);
+		//		storeLocationAsyncTask.execute();
+
 		getLocationAsyncTask =  new GetLocationAsyncTask(activity, IdFrom.STORES, "Fetching Store Locations");
 		getLocationAsyncTask.execute();
 
 
 
-//		System.out.println("-- play service  " + GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity));
-//		System.out.println("-- play service code  " + GooglePlayServicesUtil.GOOGLE_PLAY_SERVICES_VERSION_CODE);
+		//		System.out.println("-- play service  " + GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity));
+		//		System.out.println("-- play service code  " + GooglePlayServicesUtil.GOOGLE_PLAY_SERVICES_VERSION_CODE);
+
+
+		ibRefershLocation.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				setMyLocationView();
+			}
+		});
 
 
 	}
@@ -68,6 +84,9 @@ public class StoreLocatorActivity extends Activity {
 		// TODO Auto-generated method stub
 		tv4 = (TextView) findViewById(R.id.tv4);
 		tv4.setTypeface(Fonts.getHelvatica(activity));
+
+		ibRefershLocation = (ImageButton) findViewById(R.id.ibRefershLocation);
+
 	}
 
 	public void initMAP() {
@@ -75,39 +94,8 @@ public class StoreLocatorActivity extends Activity {
 
 		googleMap  =  ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-		//
-		//		cameraUpdate = CameraUpdateFactory.zoomBy(15);
-		//
-		//				final LatLng Karachi = new LatLng(24.8508, 67.0181);
-		//
-		//				Marker khi = googleMap.addMarker(new MarkerOptions()
-		//				.position(Karachi)
-		//				.title("Karachi")
-		//				.snippet("City of lights")
-		//				.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
-		//		googleMap.setInfoWindowAdapter(new InfoWindowAdapter() {
-		//
-		//			@Override
-		//			public View getInfoWindow(Marker arg0) {
-		//				// TODO Auto-generated method stub
-		//				return null;
-		//			}
-		//
-		//			@Override
-		//			public View getInfoContents(Marker arg0) {
-		//				// TODO Auto-generated method stub
-		//				return null;
-		//			}
-		//		});
 
-		//		//		
-		//		//
-		//		cameraUpdate = CameraUpdateFactory.newLatLng(Karachi);
-		//		googleMap.animateCamera(cameraUpdate);
-		//
-		//		
-		//		googleMap.clear();
 
 		setMarkersOnMap();
 
@@ -126,7 +114,7 @@ public class StoreLocatorActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onResume();
 
-				initMAP();
+		initMAP();
 
 
 	}
@@ -155,19 +143,15 @@ public class StoreLocatorActivity extends Activity {
 
 
 				tempLatLng =  new LatLng( Double.parseDouble(DATA.arrlstStoresModules.get(i).latitude), Double.parseDouble(DATA.arrlstStoresModules.get(i).longitude));
-				//				tempLatLng =  new LatLng(-37.811395+i, 144.957347+i);
 
 
-				//				System.out.println("-- " + Double.parseDouble(DATA.arrlstStoresModules.get(i).latitude) + "        " + Double.parseDouble(DATA.arrlstStoresModules.get(i).longitude));
 
-
-				//				System.out.println("stores type  : " + DATA.arrlstStoresModules.get(i).type + " equal status  : " + DATA.arrlstStoresModules.get(i).type.equals("1"));
 				icon = (DATA.arrlstStoresModules.get(i).type.equals("1") ? R.drawable.gasgps : R.drawable.machinegps);
 
-				tempMarkerOptions = new MarkerOptions().position(tempLatLng).title(DATA.arrlstStoresModules.get(i).name).snippet(DATA.arrlstStoresModules.get(i).address + "\n" + DATA.arrlstStoresModules.get(i).phone).icon(BitmapDescriptorFactory.fromResource(icon));	
+				tempMarkerOptions = new MarkerOptions().position(tempLatLng).title(DATA.arrlstStoresModules.get(i).name).snippet(DATA.arrlstStoresModules.get(i).address).icon(BitmapDescriptorFactory.fromResource(icon));	
 
 
-				//				cameraUpdate = CameraUpdateFactory.zoomIn();
+
 
 				arrlstMarkersOptions.add(tempMarkerOptions);
 
@@ -186,12 +170,7 @@ public class StoreLocatorActivity extends Activity {
 			}
 
 
-			tempLatLng =  new LatLng(Double.parseDouble(appPref.getLatitude()) , Double.parseDouble(appPref.getLongitude()));
-			//			cameraUpdate = CameraUpdateFactory.newLatLng(tempLatLng);
-			cameraUpdate = CameraUpdateFactory.newLatLngZoom(tempLatLng, 12);
-			//			cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(tempLatLng, zoom, tilt, bearing))
-			googleMap.animateCamera(cameraUpdate);
-			//			cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(tempLatLng, zoom, tilt, bearing))
+			setMyLocationView();
 
 
 
@@ -200,6 +179,16 @@ public class StoreLocatorActivity extends Activity {
 
 
 		}
+	}
+
+	private void setMyLocationView() {
+		LatLng tempLatLng;
+		tempLatLng =  new LatLng(Double.parseDouble(appPref.getLatitude()) , Double.parseDouble(appPref.getLongitude()));
+		//			cameraUpdate = CameraUpdateFactory.newLatLng(tempLatLng);
+		cameraUpdate = CameraUpdateFactory.newLatLngZoom(tempLatLng, 14);
+		//			cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(tempLatLng, zoom, tilt, bearing))
+		googleMap.animateCamera(cameraUpdate);
+		//			cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(tempLatLng, zoom, tilt, bearing))
 	}
 
 

@@ -24,6 +24,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnDismissListener;
 import android.os.AsyncTask;
+import au.com.sodastream.lifestylerewards.R;
 import au.com.sodastream.lifestylerewards.RewardsActivity;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
 import au.com.sodastream.lifestylerewards.Util.DATA;
@@ -67,7 +68,7 @@ public class RewardsAsyncTask extends AsyncTask<String, String, Boolean> impleme
 		progressDialog.setMessage("Fetching Rewards");
 		progressDialog.setCanceledOnTouchOutside(false);
 		progressDialog.show();
-		
+
 		progressDialog.setOnCancelListener(new OnCancelListener() {
 
 			@Override
@@ -139,7 +140,7 @@ public class RewardsAsyncTask extends AsyncTask<String, String, Boolean> impleme
 			{
 				Error =  jsonCheckResponse.getString("error");
 
-
+				Error =  activity.getString(R.string.ERROR_API);
 
 				return false;
 
@@ -163,7 +164,7 @@ public class RewardsAsyncTask extends AsyncTask<String, String, Boolean> impleme
 			}
 			else
 			{
-				Error = "No Rewards Found!!";
+				Error = "Sorry, no Rewards are available";
 				return false;
 			}
 
@@ -173,30 +174,35 @@ public class RewardsAsyncTask extends AsyncTask<String, String, Boolean> impleme
 
 
 		} 
-				catch(JSONException e)
-				{
-					Error = "Invalid Data Format";
-					System.out.println("--1 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
-					return false;
-				}
+		catch(JSONException e)
+		{
+			Error = "Invalid Data Format";
+			System.out.println("--1 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
+			return false;
+		}
 		catch(UnsupportedEncodingException e)
 		{
 			System.out.println("--2 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(ClientProtocolException e)
 		{
 			System.out.println("--3 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(ParseException e)
 		{
 			System.out.println("--4 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			return false;
 		}
 		catch(IOException e)
 		{
 			System.out.println("--5 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_INTERNET);
 			return false;
 		}
 		catch (Exception e) 
@@ -204,6 +210,7 @@ public class RewardsAsyncTask extends AsyncTask<String, String, Boolean> impleme
 			System.out.println("Exception : " + e.getMessage() );
 			// TODO: handle exception
 			System.out.println("--6 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			Error =  activity.getString(R.string.ERROR_API);
 			e.printStackTrace();
 			return false;
 		}
@@ -220,7 +227,7 @@ public class RewardsAsyncTask extends AsyncTask<String, String, Boolean> impleme
 		}
 		else
 		{
-			Toasts.pop(activity, "Error : " + Error);
+			Toasts.pop(activity,  Error);
 		}
 
 		progressDialog.dismiss();

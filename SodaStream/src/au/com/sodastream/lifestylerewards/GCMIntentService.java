@@ -1,5 +1,7 @@
 package au.com.sodastream.lifestylerewards;
 
+import java.util.concurrent.Executors;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -7,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import au.com.sodastream.lifestylerewards.Util.DATA;
+import au.com.sodastream.lifestylerewards.asynctask.GCMResgisterTask;
 
 import com.google.android.gcm.GCMBaseIntentService;
 import com.google.android.gcm.ServerUtilities;
@@ -15,6 +18,9 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 	private static final String TAG = "GCMIntentService";
 
+	GCMResgisterTask gcmResgisterTask;
+	
+	
 	public GCMIntentService() {
 		super(DATA.SENDER_ID);
 	}
@@ -24,10 +30,16 @@ public class GCMIntentService extends GCMBaseIntentService {
 	 **/
 	@Override
 	protected void onRegistered(Context context, String registrationId) {
-		Log.i(TAG, "Device registered: regId = " + registrationId);
+		Log.i(TAG, "-- Device registered: regId = " + registrationId);
 		//        displayMessage(context, "Your device registred with GCM");
 		//        Log.d("NAME", MainActivity.name);
-		ServerUtilities.register(context, DATA.name, DATA.email, registrationId);
+//		ServerUtilities.register(context, DATA.name, DATA.email, registrationId);
+		
+		gcmResgisterTask = new GCMResgisterTask(context,registrationId);
+		gcmResgisterTask.executeOnExecutor(Executors.newSingleThreadExecutor(), "");
+		System.out.println("-- Call async task here when we get new Device ID");
+		
+		
 	}
 
 	/**

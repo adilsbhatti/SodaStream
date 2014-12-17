@@ -63,9 +63,9 @@ public class AdapterRewards extends ArrayAdapter<RewardsModule> {
 
 
 
-		viewHolder.tvIconTitle.setText(DATA.arrlstRewardsModules.get(position).title);
+		viewHolder.tvIconTitle.setText(DATA.arrlstRewardsModules.get(position).title.toUpperCase());
 
-		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstRewardsModules.get(position).thumbnail_image_url,R.drawable.icon);
+		UrlImageViewHelper.setUrlDrawable(viewHolder.ivIconImg, DATA.arrlstRewardsModules.get(position).thumbnail_image_url,R.drawable.transparent);
 
 
 
@@ -82,7 +82,7 @@ public class AdapterRewards extends ArrayAdapter<RewardsModule> {
 				}
 				else
 				{
-					Toasts.pop(activity, "Unable to load reward");
+					Toasts.pop(activity, "We are unable to load reward, please try again later.");
 				}
 
 			}

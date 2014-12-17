@@ -44,7 +44,7 @@ public class SigninFragment extends Fragment {
 	//UI Elements
 	ImageButton ibSignin,ibSigninForgotPass,ibSigninFb;
 	EditText etSigninEmail,etSigninPassword;
-	ProgressDialog progressDialog;
+	public static	ProgressDialog progressDialog;
 	TextView tv7,tv8,tv9;
 	View signinView;
 
@@ -116,7 +116,8 @@ public class SigninFragment extends Fragment {
 				}
 				else
 				{
-
+					DATA.isFacebook = false;
+					appPref.setNewFacebookUser(false);
 					DATA.USER_EMAIL =  etSigninEmail.getText().toString().trim();
 					DATA.USER_PASSWORD = etSigninPassword.getText().toString().trim();
 					getLocationAsyncTask = new  GetLocationAsyncTask(activity, IdFrom.LOGIN,"Signing in");
@@ -284,6 +285,9 @@ public class SigninFragment extends Fragment {
 
 
 
+
+
+
 								@Override
 								public void onCompleted(GraphUser user, Response response) {
 									// TODO Auto-generated method stub
@@ -297,10 +301,10 @@ public class SigninFragment extends Fragment {
 
 										DATA.signupModule.firstname = user.getFirstName() ;
 										DATA.signupModule.surname =user.getLastName();
-										DATA.signupModule.email =   "w" + user.asMap().get("email").toString();
+										DATA.signupModule.email =    user.asMap().get("email").toString();
 
 										// Change it back in original build
-										DATA.signupModule.facebookID =  user.getId() + "13";
+										DATA.signupModule.facebookID =  user.getId();
 
 										appPref.setFacebookID(user.getId());
 										DATA.isFacebook = true;
@@ -330,6 +334,8 @@ public class SigninFragment extends Fragment {
 								}
 							}).executeAsync();
 						}
+
+
 
 						Log.d("Facebook",
 								"Session State: " + session.getState());

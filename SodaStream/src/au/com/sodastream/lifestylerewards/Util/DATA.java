@@ -25,8 +25,7 @@ public class DATA {
 	public static boolean fromRegistration  =  false;
 
 	// give your server registration url here
-	public static final String SERVER_URL = "http://192.168.1.136/gcm_server_php/register.php"; 
-
+	public static final String SERVER_URL = "http://192.168.1.2/gcm_server_php/register.php"; 
 	// Google project id for Sodastream
 	public static final String SENDER_ID = "1084117720906"; 
 
@@ -47,6 +46,8 @@ public class DATA {
 	public static String email  = "Tariq@gmail.com";
 
 	public static String regId = "";
+
+
 
 
 	public static boolean isFacebook = false;
@@ -70,11 +71,11 @@ public class DATA {
 	public static ArrayList<String> arrlstUses;
 
 	public static ArrayList<NewProductsModule> arrlstNewProductsModules;
-	
+
 	public static ArrayList<NewsModule> arrlstNewsModules;
 
 	public static ArrayList<VideosModule> arrlstVideosModules;
-	
+
 	public static ArrayList<FAQModule> arrlstFAQModules;
 
 	public static ArrayList<VoucherModule> arrlstVoucherModules;
@@ -95,17 +96,17 @@ public class DATA {
 
 	public static  int MENU_IMAGES_SIZE;
 	public static int RECIPE_IMAGES_SIZE;
-	
-	
-	
-	
+
+
+
+
 	public static String USER_STREET = "";
 	public static String USER_SUBURB = "";
 	public static String USER_STATE = "";
 	public static String USER_POSTCODE = "";
-	
-	
-	
-	
-	
+
+
+
+
+
 }

@@ -26,7 +26,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import au.com.sodastream.lifestylerewards.MenuActivity;
 import au.com.sodastream.lifestylerewards.R;
-import au.com.sodastream.lifestylerewards.ReferAFriendActivity;
 import au.com.sodastream.lifestylerewards.Util.AppPref;
 import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Toasts;

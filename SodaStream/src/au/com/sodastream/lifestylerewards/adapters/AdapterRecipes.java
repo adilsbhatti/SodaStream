@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.res.Resources;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,6 +32,7 @@ public class AdapterRecipes extends ArrayAdapter<RecipeModel> {
 	FragmentManager fragmentManager;
 	FragmentTransaction fragmentTransaction;
 	RecipeDetailsFragment recipeDetailsFragment;
+	
 
 	public AdapterRecipes(Activity _activity) {
 		super(_activity, R.layout.cell_row	, DATA.arrlstRecipeModels);
@@ -51,6 +54,10 @@ public class AdapterRecipes extends ArrayAdapter<RecipeModel> {
 			convertView = layoutInflater.inflate(R.layout.cell_row, parent, false);
 
 			AppImagesDimensions.setScreenUnits(activity);
+			
+			
+
+			System.out.println("-- Menu Image: " + DATA.MENU_IMAGES_SIZE );
 
 			convertView.setLayoutParams(new LayoutParams(DATA.MENU_IMAGES_SIZE, DATA.MENU_IMAGES_SIZE));
 
@@ -59,6 +66,7 @@ public class AdapterRecipes extends ArrayAdapter<RecipeModel> {
 			initUI(convertView, viewHolder);
 
 			convertView.setTag(viewHolder);
+			
 
 		}
 		else

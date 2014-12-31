@@ -10,6 +10,7 @@ public class AppImagesDimensions {
 
 
 		switch (ScreenSize.getScreenDensity(activity)) {
+		
 		case ScreenSize.MDPI:
 
 
@@ -21,7 +22,7 @@ public class AppImagesDimensions {
 
 		case ScreenSize.HDPI:
 
-
+			
 			DATA.MENU_IMAGES_SIZE  = 238;
 			DATA.RECIPE_IMAGES_SIZE = 250;
 

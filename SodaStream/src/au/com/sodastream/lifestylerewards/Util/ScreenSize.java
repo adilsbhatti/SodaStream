@@ -23,6 +23,7 @@ public class ScreenSize {
 		density = activity.getResources().getDisplayMetrics().densityDpi;
 		System.out.println("-- density : " + density);
 
+		
 		switch (density) {
 	 	case 120:
 

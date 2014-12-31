@@ -123,7 +123,7 @@ public class UserAddressUpdateTask extends AsyncTask<String, String, Boolean> {
 			content = EntityUtils.toString(httpResponse.getEntity());
 
 			System.out.println("-- welcome response : " + content);
-			
+
 			JSONObject jsonCheckResponse;
 
 			try {
@@ -225,8 +225,11 @@ public class UserAddressUpdateTask extends AsyncTask<String, String, Boolean> {
 
 			//			((MenuActivity)activity).getWelcomeRewardAddress(c);
 
-			Intent intent = new Intent(activity, c);
-			activity.startActivity(intent);
+			if(c!=null)
+			{
+				Intent intent = new Intent(activity, c);
+				activity.startActivity(intent);
+			}
 		}
 		else
 		{

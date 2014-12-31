@@ -244,7 +244,7 @@ public class FBUserUpdateTask extends AsyncTask<String, String, Boolean> {
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			activity.startActivity(intent);
 			this.cancel(true);
-			DATA.fromRegistration = false;
+			DATA.fromRegistration = true;
 			activity.finish();
 		}
 		else

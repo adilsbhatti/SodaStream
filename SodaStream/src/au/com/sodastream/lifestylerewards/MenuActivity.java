@@ -83,6 +83,12 @@ public class MenuActivity extends Activity implements OnClickListener {
 		enablePushNotifications();
 
 
+		if(DATA.fromRegistration)
+		{
+			getCodeDetails(null);
+			DATA.fromRegistration = false;
+		}
+
 
 	}
 
@@ -249,7 +255,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 			AlertDialog.Builder builder = new Builder(activity);
 			builder.setTitle("Warning");
-			builder.setMessage("Are you sure you want to logout?");
+			builder.setMessage("Are you sure you want to Log out?");
 
 			builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
@@ -500,8 +506,8 @@ public class MenuActivity extends Activity implements OnClickListener {
 		final AlertDialog alertDialog;
 		Builder builder = new Builder(this);
 
-		builder.setTitle("Sodastream");
-		builder.setMessage("Enter Machine or Gas Code to enable Vouchers/Rewards");
+		builder.setTitle("Enter Activation Code");
+		builder.setMessage("Please enter a valid Machine or Gas Code. This can be found on your SodaStream product.");
 
 		// Set an EditText view to get user input 
 		final EditText etCode = new EditText(this);
@@ -511,7 +517,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 		InputFilter[] filters = new InputFilter[1];
 		filters[0] = new InputFilter.LengthFilter(8);
 		etCode.setFilters(filters);
-		etCode.setHint("Machine/Gas Code");
+		etCode.setHint("Enter Code");
 
 		etCode.setFocusableInTouchMode(true);
 		etCode.requestFocus();

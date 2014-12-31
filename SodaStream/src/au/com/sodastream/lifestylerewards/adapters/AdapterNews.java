@@ -14,7 +14,7 @@ import au.com.sodastream.lifestylerewards.Util.AppImagesDimensions;
 import au.com.sodastream.lifestylerewards.Util.AspectRationImageView;
 import au.com.sodastream.lifestylerewards.Util.DATA;
 import au.com.sodastream.lifestylerewards.Util.Fonts;
-import au.com.sodastream.lifestylerewards.Util.WebViewDialog;
+import au.com.sodastream.lifestylerewards.Util.ViewBrowser;
 import au.com.sodastream.lifestylerewards.modules.NewsModule;
 
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
@@ -81,7 +81,8 @@ public class AdapterNews extends ArrayAdapter<NewsModule> {
 				// TODO Auto-generated method stub
 				String url = DATA.arrlstNewsModules.get(position).url;
 
-				WebViewDialog.showWebviewDialog(activity, url, DATA.arrlstNewsModules.get(position).title);
+//				WebViewDialog.showWebviewDialog(activity, url, DATA.arrlstNewsModules.get(position).title);
+				ViewBrowser.openURL(activity, url);
 			}
 		});
 

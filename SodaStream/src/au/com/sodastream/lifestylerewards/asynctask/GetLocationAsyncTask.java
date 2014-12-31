@@ -40,6 +40,7 @@ public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> im
 	int position;
 	int type;
 	int idFromPage;
+	boolean returnStatus = false;
 
 	AppPref appPref;
 
@@ -105,16 +106,19 @@ public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> im
 						public void onStatusChanged(String provider, int status, Bundle extras) {
 							// TODO Auto-generated method stub
 							System.out.println("Provider status change WIFI/SIM" + provider.toString());
+							returnStatus = false;
 
 						}
 
 						public void onProviderEnabled(String provider) {
 							System.out.println("Provider Enabled WIFI/SIM" + provider.toString());
+							returnStatus = false;
 
 						}
 
 						public void onProviderDisabled(String provider) {
 							System.out.println("Provider Not working WIFI/SIM" + provider.toString());
+							returnStatus = false;
 
 
 						}
@@ -124,6 +128,7 @@ public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> im
 							DATA.Longitude=  location.getLongitude();
 							//							System.out.println("Lat : " + Locations.Lat + "Long" + Locations.Long);
 							hasLocation = true;
+							returnStatus = true;
 
 						}
 					};
@@ -135,10 +140,12 @@ public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> im
 
 						public void onProviderEnabled(String provider) {
 							System.out.println("-- Provider  working GPS");
+							returnStatus = false;
 						}
 
 						public void onProviderDisabled(String provider) {
 							System.out.println("-- Provider Not working GPS");
+							returnStatus = false;
 							//							hasLocation = true;
 							//							noDevice= true;
 						}
@@ -148,6 +155,7 @@ public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> im
 							DATA.Longitude=  location.getLongitude();
 
 							hasLocation = true;
+							returnStatus = true;
 						}
 					};
 
@@ -161,10 +169,12 @@ public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> im
 				}
 			});
 
-
+			//			Long t = Calendar.getInstance().getTimeInMillis();
+			//			while (!hasLocation && Calendar.getInstance().getTimeInMillis() - t < 5000) {
 			while (!hasLocation) {
 				try {
-					Thread.sleep(10);
+					System.out.println("trying to get co-ordinates");
+					Thread.sleep(100);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -173,10 +183,10 @@ public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> im
 
 
 
-			return true;
+			return returnStatus;
 		}
 		catch (Exception e) {
-
+			returnStatus = false;
 			return false;
 		}
 
@@ -209,15 +219,15 @@ public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> im
 				signupAsyncTask =  new SignupAsyncTask(activity);
 				signupAsyncTask.executeOnExecutor(Executors.newSingleThreadExecutor(), "");
 				break;
-				
+
 			case IdFrom.FACEBOOK_LOGIN : 
 				fbRegisterTask = new FBRegisterTask(activity);
 				fbRegisterTask.executeOnExecutor(Executors.newSingleThreadExecutor(), "");
-				
+
 				break;
-				
+
 			case IdFrom.STORES:
-				
+
 				storeLocationAsyncTask = new StoreLocationAsyncTask(activity);
 				storeLocationAsyncTask.execute();
 				break;
@@ -238,6 +248,11 @@ public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> im
 			System.out.println( "-- Please turn on GPS or insert SIM Card in device");
 			Error =  activity.getString(R.string.ERROR_Could_not_find_location);
 			Toasts.pop(activity, Error);
+			if(DATA.progressDialog!=null)
+			{
+				if(DATA.progressDialog.isShowing())
+					DATA.progressDialog.dismiss();
+			}
 		}
 
 
@@ -245,6 +260,7 @@ public class GetLocationAsyncTask extends AsyncTask<String, Boolean, Boolean> im
 		locationListenerGPS = null;
 		locationManager = null;
 		this.cancel(true);
+
 		//		progressDialog.dismiss();
 	}
 

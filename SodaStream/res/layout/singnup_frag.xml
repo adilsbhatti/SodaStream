@@ -176,6 +176,7 @@
                 android:id="@+id/ibSignup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
@@ -183,6 +184,7 @@
                 android:background="#00000000"
                 android:scaleType="fitXY"
                 android:src="@drawable/signup_button" />
+
         </LinearLayout>
     </ScrollView>
 

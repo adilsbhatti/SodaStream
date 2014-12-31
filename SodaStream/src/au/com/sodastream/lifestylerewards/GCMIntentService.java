@@ -102,7 +102,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 		if(message!=null)
 		{
-			int icon = R.drawable.ic_launcher;
+			int icon = R.drawable.icon;
 			long when = System.currentTimeMillis();
 			NotificationManager notificationManager = (NotificationManager)
 					context.getSystemService(Context.NOTIFICATION_SERVICE);

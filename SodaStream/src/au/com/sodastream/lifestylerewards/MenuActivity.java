@@ -83,13 +83,14 @@ public class MenuActivity extends Activity implements OnClickListener {
 		enablePushNotifications();
 
 
+		//This code snipper will show code dialog, when user will move to menu after new registration.
 		if(DATA.fromRegistration)
 		{
-			getCodeDetails(null);
+			//			getCodeDetails(null);
 			DATA.fromRegistration = false;
 		}
 
-
+		
 	}
 
 

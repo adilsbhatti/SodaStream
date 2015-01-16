@@ -75,7 +75,7 @@ public class RewardsAsyncTask extends AsyncTask<String, String, Boolean> impleme
 			public void onCancel(DialogInterface dialog) {
 				// TODO Auto-generated method stub
 
-				System.out.println("-- I am called from login task");
+				System.out.println("-- I am called from rewards task");
 
 
 				RewardsAsyncTask.this.cancel(true);

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="au.com.sodastream.lifestylerewards"
     android:installLocation="preferExternal"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="3"
+    android:versionName="1.1" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -198,7 +198,7 @@ old : AIzaSyD2rKyxCECSpxErwG0XO571WIgkzs3V7wk
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBK-ygQvrDurn_u-OtWq-89bJeaJu-dACs" />
+            android:value="AIzaSyClFRtaIWScEi5i-niU_AIODkyBmkMgVr8" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

@@ -21,7 +21,9 @@ public class URLS {
 
 
 	//	public static String PARENT_URL = "http://blog.halmai.com/test/soda_stream/web/api.php/api/v1/";
-	public static String PARENT_URL = "http://sodastream2.dev.appscorehosting.com.au/web/api.php/api/v1/";
+	//public static String PARENT_URL = "http://sodastream2.dev.appscorehosting.com.au/web/api.php/api/v1/";
+	public static String PARENT_URL = "https://ssadmin.lifestylerewards.com.au/ssadmin/web/api.php/api/v1/";
+
 
 	//http://sodastream.dev.appscorehosting.com.au/web/api.php/api/v1/
 

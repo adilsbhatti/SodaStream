@@ -2,47 +2,27 @@
 <resources>
 
     <string name="app_name">SodaStream+</string>
-
     <string name="news">News &amp; FAQ</string>
+
     <color name="TextColor">#4d4d4d</color>
     <color name="HintColor">#999999</color>
-    <string  name="app_id"> 719986714745163 </string>
-    
-    
-    <string name = "ERROR_API" > We\'re unable to connect with the server at this time. Please try again shortly. </string>
-    
-    <string name = "ERROR_INTERNET" > We\'re unable to load this content. Please make sure that you have a data connection or try again shortly.</string>
 
+    <string name="app_id"> 719986714745163 </string>
+    <string name="ERROR_API"> We\'re unable to connect with the server at this time. Please try again shortly. </string>
+    <string name="ERROR_INTERNET"> We\'re unable to load this content. Please make sure that you have a data connection or try again shortly.</string>
+    <string name="ERROR_FBLOGIN_FAILED"> We\'re unable to log you in with Facebook at this time. Please try again shortly. </string>
+    <string name="ERROR_INCOMPLETE_FORM"> Please input values for all fields to continue. </string>
+    <string name="ERROR_Incorrect_Login_Information"> We\'re unable to log you in at this time. Please try again shortly or use the forgotten password feature. </string>
+    <string name="ERROR_Confirm_Password_on_Signup_is_Incorrect"> The passwords entered do not match. Please update so that both passwords match. </string>
+    <string name="ERROR_Trying_to_Login_with_an_email_already_in_use_by_FacebooK"> We\'re unable to log you in with these credentials. The email address entered has already been used to set up a non-Facebook account. </string>
+    <string name="ERROR_Could_not_find_location">We\'re unable to retrieve your device location. Please check that SodaStream has access to your location by checking your Location Services. </string>
+    <string name="ERROR_NO_STORES_FOUND">There are no SodaStream retailers in your area. </string>
+    <string name="ERROR_EMAIL_ALREADY_USE">This email address is already in use. Please enter a different email address or use the forgotten password feature to reset your password. </string>
+    <string name="ERROR_OTHER_USE_EMPTY">Please input details about your other use of SodaStream products.</string>
+    <string name="ERROR_SIGNUP_ERROR">  We\'re unable to sign you up at this time. Please try again shortly</string>
+    <string name="ERROR_FORGOT_PASSWORD">  We\'re unable to reset your password as this account does not exist. Please register an account to use this feature.</string>
+    <string name="ERROR_INVALID_ACTIVATION_CODE"> Your activation code has been used or may be entered incorrectly. Please re-enter your activation code and try again.</string>
     
-    
-    <string name = "ERROR_FBLOGIN_FAILED" > We\'re unable to log you in with Facebook at this time. Please try again shortly. </string>
-    
-    <string name = "ERROR_INCOMPLETE_FORM" > Please input values for all fields to continue. </string>
-    
-    <string name = "ERROR_Incorrect_Login_Information" > We\'re unable to log you in at this time. Please try again shortly or use the forgotten password feature. </string>
-    
-    <string name = "ERROR_Confirm_Password_on_Signup_is_Incorrect" > The passwords entered do not match. Please update so that both passwords match. </string>
-    
-    <string name = "ERROR_Trying_to_Login_with_an_email_already_in_use_by_FacebooK" > We\'re unable to log you in with these credentials. The email address entered has already been used to set up a non-Facebook account. </string>
-    
-    <string name = "ERROR_Could_not_find_location" >We\'re unable to retrieve your device location. Please check that SodaStream has access to your location by checking your Location Services. </string>
-    
-     <string name = "ERROR_NO_STORES_FOUND" >There are no SodaStream retailers in your area. </string>
-     
-      <string name = "ERROR_EMAIL_ALREADY_USE" >This email address is already in use. Please enter a different email address or use the forgotten password feature to reset your password. </string>
-      
-      
-      <string name = "ERROR_OTHER_USE_EMPTY" >Please input details about your other use of SodaStream products.</string>
-   
-      
-       <string name = "ERROR_SIGNUP_ERROR" >  We\'re unable to sign you up at this time. Please try again shortly</string>
-       
-       <string name = "ERROR_FORGOT_PASSWORD" >  We\'re unable to reset your password as this account does not exist. Please register an account to use this feature.</string>
-       
-       <string name = "ERROR_INVALID_ACTIVATION_CODE" > Your activation code has been used or may be entered incorrectly. Please re-enter your activation code and try again.</string>
-    
-       
-       
-      
-    
+    <string name="MSG_REGISTRATION_GAS_CODE">Please enter your SodaStream activation code below.</string>
+
 </resources>

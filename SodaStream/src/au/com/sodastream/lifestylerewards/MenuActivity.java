@@ -508,7 +508,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 		Builder builder = new Builder(this);
 
 		builder.setTitle("Enter Activation Code");
-		builder.setMessage("Please enter a valid Machine or Gas Code. This can be found on your SodaStream product.");
+		builder.setMessage(activity.getResources().getString(R.string.MSG_REGISTRATION_GAS_CODE));
 
 		// Set an EditText view to get user input 
 		final EditText etCode = new EditText(this);

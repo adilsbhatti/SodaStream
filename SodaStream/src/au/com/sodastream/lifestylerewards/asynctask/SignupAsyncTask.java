@@ -46,6 +46,7 @@ public class SignupAsyncTask extends AsyncTask<String, String, Boolean> {
 	JSONObject jsonObject ;
 	String content = "";
 	String Error= "";
+	int timeout = 3000;
 
 
 	public SignupAsyncTask(Activity _activity) {
@@ -60,7 +61,7 @@ public class SignupAsyncTask extends AsyncTask<String, String, Boolean> {
 			public void onCancel(DialogInterface dialog) {
 				// TODO Auto-generated method stub
 
-				System.out.println("-- I am called from login task");
+				//System.out.println("-- I am called from login task");
 
 
 				SignupAsyncTask.this.cancel(true);
@@ -122,14 +123,18 @@ public class SignupAsyncTask extends AsyncTask<String, String, Boolean> {
 			System.out.println("JSON Object : " + jsonObject.toString());
 
 			stringEntity =  new StringEntity(jsonObject.toString());
-			//			 stringEntity = new StringEntity("");
+
 			stringEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-			//			 stringEntity.setContentType(new BasicHeader("token", "ck9k4wDLqW0QODBxCMRtelIPuDbFM3jhros5tVmSN6GlCr2E9LaadPpfVbyF"));
+
 			httpPost.setEntity(stringEntity);
+			
+//			HttpParams httpParams = new BasicHttpParams();
+//			HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
+//			HttpConnectionParams.setSoTimeout(httpParams, timeout);
 
 			httpResponse = httpClient.execute(httpPost);
 
-			//			 
+			 
 
 			content = EntityUtils.toString(httpResponse.getEntity());
 			

@@ -1,0 +1,21 @@
+SodaStream Keystore
+
+SHA1 : 45:33:18:BA:48:AA:A2:CC:1B:AF:4C:59:B8:9C:F5:75:F3:72:C9:4D
+
+
+MD5 : 4F:AB:7D:73:EF:77:06:10:94:1B:37:18:04:5E:1E:26
+
+KEY HASH : xSLzBBuLJunOQPB89rtzM54FXx4=
+
+Password is: ted22013
+
+keytool -exportcert -alias androiddebugkey -keystore /Users/adilsbhatti/APPSCORE/ANDROID\ PROJECT\ DATA/SODA\ STREAM/clublifestylelib.keystore  | openssl sha1 -binary | openssl base64
+
+
+
+27jgEwUtXkHsFw7zDzyKXCmBLDQ=
+yxyJp/gB+aDaI0d49yj6V6Lg9zo=
+xSLzBBuLJunOQPB89rtzM54FXx4=
+
+10-24 11:07:25.762: D/KeyHash:(7454): 27jgEwUtXkHsFw7zDzyKXCmBLDQ=
+SODA STREAM KEY HASH: RTMYukiqoswbr0xZuJz1dfNyyU0=

@@ -120,8 +120,21 @@ public class ForgetPasswordAsyncTask extends AsyncTask<String, String, Boolean> 
 
 
 			content = EntityUtils.toString(httpResponse.getEntity());
+			
+			
+			
+			
+			System.out.println("forgot pass response content: " + content);
+			
 
-			JSONObject jsonCheckResponse = new JSONObject(content);
+			JSONObject jsonCheckResponse = null;
+			try {
+				jsonCheckResponse = new JSONObject(content);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return true;
+			}
 
 			if(jsonCheckResponse.has("error"))
 			{
@@ -150,7 +163,7 @@ public class ForgetPasswordAsyncTask extends AsyncTask<String, String, Boolean> 
 		} 
 		catch(JSONException e)
 		{
-			System.out.println("--1 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
+			//System.out.println("--1 JSON Data : " + content + "header" + httpPost.getAllHeaders()  );
 			Error = activity.getString(R.string.ERROR_API);
 			return false;
 		}
